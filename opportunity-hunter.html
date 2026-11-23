@@ -3,940 +3,1578 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Intelligent Student Opportunity Discovery Engine and Application Tracker. Discover internships, scholarships, and fellowships with verified eligibility audits.">
 <title>Opportunity Hunter &mdash; Internships, Scholarships &amp; Programs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg: #f4f7fb;
+  --font-main: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  /* Light Theme Palette */
+  --bg: #f8fafc;
+  --bg-subtle: #f1f5f9;
   --card: #ffffff;
   --card-subtle: #f8fafc;
+  --card-hover: #fcfdfe;
   --ink: #0f172a;
+  --ink-secondary: #334155;
   --mute: #64748b;
+  --mute-light: #94a3b8;
   --line: #e2e8f0;
   --line-strong: #cbd5e1;
+  --line-focus: #3b82f6;
+
+  /* Primary Brand */
   --brand: #2563eb;
   --brand-hover: #1d4ed8;
   --brand-light: #eff6ff;
-  --gold: #f59e0b;
+  --brand-border: #bfdbfe;
+  --brand-gradient: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%);
+  --brand-glow: rgba(37, 99, 235, 0.25);
+
+  /* Accents */
+  --gold: #d97706;
+  --gold-hover: #b45309;
   --gold-light: #fef3c7;
-  --nav: #0b1528;
-  --ok: #10b981;
+  --gold-border: #fde68a;
+  --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  
+  --nav: #0b1329;
+  --nav-line: rgba(255, 255, 255, 0.08);
+
+  /* Status Colors */
+  --ok: #059669;
   --ok-bg: #ecfdf5;
   --ok-line: #a7f3d0;
-  --warn: #f59e0b;
+  --ok-glow: rgba(16, 185, 129, 0.2);
+
+  --warn: #d97706;
   --warn-bg: #fffbeb;
   --warn-line: #fde68a;
-  --bad: #ef4444;
+
+  --bad: #dc2626;
   --bad-bg: #fef2f2;
   --bad-line: #fecaca;
-  --chip: #e0e7ff;
-  --chipink: #3730a3;
-  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+
+  --chip: #f1f5f9;
+  --chip-ink: #334155;
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px 0 rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.05);
+  
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
   --radius-pill: 9999px;
+
   --trans: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-sizing: border-box;
-  padding-top: env(safe-area-inset-top, 0px);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
+  --trans-spring: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dark Theme Palette */
+:root[data-theme="dark"]{
+  --bg: #090d16;
+  --bg-subtle: #0f172a;
+  --card: #111a2e;
+  --card-subtle: #162238;
+  --card-hover: #192742;
+  --ink: #f8fafc;
+  --ink-secondary: #cbd5e1;
+  --mute: #94a3b8;
+  --mute-light: #64748b;
+  --line: #1e293b;
+  --line-strong: #334155;
+  --line-focus: #60a5fa;
+
+  --brand: #3b82f6;
+  --brand-hover: #60a5fa;
+  --brand-light: #172554;
+  --brand-border: #1e3a8a;
+  --brand-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+  --brand-glow: rgba(59, 130, 246, 0.35);
+
+  --gold: #fbbf24;
+  --gold-hover: #f59e0b;
+  --gold-light: #451a03;
+  --gold-border: #78350f;
+  --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+
+  --nav: #050811;
+  --nav-line: rgba(255, 255, 255, 0.06);
+
+  --ok: #34d399;
+  --ok-bg: #064e3b;
+  --ok-line: #065f46;
+  --ok-glow: rgba(52, 211, 153, 0.25);
+
+  --warn: #fbbf24;
+  --warn-bg: #451a03;
+  --warn-line: #78350f;
+
+  --bad: #f87171;
+  --bad-bg: #450a0a;
+  --bad-line: #7f1d1d;
+
+  --chip: #1e293b;
+  --chip-ink: #cbd5e1;
+
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
 }
 
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    color-scheme: dark;
-    --bg: #090e17;
+    --bg: #090d16;
+    --bg-subtle: #0f172a;
     --card: #111a2e;
     --card-subtle: #162238;
-    --ink: #f1f5f9;
+    --card-hover: #192742;
+    --ink: #f8fafc;
+    --ink-secondary: #cbd5e1;
     --mute: #94a3b8;
+    --mute-light: #64748b;
     --line: #1e293b;
     --line-strong: #334155;
-    --brand: #60a5fa;
-    --brand-hover: #3b82f6;
+    --line-focus: #60a5fa;
+
+    --brand: #3b82f6;
+    --brand-hover: #60a5fa;
     --brand-light: #172554;
+    --brand-border: #1e3a8a;
+    --brand-gradient: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%);
+    --brand-glow: rgba(59, 130, 246, 0.35);
+
     --gold: #fbbf24;
+    --gold-hover: #f59e0b;
     --gold-light: #451a03;
+    --gold-border: #78350f;
+    --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+
     --nav: #050811;
+    --nav-line: rgba(255, 255, 255, 0.06);
+
     --ok: #34d399;
     --ok-bg: #064e3b;
     --ok-line: #065f46;
+    --ok-glow: rgba(52, 211, 153, 0.25);
+
     --warn: #fbbf24;
     --warn-bg: #451a03;
     --warn-line: #78350f;
+
     --bad: #f87171;
     --bad-bg: #450a0a;
     --bad-line: #7f1d1d;
-    --chip: #1e1b4b;
-    --chipink: #a5b4fc;
-    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-    --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.5);
+
+    --chip: #1e293b;
+    --chip-ink: #cbd5e1;
+
+    --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.6);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.7);
   }
 }
 
-:root[data-theme="dark"]{
-  color-scheme: dark;
-  --bg: #090e17;
-  --card: #111a2e;
-  --card-subtle: #162238;
-  --ink: #f1f5f9;
-  --mute: #94a3b8;
-  --line: #1e293b;
-  --line-strong: #334155;
-  --brand: #60a5fa;
-  --brand-hover: #3b82f6;
-  --brand-light: #172554;
-  --gold: #fbbf24;
-  --gold-light: #451a03;
-  --nav: #050811;
-  --ok: #34d399;
-  --ok-bg: #064e3b;
-  --ok-line: #065f46;
-  --warn: #fbbf24;
-  --warn-bg: #451a03;
-  --warn-line: #78350f;
-  --bad: #f87171;
-  --bad-bg: #450a0a;
-  --bad-line: #7f1d1d;
-  --chip: #1e1b4b;
-  --chipink: #a5b4fc;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 10px 20px -3px rgba(0, 0, 0, 0.5);
+*, *::before, *::after{
+  box-sizing: border-box;
 }
 
-:root[data-theme="light"]{
-  color-scheme: light;
-  --bg: #f4f7fb;
-  --card: #ffffff;
-  --card-subtle: #f8fafc;
-  --ink: #0f172a;
-  --mute: #64748b;
-  --line: #e2e8f0;
-  --line-strong: #cbd5e1;
-  --brand: #2563eb;
-  --brand-hover: #1d4ed8;
-  --brand-light: #eff6ff;
-  --gold: #f59e0b;
-  --gold-light: #fef3c7;
-  --nav: #0b1528;
-  --ok: #10b981;
-  --ok-bg: #ecfdf5;
-  --ok-line: #a7f3d0;
-  --warn: #f59e0b;
-  --warn-bg: #fffbeb;
-  --warn-line: #fde68a;
-  --bad: #ef4444;
-  --bad-bg: #fef2f2;
-  --bad-line: #fecaca;
-  --chip: #e0e7ff;
-  --chipink: #3730a3;
-  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08);
+html{
+  scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 72px);
+  scroll-behavior: smooth;
 }
 
-html{scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 64px); scroll-behavior: smooth;}
-*{box-sizing:border-box}
 body{
-  margin:0;
-  background:var(--bg);
-  color:var(--ink);
-  font:15px/1.6 "Inter",system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.6 var(--font-main);
   -webkit-font-smoothing: antialiased;
-  padding-bottom: 76px; /* space for mobile sticky nav */
+  -moz-osx-font-smoothing: grayscale;
+  padding-bottom: 84px;
+  overflow-x: hidden;
 }
+
 @media(min-width: 641px){
-  body{padding-bottom: 24px;}
+  body{
+    padding-bottom: 32px;
+  }
 }
 
-body::before{
-  content:"";
-  position:fixed;
-  inset:0 0 auto;
-  height:env(safe-area-inset-top,0px);
-  z-index:99;
-  background:var(--nav);
+a{
+  color: var(--brand);
+  text-decoration: none;
+  transition: var(--trans);
+}
+a:hover{
+  text-decoration: underline;
 }
 
-a{color:var(--brand); text-decoration:none; transition:var(--trans)}
-a:hover{text-decoration:underline}
-
-/* HEADER & NAVBAR */
+/* NAVBAR HEADER */
 header{
-  position:sticky;
-  top:env(safe-area-inset-top,0px);
-  z-index:40;
-  background:var(--nav);
-  border-bottom:1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(11, 19, 41, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--nav-line);
+  transition: var(--trans);
 }
+
 .bar{
-  max-width:1240px;
-  margin:auto;
-  padding:12px 20px;
-  display:flex;
-  align-items:center;
-  gap:16px;
-  justify-content:space-between;
+  max-width: 1280px;
+  margin: auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
-.logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  font-weight:800;
-  font-size:1.15rem;
-  color:#ffffff;
-  letter-spacing:-0.2px;
-  text-decoration:none;
+
+.logo-wrap{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
 }
-.logo svg{flex-shrink:0; filter: drop-shadow(0 2px 6px rgba(245,158,11,0.4));}
-.nav-desktop{display:none; gap:6px;}
-@media(min-width:641px){
-  .nav-desktop{display:flex;}
+
+.logo-badge{
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #f59e0b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+  flex-shrink: 0;
 }
+
+.logo-text{
+  font-weight: 800;
+  font-size: 1.18rem;
+  color: #ffffff;
+  letter-spacing: -0.4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo-pill{
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: #fde047;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: var(--radius-pill);
+}
+
+/* Navigation items */
+.nav-desktop{
+  display: none;
+  gap: 6px;
+  align-items: center;
+}
+@media(min-width: 680px){
+  .nav-desktop{
+    display: flex;
+  }
+}
+
 .nav-btn{
-  background:none;
-  border:0;
-  color:#94a3b8;
-  font:inherit;
-  font-weight:600;
-  font-size:.88rem;
-  padding:8px 14px;
-  border-radius:var(--radius-sm);
-  cursor:pointer;
-  white-space:nowrap;
-  display:flex;
-  align-items:center;
-  gap:6px;
-  transition:var(--trans);
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.88rem;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--trans);
 }
-.nav-btn:hover{background:rgba(255,255,255,0.08); color:#ffffff;}
-.nav-btn.on{background:var(--brand); color:#ffffff; box-shadow:0 2px 8px rgba(37,99,235,0.35);}
+
+.nav-btn:hover{
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.nav-btn.on{
+  background: rgba(37, 99, 235, 0.2);
+  border-color: rgba(37, 99, 235, 0.4);
+  color: #ffffff;
+  box-shadow: 0 0 16px rgba(37, 99, 235, 0.25);
+}
+
 .nav-badge{
-  background:var(--gold);
-  color:#0f172a;
-  border-radius:var(--radius-pill);
-  padding:1px 7px;
-  font-size:.72rem;
-  font-weight:800;
+  background: var(--gold-gradient);
+  color: #0f172a;
+  border-radius: var(--radius-pill);
+  padding: 1px 7px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  min-width: 18px;
+  text-align: center;
 }
 
-.header-actions{
-  display:flex;
-  align-items:center;
-  gap:8px;
+.header-right{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+.backend-indicator{
+  display: none;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 5px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 0.74rem;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+@media(min-width: 860px){
+  .backend-indicator{
+    display: inline-flex;
+  }
+}
+
+.dot{
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulseDot 2s infinite;
+}
+.dot.warn{
+  background: #f59e0b;
+  box-shadow: 0 0 8px #f59e0b;
+}
+@keyframes pulseDot{
+  0%, 100%{ opacity: 1; transform: scale(1); }
+  50%{ opacity: 0.6; transform: scale(0.9); }
+}
+
 .theme-toggle{
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.12);
-  color:#ffffff;
-  border-radius:var(--radius-sm);
-  padding:7px 10px;
-  cursor:pointer;
-  font-size:.85rem;
-  display:flex;
-  align-items:center;
-  gap:6px;
-  transition:var(--trans);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--trans);
 }
-.theme-toggle:hover{background:rgba(255,255,255,0.18);}
-
-/* MOBILE BOTTOM NAVIGATION */
-.mobile-nav{
-  display:flex;
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  z-index:50;
-  background:var(--card);
-  border-top:1px solid var(--line);
-  padding:6px 12px calc(6px + env(safe-area-inset-bottom, 0px));
-  box-shadow: 0 -4px 16px rgba(0,0,0,0.06);
-  justify-content:space-around;
-}
-@media(min-width:641px){
-  .mobile-nav{display:none;}
-}
-.m-nav-btn{
-  flex:1;
-  background:none;
-  border:0;
-  color:var(--mute);
-  padding:6px 4px;
-  font-size:.72rem;
-  font-weight:600;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3px;
-  cursor:pointer;
-  transition:var(--trans);
-  position:relative;
-}
-.m-nav-btn.on{color:var(--brand);}
-.m-nav-btn svg{width:20px; height:20px;}
-.m-badge{
-  position:absolute;
-  top:2px;
-  right:calc(50% - 16px);
-  background:var(--gold);
-  color:#0f172a;
-  font-size:.65rem;
-  font-weight:800;
-  border-radius:var(--radius-pill);
-  padding:1px 5px;
-  line-height:1;
+.theme-toggle:hover{
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-1px);
 }
 
 /* HERO SECTION */
 .hero{
-  background: radial-gradient(1000px 400px at 90% -10%, rgba(245, 158, 11, 0.18), transparent),
-              radial-gradient(800px 350px at 10% 20%, rgba(37, 99, 235, 0.22), transparent),
-              linear-gradient(165deg, #090e17 0%, #0f1d38 100%);
-  color:#ffffff;
-  padding:44px 20px 68px;
-  border-bottom: 1px solid rgba(255,255,255,0.06);
-}
-.hero .in{
-  max-width:920px;
-  margin:auto;
-  text-align:left;
-}
-.hero .tag{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  background:rgba(245,158,11,0.14);
-  color:#fde047;
-  border:1px solid rgba(245,158,11,0.3);
-  border-radius:var(--radius-pill);
-  padding:4px 12px;
-  font-size:.75rem;
-  font-weight:700;
-  letter-spacing:.8px;
-  text-transform:uppercase;
-  margin-bottom:14px;
-}
-.hero h1{
-  margin:0 0 10px;
-  font-size:clamp(1.75rem, 4.5vw, 2.5rem);
-  font-weight:800;
-  line-height:1.16;
-  letter-spacing:-0.6px;
-}
-.hero p{
-  margin:0 0 24px;
-  color:#cbd5e1;
-  font-size:1.02rem;
-  max-width:660px;
+  position: relative;
+  background: 
+    radial-gradient(1200px 500px at 85% -10%, rgba(245, 158, 11, 0.15), transparent),
+    radial-gradient(900px 450px at 15% 10%, rgba(37, 99, 235, 0.22), transparent),
+    linear-gradient(175deg, #090e1a 0%, #0d172e 60%, var(--bg) 100%);
+  color: #ffffff;
+  padding: 56px 20px 84px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
 }
 
-/* SEARCH BAR */
-.search-box{
-  background:var(--card);
-  border-radius:var(--radius-md);
-  padding:6px;
-  box-shadow:0 16px 36px rgba(0,0,0,0.3);
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  border: 1px solid rgba(255,255,255,0.12);
+.hero::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  opacity: 0.6;
 }
-@media(min-width:641px){
-  .search-box{
-    flex-direction:row;
-    align-items:center;
-    padding:8px;
+
+.hero .in{
+  position: relative;
+  z-index: 2;
+  max-width: 960px;
+  margin: auto;
+  text-align: left;
+}
+
+.hero-pill-tag{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #fde047;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  border-radius: var(--radius-pill);
+  padding: 5px 14px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  backdrop-filter: blur(8px);
+}
+
+.hero h1{
+  margin: 0 0 14px;
+  font-size: clamp(2rem, 5vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  letter-spacing: -1px;
+}
+
+.hero h1 span{
+  background: linear-gradient(120deg, #ffffff 40%, #93c5fd 80%, #fde047 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero p{
+  margin: 0 0 28px;
+  color: #cbd5e1;
+  font-size: 1.08rem;
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* SEARCH BAR CONTAINER */
+.search-card{
+  background: var(--card);
+  border-radius: var(--radius-md);
+  padding: 8px;
+  box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: var(--trans);
+}
+
+@media(min-width: 641px){
+  .search-card{
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
   }
 }
-.search-input-wrap{
-  flex:1;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:4px 12px;
-}
-.search-input-wrap svg{color:var(--mute); flex-shrink:0;}
-.search-input-wrap input{
-  width:100%;
-  border:0;
-  font-size:1.05rem;
-  padding:8px 0;
-  background:transparent;
-  color:var(--ink);
-  outline:none;
-}
-.hero-pills{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
-  margin-top:12px;
-  align-items:center;
-}
-.hero-pills span{font-size:.75rem; color:#94a3b8; font-weight:600;}
-.hero-pill-btn{
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.12);
-  color:#e2e8f0;
-  border-radius:var(--radius-pill);
-  padding:3px 10px;
-  font-size:.75rem;
-  cursor:pointer;
-  transition:var(--trans);
-}
-.hero-pill-btn:hover{background:rgba(255,255,255,0.2); color:#ffffff;}
 
-/* BUTTONS */
+.search-input-group{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 4px 14px;
+}
+
+.search-input-group svg{
+  color: var(--mute);
+  flex-shrink: 0;
+}
+
+.search-input-group input{
+  width: 100%;
+  border: 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  padding: 10px 0;
+  background: transparent;
+  color: var(--ink);
+  outline: none;
+  font-family: inherit;
+}
+
+.search-input-group input::placeholder{
+  color: var(--mute-light);
+}
+
+.search-actions{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .btn{
-  background:var(--brand);
-  color:#ffffff;
-  border:0;
-  border-radius:var(--radius-sm);
-  padding:10px 18px;
-  font-weight:600;
-  cursor:pointer;
-  font-size:.9rem;
-  text-decoration:none;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  transition:var(--trans);
-  min-height:42px;
+  background: var(--brand);
+  color: #ffffff;
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 11px 20px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.92rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--trans);
+  min-height: 44px;
+  font-family: inherit;
+  box-shadow: var(--shadow-sm);
 }
-.btn:hover{background:var(--brand-hover); text-decoration:none;}
-.btn:active{transform:scale(0.98);}
-.btn-gold{background:var(--gold); color:#0f172a;}
-.btn-gold:hover{background:#d97706;}
-.btn-subtle{background:var(--card-subtle); color:var(--ink); border:1px solid var(--line);}
-.btn-subtle:hover{background:var(--line); text-decoration:none;}
-.btn-sm{padding:6px 12px; font-size:.8rem; min-height:34px; border-radius:var(--radius-sm);}
-.btn-block{width:100%;}
-.btn:disabled{opacity:.6; cursor:wait;}
 
-/* MAIN WRAPPER */
-main{
-  max-width:1240px;
-  margin:-38px auto 32px;
-  padding:0 16px;
+.btn:hover{
+  background: var(--brand-hover);
+  text-decoration: none;
+  box-shadow: 0 6px 16px var(--brand-glow);
+  transform: translateY(-1px);
 }
-@media(min-width:641px){
-  main{padding:0 24px;}
+.btn:active{
+  transform: scale(0.98);
+}
+
+.btn-gold{
+  background: var(--gold-gradient);
+  color: #0f172a;
+  font-weight: 800;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+.btn-gold:hover{
+  background: linear-gradient(135deg, #fbbf24 0%, #ea580c 100%);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+}
+
+.btn-subtle{
+  background: var(--card-subtle);
+  color: var(--ink);
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+.btn-subtle:hover{
+  background: var(--bg-subtle);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.btn-sm{
+  padding: 6px 14px;
+  font-size: 0.82rem;
+  min-height: 36px;
+  border-radius: var(--radius-xs);
+}
+
+.btn-icon{
+  padding: 8px;
+  min-height: 36px;
+  width: 36px;
+  border-radius: var(--radius-xs);
+}
+
+.hero-quick-tags{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.hero-quick-tags-label{
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.hero-tag-btn{
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #e2e8f0;
+  border-radius: var(--radius-pill);
+  padding: 4px 12px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--trans);
+  backdrop-filter: blur(8px);
+}
+.hero-tag-btn:hover{
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* MAIN CONTENT CONTAINER */
+main{
+  max-width: 1280px;
+  margin: -48px auto 40px;
+  padding: 0 16px;
+  position: relative;
+  z-index: 10;
+}
+
+@media(min-width: 641px){
+  main{
+    padding: 0 24px;
+  }
 }
 
 /* PANELS */
 .panel{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  padding:20px;
-  margin-bottom:20px;
-  box-shadow:var(--shadow-sm);
-  transition:var(--trans);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  margin-bottom: 22px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--trans);
 }
+
 .panel-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
+
 .panel-title{
-  margin:0;
-  font-size:.82rem;
-  text-transform:uppercase;
-  letter-spacing:1px;
-  font-weight:700;
-  color:var(--mute);
-  display:flex;
-  align-items:center;
-  gap:8px;
+  margin: 0;
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 800;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
 .panel-title::before{
-  content:"";
-  display:inline-block;
-  width:4px;
-  height:14px;
-  background:var(--gold);
-  border-radius:2px;
+  content: "";
+  display: inline-block;
+  width: 4px;
+  height: 16px;
+  background: var(--brand-gradient);
+  border-radius: 2px;
 }
 
-/* PROFILE DRAWER */
-.profile-pill-bar{
-  background:var(--card-subtle);
-  border:1px solid var(--line);
-  border-radius:var(--radius-sm);
-  padding:12px 16px;
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-.profile-summary{
-  font-size:.88rem;
-  color:var(--ink);
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:8px;
-}
-.profile-tag{
-  background:var(--card);
-  border:1px solid var(--line);
-  padding:2px 8px;
-  border-radius:var(--radius-pill);
-  font-size:.78rem;
-  font-weight:600;
-  color:var(--brand);
+/* STUDENT PROFILE PANEL */
+.profile-card{
+  position: relative;
+  overflow: hidden;
 }
 
+.profile-summary-wrap{
+  background: var(--card-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.profile-identity{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profile-avatar{
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--brand-gradient);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1.05rem;
+  box-shadow: 0 4px 10px var(--brand-glow);
+  flex-shrink: 0;
+}
+
+.profile-details h4{
+  margin: 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.profile-meta-line{
+  font-size: 0.82rem;
+  color: var(--mute);
+  margin-top: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-badge-pill{
+  background: var(--brand-light);
+  color: var(--brand);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  font-size: 0.72rem;
+}
+
+/* Profile completion meter */
+.completion-wrap{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--mute);
+}
+
+.progress-track{
+  width: 100px;
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: var(--line);
+  overflow: hidden;
+}
+
+.progress-fill{
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--brand-gradient);
+  transition: width 0.4s ease;
+}
+
+/* FORM GRID */
 .grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:14px;
-}
-@media(min-width:480px){
-  .grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));}
-}
-label{
-  display:block;
-  font-size:.75rem;
-  font-weight:700;
-  color:var(--mute);
-  margin-bottom:6px;
-  text-transform:uppercase;
-  letter-spacing:.5px;
-}
-input, select{
-  width:100%;
-  padding:10px 12px;
-  border:1px solid var(--line);
-  border-radius:var(--radius-sm);
-  background:var(--card-subtle);
-  color:var(--ink);
-  font-size:.92rem;
-  font-family:inherit;
-  transition:var(--trans);
-  min-height:42px;
-}
-input:focus, select:focus{
-  outline:none;
-  border-color:var(--brand);
-  box-shadow:0 0 0 3px rgba(37,99,235,0.15);
-  background:var(--card);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
 }
 
-/* KPIS */
-.kpis{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:10px;
-  margin-bottom:16px;
-}
-@media(min-width:641px){
-  .kpis{grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:12px;}
-}
-.kpi{
-  background:var(--card-subtle);
-  border:1px solid var(--line);
-  border-radius:var(--radius-sm);
-  padding:12px 14px;
-  transition:var(--trans);
-  position:relative;
-  overflow:hidden;
-}
-.kpi::before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:3px;
-  background:var(--brand);
-}
-.kpi b{display:block; font-size:1.55rem; line-height:1.1; font-weight:800; color:var(--ink);}
-.kpi span{font-size:.72rem; color:var(--mute); text-transform:uppercase; letter-spacing:.6px; font-weight:700;}
-
-/* TOOLBAR & FILTER CONTROLS */
-.filter-container{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  padding:16px;
-  margin-bottom:20px;
-  box-shadow:var(--shadow-sm);
-}
-.filter-top-bar{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-@media(min-width:641px){
-  .filter-top-bar{
-    flex-direction:row;
-    align-items:center;
-    justify-content:space-between;
+@media(min-width: 520px){
+  .grid{
+    grid-template-columns: repeat(2, 1fr);
   }
 }
+@media(min-width: 900px){
+  .grid{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.form-group{
+  display: flex;
+  flex-direction: column;
+}
+
+label{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--mute);
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+input, select{
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card-subtle);
+  color: var(--ink);
+  font-size: 0.94rem;
+  font-family: inherit;
+  transition: var(--trans);
+  min-height: 44px;
+}
+
+input:focus, select:focus{
+  outline: none;
+  border-color: var(--line-focus);
+  box-shadow: 0 0 0 3px var(--brand-glow);
+  background: var(--card);
+}
+
+/* SKILL SUGGESTIONS CHIPS */
+.skill-chips-rack{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.skill-chip-btn{
+  background: var(--card-subtle);
+  border: 1px dashed var(--line-strong);
+  color: var(--mute);
+  border-radius: var(--radius-pill);
+  padding: 3px 10px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--trans);
+}
+
+.skill-chip-btn:hover{
+  background: var(--brand-light);
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+.skill-chip-btn.active{
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #ffffff;
+}
+
+/* KPIS DASHBOARD */
+.kpis{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+@media(min-width: 680px){
+  .kpis{
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.kpi{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 16px 18px;
+  transition: var(--trans);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.kpi::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--brand-gradient);
+}
+.kpi:nth-child(2)::before{
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+}
+.kpi:nth-child(3)::before{
+  background: var(--gold-gradient);
+}
+.kpi:nth-child(4)::before{
+  background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+}
+
+.kpi:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.kpi b{
+  display: block;
+  font-size: 1.75rem;
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--ink);
+  letter-spacing: -0.5px;
+}
+
+.kpi span{
+  font-size: 0.74rem;
+  color: var(--mute);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  font-weight: 700;
+  margin-top: 4px;
+  display: block;
+}
+
+/* DISCOVERY FILTER CONTAINER */
+.filter-container{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 18px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-top-bar{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media(min-width: 760px){
+  .filter-top-bar{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
 .search-filter-input{
-  flex:1;
-  position:relative;
-  min-width:200px;
+  flex: 1;
+  position: relative;
+  min-width: 220px;
 }
+
 .search-filter-input input{
-  padding-left:36px;
+  padding-left: 38px;
+  height: 42px;
 }
+
 .search-filter-icon{
-  position:absolute;
-  left:12px;
-  top:50%;
-  transform:translateY(-50%);
-  color:var(--mute);
-  pointer-events:none;
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--mute);
+  pointer-events: none;
 }
+
 .quick-pills-row{
-  display:flex;
-  gap:6px;
-  overflow-x:auto;
-  padding-bottom:4px;
-  scrollbar-width:none;
-  align-items:center;
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: none;
+  align-items: center;
 }
-.quick-pills-row::-webkit-scrollbar{display:none;}
+.quick-pills-row::-webkit-scrollbar{
+  display: none;
+}
+
 .pill-filter{
-  background:var(--card-subtle);
-  border:1px solid var(--line);
-  color:var(--mute);
-  border-radius:var(--radius-pill);
-  padding:5px 12px;
-  font-size:.78rem;
-  font-weight:600;
-  cursor:pointer;
-  white-space:nowrap;
-  transition:var(--trans);
+  background: var(--card-subtle);
+  border: 1px solid var(--line);
+  color: var(--mute);
+  border-radius: var(--radius-pill);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: var(--trans);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
-.pill-filter:hover{background:var(--line); color:var(--ink);}
+
+.pill-filter:hover{
+  background: var(--line);
+  color: var(--ink);
+}
+
 .pill-filter.on{
-  background:var(--brand-light);
-  border-color:var(--brand);
-  color:var(--brand);
-  font-weight:700;
+  background: var(--brand-light);
+  border-color: var(--brand);
+  color: var(--brand);
+  font-weight: 700;
+  box-shadow: 0 0 10px var(--brand-glow);
 }
 
 .advanced-filters-panel{
-  margin-top:14px;
-  padding-top:14px;
-  border-top:1px dashed var(--line);
-  display:grid;
-  grid-template-columns:1fr;
-  gap:12px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--line);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
 }
-@media(min-width:480px){
-  .advanced-filters-panel{grid-template-columns:repeat(2,1fr);}
+
+@media(min-width: 480px){
+  .advanced-filters-panel{
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
-@media(min-width:860px){
-  .advanced-filters-panel{grid-template-columns:repeat(3,1fr);}
+@media(min-width: 860px){
+  .advanced-filters-panel{
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
-@media(min-width:1100px){
-  .advanced-filters-panel{grid-template-columns:repeat(6,1fr);}
+@media(min-width: 1100px){
+  .advanced-filters-panel{
+    grid-template-columns: repeat(6, 1fr);
+  }
 }
 
 .filter-footer-bar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-top:12px;
-  font-size:.82rem;
-  color:var(--mute);
-  flex-wrap:wrap;
-  gap:8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  font-size: 0.84rem;
+  color: var(--mute);
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 /* CARDS GRID */
 .cards{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:18px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
-@media(min-width:680px){
-  .cards{grid-template-columns:repeat(auto-fill, minmax(min(100%, 360px), 1fr));}
+
+@media(min-width: 720px){
+  .cards{
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+  }
 }
+
 .card{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  box-shadow:var(--shadow-sm);
-  transition:var(--trans);
-  position:relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+  transition: var(--trans-spring);
+  position: relative;
+  overflow: hidden;
 }
+
 .card:hover{
-  box-shadow:var(--shadow-md);
-  border-color:var(--line-strong);
-  transform:translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--line-strong);
+  transform: translateY(-4px);
 }
+
 .card-header{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
 }
+
 .card-org-row{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:.8rem;
-  color:var(--mute);
-  margin-bottom:4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  color: var(--mute);
+  margin-bottom: 6px;
 }
+
 .org-avatar{
-  width:20px;
-  height:20px;
-  border-radius:4px;
-  background:var(--brand-light);
-  color:var(--brand);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:800;
-  font-size:.68rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--brand-light);
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.72rem;
+  flex-shrink: 0;
+  border: 1px solid var(--brand-border);
 }
+
 .card h3{
-  margin:0;
-  font-size:1.08rem;
-  font-weight:700;
-  line-height:1.3;
-  color:var(--ink);
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink);
+  letter-spacing: -0.3px;
 }
+
+/* MATCH SCORE BADGE */
 .match-score{
-  flex-shrink:0;
-  min-width:66px;
-  padding:8px 6px;
-  border-radius:var(--radius-sm);
-  background:var(--card-subtle);
-  border:1px solid var(--line);
-  text-align:center;
+  flex-shrink: 0;
+  min-width: 70px;
+  padding: 8px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--card-subtle);
+  border: 1px solid var(--line);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
+
+.match-score.high{
+  border-color: var(--ok-line);
+  background: var(--ok-bg);
+}
+.match-score.high b{
+  color: var(--ok);
+}
+
+.match-score.med{
+  border-color: var(--brand-border);
+  background: var(--brand-light);
+}
+.match-score.med b{
+  color: var(--brand);
+}
+
 .match-score b{
-  display:block;
-  font-size:1.2rem;
-  line-height:1;
-  color:var(--brand);
-  font-weight:800;
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1;
+  font-weight: 800;
+  letter-spacing: -0.5px;
 }
+
 .match-score small{
-  display:block;
-  font-size:.62rem;
-  font-weight:700;
-  letter-spacing:.5px;
-  color:var(--mute);
-  text-transform:uppercase;
-  margin-top:2px;
+  display: block;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  color: var(--mute);
+  text-transform: uppercase;
+  margin-top: 3px;
 }
 
-/* CHIPS */
+/* BADGES & CHIPS */
 .chips{
-  display:flex;
-  flex-wrap:wrap;
-  gap:6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
 }
+
 .chip{
-  background:var(--card-subtle);
-  border:1px solid var(--line);
-  color:var(--mute);
-  border-radius:var(--radius-pill);
-  padding:3px 10px;
-  font-size:.74rem;
-  font-weight:600;
-  display:inline-flex;
-  align-items:center;
-  gap:4px;
+  background: var(--card-subtle);
+  border: 1px solid var(--line);
+  color: var(--mute);
+  border-radius: var(--radius-pill);
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  line-height: 1.2;
 }
-.chip.ok{background:var(--ok-bg); color:var(--ok); border-color:var(--ok-line);}
-.chip.warn{background:var(--warn-bg); color:var(--warn); border-color:var(--warn-line);}
-.chip.bad{background:var(--bad-bg); color:var(--bad); border-color:var(--bad-line);}
-.chip.brand{background:var(--brand-light); color:var(--brand); border-color:rgba(37,99,235,0.2);}
 
-/* ROWS & EXCERPTS */
+.chip.ok{
+  background: var(--ok-bg);
+  color: var(--ok);
+  border-color: var(--ok-line);
+}
+.chip.warn{
+  background: var(--warn-bg);
+  color: var(--warn);
+  border-color: var(--warn-line);
+}
+.chip.bad{
+  background: var(--bad-bg);
+  color: var(--bad);
+  border-color: var(--bad-line);
+}
+.chip.brand{
+  background: var(--brand-light);
+  color: var(--brand);
+  border-color: var(--brand-border);
+}
+
+/* INFO ROWS */
 .info-row{
-  font-size:.86rem;
-  color:var(--mute);
-  display:flex;
-  align-items:center;
-  gap:6px;
+  font-size: 0.88rem;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
-.info-row b{color:var(--ink); font-weight:600;}
+.info-row b{
+  color: var(--ink);
+  font-weight: 600;
+}
 
-/* DETAILS & ACCORDION */
+/* ACCORDION AUDIT SECTIONS */
 details{
-  border-top:1px dashed var(--line);
-  padding-top:10px;
-  margin-top:4px;
+  border-top: 1px dashed var(--line);
+  padding-top: 12px;
+  margin-top: 6px;
 }
+
 summary{
-  cursor:pointer;
-  font-weight:600;
-  font-size:.85rem;
-  color:var(--brand);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  list-style:none;
-  padding:4px 0;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+  padding: 4px 0;
+  user-select: none;
+  transition: var(--trans);
 }
-summary::-webkit-details-marker{display:none;}
+
+summary::-webkit-details-marker{
+  display: none;
+}
+
 summary::after{
-  content:"▾";
-  font-size:.9rem;
-  transition:transform 0.2s;
+  content: "▾";
+  font-size: 1rem;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-details[open] summary::after{transform:rotate(180deg);}
+
+details[open] summary::after{
+  transform: rotate(180deg);
+}
 
 .audit-section{
-  margin-top:10px;
-  background:var(--card-subtle);
-  border-radius:var(--radius-sm);
-  padding:12px;
+  margin-top: 12px;
+  background: var(--card-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px;
 }
+
 .audit-section h4{
-  margin:0 0 6px;
-  font-size:.72rem;
-  text-transform:uppercase;
-  letter-spacing:.8px;
-  color:var(--mute);
+  margin: 0 0 8px;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--mute);
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
+
 .audit-section ul{
-  margin:0;
-  padding-left:18px;
-  font-size:.82rem;
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.84rem;
 }
-.audit-section li{margin-bottom:4px;}
-.audit-section li.y::marker{color:var(--ok);}
-.audit-section li.n::marker{color:var(--bad);}
-.audit-section li.m::marker{color:var(--warn);}
+
+.audit-section li{
+  margin-bottom: 5px;
+}
+.audit-section li.y::marker{ color: var(--ok); }
+.audit-section li.n::marker{ color: var(--bad); }
+.audit-section li.m::marker{ color: var(--warn); }
 
 /* CARD ACTIONS */
 .card-actions{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-  margin-top:auto;
-  padding-top:8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 10px;
 }
-@media(min-width:440px){
-  .card-actions{flex-direction:row;}
-  .card-actions .btn{flex:1;}
-}
-.card-actions select{flex:1;}
 
-/* RADAR & KANBAN TRACKER */
+@media(min-width: 440px){
+  .card-actions{
+    flex-direction: row;
+    align-items: center;
+  }
+  .card-actions .btn{
+    flex: 1;
+  }
+}
+
+.card-actions select{
+  flex: 1;
+  font-size: 0.86rem;
+  min-height: 40px;
+}
+
+/* DEADLINE RADAR & KANBAN TRACKER */
 .radar, .board{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:16px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
 }
-@media(min-width:641px){
-  .radar, .board{grid-template-columns:repeat(auto-fit,minmax(250px,1fr));}
+
+@media(min-width: 680px){
+  .radar, .board{
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
 }
+
 .rcol{
-  background:var(--card);
-  border:1px solid var(--line);
-  border-top:4px solid var(--brand);
-  border-radius:var(--radius-md);
-  padding:14px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  box-shadow:var(--shadow-sm);
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-top: 4px solid var(--brand);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
 }
-.rcol.bad{border-top-color:var(--bad);}
-.rcol.warn{border-top-color:var(--warn);}
-.rcol.mute{border-top-color:var(--mute);}
+
+.rcol.bad{ border-top-color: var(--bad); }
+.rcol.warn{ border-top-color: var(--warn); }
+.rcol.ok{ border-top-color: var(--ok); }
+.rcol.mute{ border-top-color: var(--mute-light); }
+
 .rcol-head{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  font-size:.82rem;
-  font-weight:700;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: -0.2px;
 }
+
 .rcol-badge{
-  background:var(--card-subtle);
-  border:1px solid var(--line);
-  padding:2px 7px;
-  border-radius:var(--radius-pill);
-  font-size:.72rem;
+  background: var(--card-subtle);
+  border: 1px solid var(--line);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 0.74rem;
+  font-weight: 800;
 }
+
 .ritem{
-  background:var(--card-subtle);
-  border:1px solid var(--line);
-  border-radius:var(--radius-sm);
-  padding:12px;
-  font-size:.84rem;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  transition:var(--trans);
+  background: var(--card-subtle);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-size: 0.86rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: var(--trans);
+  box-shadow: var(--shadow-xs);
 }
-.ritem:hover{border-color:var(--line-strong);}
-.ritem a{font-weight:700; color:var(--ink); line-height:1.3;}
-.ritem a:hover{color:var(--brand);}
+
+.ritem:hover{
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+.ritem a{
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.35;
+}
+.ritem a:hover{
+  color: var(--brand);
+}
+
+/* SKELETON LOADING CARDS */
+.skeleton-card{
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.skeleton-shimmer{
+  background: linear-gradient(90deg, var(--card-subtle) 25%, var(--line) 50%, var(--card-subtle) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--radius-xs);
+}
+
+@keyframes shimmer{
+  0%{ background-position: 200% 0; }
+  100%{ background-position: -200% 0; }
+}
 
 /* STATUS BANNER */
 .status{
-  padding:14px 18px;
-  border-radius:var(--radius-sm);
-  background:var(--brand-light);
-  color:var(--brand);
-  margin-bottom:18px;
-  font-size:.9rem;
-  border-left:4px solid var(--brand);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--brand-light);
+  color: var(--brand);
+  margin-bottom: 20px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-left: 4px solid var(--brand);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  box-shadow: var(--shadow-xs);
 }
-.status.err{
-  background:var(--bad-bg);
-  color:var(--bad);
-  border-left-color:var(--bad);
-}
-.spin{
-  display:inline-block;
-  width:16px;
-  height:16px;
-  border:2.5px solid currentColor;
-  border-top-color:transparent;
-  border-radius:50%;
-  animation:spinAnim .8s linear infinite;
-  vertical-align:-2px;
-}
-@keyframes spinAnim{to{transform:rotate(360deg)}}
 
-.empty{
-  text-align:center;
-  color:var(--mute);
-  padding:48px 16px;
-  grid-column:1/-1;
-  background:var(--card);
-  border:1px dashed var(--line);
-  border-radius:var(--radius-md);
+.status.err{
+  background: var(--bad-bg);
+  color: var(--bad);
+  border-left-color: var(--bad);
 }
-.empty svg{margin-bottom:10px; color:var(--mute);}
+
+.status.info{
+  background: var(--card-subtle);
+  color: var(--ink);
+  border-left-color: var(--gold);
+}
+
+.spin{
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spinAnim 0.75s linear infinite;
+  vertical-align: -3px;
+}
+@keyframes spinAnim{
+  to{ transform: rotate(360deg); }
+}
+
+/* EMPTY STATES */
+.empty{
+  text-align: center;
+  color: var(--mute);
+  padding: 56px 20px;
+  grid-column: 1 / -1;
+  background: var(--card);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+}
+
+.empty svg{
+  margin-bottom: 14px;
+  color: var(--mute-light);
+}
+
+/* TOAST NOTIFICATION CONTAINER */
+#toast-container{
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast{
+  background: #0f172a;
+  color: #ffffff;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: auto;
+  animation: slideToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  max-width: 360px;
+}
+
+@keyframes slideToast{
+  from{ opacity: 0; transform: translateY(16px); }
+  to{ opacity: 1; transform: translateY(0); }
+}
+
+/* MOBILE BOTTOM NAVIGATION DOCK */
+.mobile-nav{
+  display: flex;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background: rgba(17, 26, 46, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.2);
+  justify-content: space-around;
+}
+
+@media(min-width: 680px){
+  .mobile-nav{
+    display: none;
+  }
+}
+
+.m-nav-btn{
+  flex: 1;
+  background: none;
+  border: 0;
+  color: #94a3b8;
+  padding: 6px 4px;
+  font-size: 0.74rem;
+  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: var(--trans);
+  position: relative;
+}
+
+.m-nav-btn.on{
+  color: #60a5fa;
+}
+
+.m-nav-btn svg{
+  width: 20px;
+  height: 20px;
+}
+
+.m-badge{
+  position: absolute;
+  top: 2px;
+  right: calc(50% - 16px);
+  background: var(--gold-gradient);
+  color: #0f172a;
+  font-size: 0.65rem;
+  font-weight: 800;
+  border-radius: var(--radius-pill);
+  padding: 1px 5px;
+  line-height: 1;
+}
+
+/* FOOTER */
 footer{
-  max-width:1240px;
-  margin:auto;
-  padding:0 20px 24px;
-  color:var(--mute);
-  font-size:.8rem;
-  text-align:center;
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 20px 28px;
+  color: var(--mute);
+  font-size: 0.84rem;
+  text-align: center;
 }
 </style>
 </head>
@@ -944,31 +1582,41 @@ footer{
 
 <header>
   <div class="bar">
-    <a class="logo" href="#top">
-      <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
-        <circle cx="16" cy="16" r="14" fill="none" stroke="#ffffff" stroke-width="2.5"/>
-        <circle cx="16" cy="16" r="7" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
-        <circle cx="16" cy="16" r="2.5" fill="#f59e0b"/>
-      </svg>
-      Opportunity Hunter
+    <a class="logo-wrap" href="#top">
+      <div class="logo-badge">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
+          <circle cx="12" cy="12" r="10"/>
+          <circle cx="12" cy="12" r="5" stroke="#fde047" stroke-width="2"/>
+          <circle cx="12" cy="12" r="1.5" fill="#fde047"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        Opportunity Hunter
+        <span class="logo-pill">v2.0</span>
+      </div>
     </a>
     
     <nav class="nav-desktop" id="nav-desktop">
       <button data-v="discover" class="nav-btn on">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        Discover
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <span>Discover</span>
       </button>
       <button data-v="radar" class="nav-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="m12 12 5-5"/></svg>
-        Deadline Radar
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="m12 12 5-5"/></svg>
+        <span>Deadline Radar</span>
       </button>
       <button data-v="tracker" class="nav-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 2 2 4-4"/></svg>
-        Tracker <span class="nav-badge" id="nsave">0</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 2 2 4-4"/></svg>
+        <span>Tracker</span>
+        <span class="nav-badge" id="nsave">0</span>
       </button>
     </nav>
 
-    <div class="header-actions">
+    <div class="header-right">
+      <div class="backend-indicator" id="srv-indicator" title="Backend Server Status">
+        <span class="dot" id="srv-dot"></span>
+        <span id="srv-text">Checking proxy...</span>
+      </div>
       <button class="theme-toggle" id="theme-btn" aria-label="Toggle dark mode">
         <span id="theme-icon">🌙</span>
       </button>
@@ -979,34 +1627,49 @@ footer{
 <!-- HERO -->
 <section class="hero" id="top">
   <div class="in">
-    <span class="tag">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      Student Opportunity Engine
-    </span>
-    <h1 id="hello">Find internships, scholarships &amp; programs made for you</h1>
-    <p>Live search matched to your study year, skills, and goals. Real eligibility checks extracted directly from official pages.</p>
+    <div class="hero-pill-tag">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      <span>AI-Powered Student Discovery &amp; Transparent Audits</span>
+    </div>
+    <h1 id="hello">Find internships, scholarships &amp; programs <span>tailored to you</span></h1>
+    <p>Targeted search matched to your study year, technical skills, and career goals with verified page extraction and zero guesswork.</p>
     
-    <div class="search-box">
-      <div class="search-input-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="q" placeholder="Enter interest, e.g. Data Science, AI/ML, Software Engineering…" aria-label="Area of interest" list="ints">
+    <div class="search-card">
+      <div class="search-input-group">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="q" placeholder="Enter interest, e.g. Data Science, AI/ML, Software Engineering…" aria-label="Area of interest" list="ints" autocomplete="off">
       </div>
-      <button class="btn btn-gold" id="go">
-        <span>Find Opportunities</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </button>
+      <div class="search-actions">
+        <button class="btn btn-gold" id="go">
+          <span>Find Opportunities</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </button>
+        <button type="button" class="btn btn-subtle" id="btn-quick-demo" title="Explore sample opportunities without waiting">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+          <span>Explore Demo</span>
+        </button>
+      </div>
     </div>
     
-    <div class="hero-pills">
-      <span>Popular:</span>
-      <button class="hero-pill-btn" data-kw="Data Science">Data Science</button>
-      <button class="hero-pill-btn" data-kw="AI/ML">AI/ML</button>
-      <button class="hero-pill-btn" data-kw="Software Engineering">Software Engineering</button>
-      <button class="hero-pill-btn" data-kw="Cybersecurity">Cybersecurity</button>
-      <button class="hero-pill-btn" data-kw="Web Development">Web Development</button>
-      <button class="hero-pill-btn" data-kw="Open Source">Open Source</button>
+    <div class="hero-quick-tags">
+      <span class="hero-quick-tags-label">Trending Tracks:</span>
+      <button class="hero-tag-btn" data-kw="Software Engineering">Software Engineering</button>
+      <button class="hero-tag-btn" data-kw="AI/ML">AI / Machine Learning</button>
+      <button class="hero-tag-btn" data-kw="Data Science">Data Science</button>
+      <button class="hero-tag-btn" data-kw="Web Development">Full Stack Web</button>
+      <button class="hero-tag-btn" data-kw="Cybersecurity">Cybersecurity</button>
+      <button class="hero-tag-btn" data-kw="Cloud & DevOps">Cloud &amp; DevOps</button>
+      <button class="hero-tag-btn" data-kw="Open Source">Open Source / GSoC</button>
     </div>
-    <datalist id="ints"><option value="Data Science"><option value="AI/ML"><option value="Software Engineering"><option value="Web Development"><option value="Cybersecurity"><option value="Cloud Computing"><option value="Open Source"></datalist>
+    <datalist id="ints">
+      <option value="Software Engineering">
+      <option value="AI/ML">
+      <option value="Data Science">
+      <option value="Web Development">
+      <option value="Cybersecurity">
+      <option value="Cloud Computing">
+      <option value="Open Source">
+    </datalist>
   </div>
 </section>
 
@@ -1017,27 +1680,50 @@ footer{
     <div class="panel" id="welcome"></div>
 
     <!-- STUDENT PROFILE PANEL -->
-    <div class="panel" id="profile">
+    <div class="panel profile-card" id="profile">
       <div class="panel-header">
-        <h2 class="panel-title">Your Student Profile</h2>
-        <button class="btn btn-subtle btn-sm" id="toggle-prof-btn">Collapse Form</button>
-      </div>
-
-      <div class="profile-pill-bar" id="profile-summary-bar">
-        <div class="profile-summary" id="profile-summary-text">
-          <span class="profile-tag">Profile Ready</span>
-          <span id="prof-prev-name">Student</span> • 
-          <span id="prof-prev-degree">Computer Science</span> • 
-          <span id="prof-prev-year">2nd year</span>
+        <h2 class="panel-title">Student Profile Hub</h2>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="completion-wrap">
+            <span id="prof-meter-text">85% Complete</span>
+            <div class="progress-track"><div class="progress-fill" id="prof-meter-bar" style="width: 85%;"></div></div>
+          </div>
+          <button class="btn btn-subtle btn-sm" id="toggle-prof-btn">Collapse Form</button>
         </div>
-        <button class="btn btn-subtle btn-sm" id="btn-edit-prof">Edit Profile</button>
       </div>
 
-      <div id="profile-form-body" style="margin-top:16px;">
+      <!-- Quick summary view -->
+      <div class="profile-summary-wrap" id="profile-summary-bar">
+        <div class="profile-identity">
+          <div class="profile-avatar" id="prof-avatar">S</div>
+          <div class="profile-details">
+            <h4 id="prof-prev-name">Student</h4>
+            <div class="profile-meta-line">
+              <span id="prof-prev-degree">B.Tech Computer Science</span> • 
+              <span class="profile-badge-pill" id="prof-prev-year">2nd year</span> • 
+              <span id="prof-prev-loc">India</span>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-subtle btn-sm" id="btn-edit-prof">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+          Edit Profile
+        </button>
+      </div>
+
+      <!-- Expandable Form -->
+      <div id="profile-form-body" style="margin-top:18px;">
         <div class="grid">
-          <div><label for="name">Your Name</label><input id="name" placeholder="e.g. Aditi"></div>
-          <div><label for="degree">Degree &amp; Specialization</label><input id="degree" placeholder="B.Tech Computer Science"></div>
-          <div><label for="year">Current Year of Study</label>
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input id="name" placeholder="e.g. Aashi Srivastava">
+          </div>
+          <div class="form-group">
+            <label for="degree">Degree &amp; Specialization</label>
+            <input id="degree" placeholder="B.Tech Computer Science">
+          </div>
+          <div class="form-group">
+            <label for="year">Current Study Year</label>
             <select id="year">
               <option value="">Not specified</option>
               <option>1st year</option>
@@ -1049,9 +1735,28 @@ footer{
               <option>Graduated</option>
             </select>
           </div>
-          <div><label for="skills">Key Skills (comma separated)</label><input id="skills" placeholder="Python, SQL, React, Machine Learning"></div>
-          <div><label for="loc">Country / Preferred Location</label><input id="loc" placeholder="India"></div>
-          <div><label for="type">Opportunity Type</label>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="skills">Technical Skills (comma separated or click chips below)</label>
+            <input id="skills" placeholder="Python, SQL, React, Machine Learning, Git">
+            <div class="skill-chips-rack">
+              <span style="font-size:0.75rem; color:var(--mute); align-self:center; font-weight:600;">Tap to Add:</span>
+              <button type="button" class="skill-chip-btn" data-skill="Python">+ Python</button>
+              <button type="button" class="skill-chip-btn" data-skill="React">+ React</button>
+              <button type="button" class="skill-chip-btn" data-skill="SQL">+ SQL</button>
+              <button type="button" class="skill-chip-btn" data-skill="Machine Learning">+ Machine Learning</button>
+              <button type="button" class="skill-chip-btn" data-skill="C++">+ C++</button>
+              <button type="button" class="skill-chip-btn" data-skill="Java">+ Java</button>
+              <button type="button" class="skill-chip-btn" data-skill="Git">+ Git</button>
+              <button type="button" class="skill-chip-btn" data-skill="AWS">+ AWS</button>
+              <button type="button" class="skill-chip-btn" data-skill="Docker">+ Docker</button>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="loc">Preferred Country / City</label>
+            <input id="loc" placeholder="India">
+          </div>
+          <div class="form-group">
+            <label for="type">Opportunity Type</label>
             <select id="type">
               <option value="any">Any Opportunity</option>
               <option value="internship">Internship</option>
@@ -1060,7 +1765,8 @@ footer{
               <option value="program">Developer Program</option>
             </select>
           </div>
-          <div><label for="mode">Work Mode</label>
+          <div class="form-group">
+            <label for="mode">Work Mode</label>
             <select id="mode">
               <option value="any">No preference</option>
               <option value="remote">Remote Only</option>
@@ -1081,22 +1787,23 @@ footer{
 
         <div class="filter-top-bar">
           <div class="search-filter-input">
-            <svg class="search-filter-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="live-search" placeholder="Search within results..." aria-label="Search within results">
+            <svg class="search-filter-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="text" id="live-search" placeholder="Type to filter results instantly..." aria-label="Search within results">
           </div>
 
           <div class="quick-pills-row">
             <button class="pill-filter on" data-quick="all">All</button>
-            <button class="pill-filter" data-quick="likely">Likely Eligible</button>
-            <button class="pill-filter" data-quick="internship">Internships</button>
-            <button class="pill-filter" data-quick="remote">Remote</button>
-            <button class="pill-filter" data-quick="closing">Closing Soon (≤7d)</button>
-            <button class="pill-filter" data-quick="official">Official Sites</button>
+            <button class="pill-filter" data-quick="likely">✨ Likely Eligible</button>
+            <button class="pill-filter" data-quick="internship">💼 Internships</button>
+            <button class="pill-filter" data-quick="scholarship">🎓 Scholarships</button>
+            <button class="pill-filter" data-quick="remote">🌐 Remote</button>
+            <button class="pill-filter" data-quick="closing">⏳ Closing Soon</button>
+            <button class="pill-filter" data-quick="official">🏛️ Official Sites</button>
           </div>
 
           <button class="btn btn-subtle btn-sm" id="toggle-advanced-filters">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-            <span>Filters</span>
+            <span>Advanced Filters</span>
           </button>
         </div>
 
@@ -1131,7 +1838,7 @@ footer{
               <option value="all">All Levels</option>
               <option value="likely">Likely eligible</option>
               <option value="possible">Possibly eligible</option>
-              <option value="insufficient">Insufficient info</option>
+              <option value="insufficient">Needs Verification</option>
               <option value="not">Not eligible</option>
             </select>
           </div>
@@ -1175,12 +1882,12 @@ footer{
 
   <!-- HOW IT WORKS PANEL -->
   <div class="panel" id="about" style="margin-top:28px">
-    <h2 class="panel-title">How Match Scoring &amp; Verification Work</h2>
+    <h2 class="panel-title">Verification &amp; Transparency Architecture</h2>
     <p class="info-row" style="margin-bottom:8px;">
-      Results are fetched live from public sources via TinyFish / Claude connector or loaded from verified program fixtures. Deadlines, locations, and eligibility are extracted directly from the actual text and explicitly categorized as <b>found on page</b> or <b>not found</b>.
+      Results are fetched live from public sources via TinyFish Web Crawl or verified offline program fixtures. Deadlines, locations, and eligibility rules are extracted verbatim from official page texts.
     </p>
     <p class="info-row">
-      <b>Relevance scoring (100 pts max):</b> Interest alignment (35 pts) • Skills overlap (25 pts) • Opportunity type (15 pts) • Location / work mode (15 pts) • Study year criteria (10 pts). Scores indicate profile alignment, not guaranteed admission.
+      <b>Transparent Scoring (100 pts max):</b> Interest alignment (35 pts) • Skills overlap (25 pts) • Opportunity type (15 pts) • Location / work mode (15 pts) • Study year criteria (10 pts).
     </p>
   </div>
 </main>
@@ -1188,22 +1895,25 @@ footer{
 <!-- MOBILE STICKY BOTTOM NAV -->
 <nav class="mobile-nav">
   <button class="m-nav-btn on" data-v="discover">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <span>Discover</span>
   </button>
   <button class="m-nav-btn" data-v="radar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="m12 12 5-5"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="m12 12 5-5"/></svg>
     <span>Radar</span>
   </button>
   <button class="m-nav-btn" data-v="tracker">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 2 2 4-4"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 2 2 4-4"/></svg>
     <span>Tracker</span>
     <span class="m-badge" id="m-nsave">0</span>
   </button>
 </nav>
 
+<!-- TOAST CONTAINER -->
+<div id="toast-container"></div>
+
 <footer>
-  Opportunity Hunter • Saved snapshot items and application states are stored locally in your browser.
+  Opportunity Hunter • Internships &amp; Scholarships Discovery Engine • All rights reserved
 </footer>
 
 <script>
@@ -1217,6 +1927,21 @@ const el = (t, c, x) => {
   return e;
 };
 
+/* TOAST NOTIFICATION UTILITY */
+function showToast(msg, icon = "✓"){
+  const tc = $("#toast-container");
+  if(!tc) return;
+  const t = el("div", "toast");
+  t.innerHTML = `<span>${icon}</span><span>${msg}</span>`;
+  tc.append(t);
+  setTimeout(() => {
+    t.style.opacity = "0";
+    t.style.transform = "translateY(10px)";
+    t.style.transition = "all 0.3s ease";
+    setTimeout(() => t.remove(), 300);
+  }, 2600);
+}
+
 /* DEMO FIXTURES FALLBACK (from opportunity-hunter.fixtures.json) */
 const EMBEDDED_FIXTURES = [
   {
@@ -1225,6 +1950,8 @@ const EMBEDDED_FIXTURES = [
     text: "Explore Microsoft Program. Imagine getting the opportunity to build your technical skills and gain real-world engineering experience within your first two years of college. If you aspire to be in tech and have an interest in a technical discipline like Computer Science, Computer Engineering, Information Technology, Data Science, Electrical Engineering, Cybersecurity, or a related field, apply for the Explore Microsoft program.\n\nExplore Microsoft is an 8-week (India only) or 12-week (US only) summer internship program designed for first- and/or second-year college students. Through the Engineering Foundations track, you'll build foundational software development skills through hands-on projects while strengthening your product thinking, collaboration, and understanding of how AI supports modern engineering.\n\nRequired Qualifications: First or second-year undergraduate college student. Basic coding skills in languages including C, C++, C#, Java, JavaScript, or Python.\nDeadline: Apply by 2026-11-30. Location: Redmond, WA, US / Bangalore, Hyderabad, India.",
     links: [
       "https://apply.careers.microsoft.com/careers/job/1970393557042167?hl=en",
+      "https://apply.careers.microsoft.com/careers/job/1970393557042099?hl=en",
+      "https://apply.careers.microsoft.com/careers/job/1970393557041711?hl=en",
       "https://apply.careers.microsoft.com/careers?filter_hiring_title=%23explorer&hl=en"
     ]
   },
@@ -1248,7 +1975,6 @@ const EMBEDDED_FIXTURES = [
   }
 ];
 
-const SRV = "TinyFish";
 const SYN = {
   "ai/ml": ["machine learning","artificial intelligence","deep learning","ai","ml","nlp"],
   "ai": ["artificial intelligence","machine learning","ai","ml"],
@@ -1288,16 +2014,18 @@ const LSX = {
   set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true }catch(e){ return false } }
 };
 let P = {}, saved = {};
-const ST = ["Interested","Planning to Apply","Applied","Rejected/Closed"];
+const ST = ["Interested","Planning to Apply","Applied","Interviewing","Closed/Archived"];
+
 (function(){
   const s = LSX.get("oh:saved", {});
   if(s && typeof s === "object"){
     Object.keys(s).forEach(k => {
       const x = s[k];
-      if(x && typeof x.title === "string" && safeUrl(x.url) && ST.includes(x.status)) saved[k] = x;
+      if(x && typeof x.title === "string" && safeUrl(x.url)) saved[k] = x;
     });
   }
 })();
+
 function persist(){
   if(!LSX.set("oh:saved", saved)) setStatus("err","Browser storage blocked. Tracker items won't persist after page refresh.");
 }
@@ -1309,25 +2037,16 @@ function persistProf(){
   updateProfileSummaryBar();
 }
 
-/* ERROR HANDLING & STATUS */
-function errMsg(e){
-  const c = e && e.code;
-  if(c === "server_not_connected") return "TinyFish isn’t connected to your Claude account. Add it under Settings → Connectors, or use Demo Mode.";
-  if(c === "needs_reauth") return "TinyFish needs authentication. Reconnect it under Settings → Connectors.";
-  if(c === "approval_required" || c === "not_granted" || c === "blocked_by_policy") return "Permission to use TinyFish wasn't granted.";
-  if(c === "rate_limited") return "TinyFish rate limit reached. Please wait a minute and retry.";
-  if(c === "server_unavailable" || c === "upstream_error") return "TinyFish didn't respond (timeout or upstream issue).";
-  return "Notice: " + (e && e.message ? String(e.message).slice(0, 160) : "Could not complete live search. Running in demo fixture mode.");
-}
+/* STATUS & NOTICES */
 function setStatus(kind, msg, actionBtnText, actionCallback){
   const s = $("#status");
   s.textContent = "";
   if(!msg) return;
-  const d = el("div", "status" + (kind === "err" ? " err" : ""));
+  const d = el("div", "status" + (kind === "err" ? " err" : (kind === "info" ? " info" : "")));
   const textSpan = el("span", null, "");
   if(kind === "load"){
     const sp = el("span", "spin");
-    sp.style.marginRight = "8px";
+    sp.style.marginRight = "10px";
     d.append(sp);
   }
   textSpan.textContent = msg;
@@ -1338,6 +2057,36 @@ function setStatus(kind, msg, actionBtnText, actionCallback){
     d.append(b);
   }
   s.append(d);
+}
+
+/* BACKEND BASE */
+const BACKEND_BASE = (window.location.protocol.startsWith("http")) ? window.location.origin : "http://127.0.0.1:5000";
+
+async function probeBackendStatus(){
+  const ind = $("#srv-indicator");
+  const dot = $("#srv-dot");
+  const txt = $("#srv-text");
+  try{
+    const res = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(2500) });
+    if(res.ok){
+      const data = await res.json();
+      if(data.has_api_key){
+        dot.className = "dot";
+        txt.textContent = "Live TinyFish Proxy";
+        ind.style.display = "inline-flex";
+      } else {
+        dot.className = "dot warn";
+        txt.textContent = "Demo Fixture Mode";
+        ind.style.display = "inline-flex";
+      }
+      return data;
+    }
+  }catch(e){
+    dot.className = "dot warn";
+    txt.textContent = "Offline Fallback";
+    ind.style.display = "inline-flex";
+  }
+  return null;
 }
 
 /* HELPERS */
@@ -1387,8 +2136,9 @@ function eligSentence(t){
   const hit = ss.filter(x => /eligib|open to|who can apply|must be|applicants? (?:must|should)|requirements?:|currently enrolled|students? (?:in|of|from)/i.test(x) && x.length > 30 && x.length < 280 && !/\[|\]\(/.test(x));
   return hit.slice(0, 2).join(" ").trim() || null;
 }
+
+/* STUDY LEVEL CHECK (BUG 3 FIX PRESERVED) */
 function levelCheck(t, year){
-  // 1. Normalize study-year mentions: e.g. "first- and/or second-year" -> "1st-year and 2nd-year"
   let s = t.slice(0, 45000).toLowerCase()
     .replace(/(?:first|1st)[- ]*(?:and\/or|and|or|\/|&)[- ]*(?:second|2nd)[- ]*year/g, "1st-year and 2nd-year")
     .replace(/(?:third|3rd)[- ]*(?:and\/or|and|or|\/|&)[- ]*(?:fourth|4th|final)[- ]*year/g, "3rd-year and 4th-year");
@@ -1398,7 +2148,6 @@ function levelCheck(t, year){
        .replace(/\b(?:senior|principal|lead|staff)\s+(?:software|engineer|developer|architect|manager|product|program)\b/gi, " ");
 
   const sentences = s.split(/(?<=[.!?])\s+|\n+/);
-  // Only keep sentences that explicitly discuss academic students, college, undergraduates, or interns
   const studentCtx = sentences.filter(x => 
     /\b(?:student|students|undergrad|undergraduate|undergraduates|college|university|enrolled|enrolment|pursuing|intern|interns|internship|sophomore|sophomores|freshman|freshmen|fresher|freshers|bachelor|bachelors)\b/i.test(x)
     && !/\b\d+\+?\s*years?\s+(?:of\s+)?experience\b/i.test(x)
@@ -1419,6 +2168,7 @@ function levelCheck(t, year){
   if(found.length) return found.includes(year) ? "ok" : "mismatch";
   return /\b(?:open to|available to|for) (?:all|any) (?:enrolled )?(?:undergraduate |college |university )?students?\b/i.test(studentCtx) ? "ok" : "unclear";
 }
+
 function locInfo(t, pLoc){
   const s = t.slice(0, 20000);
   const remote = /\bremote\b|work from home|100% online|fully online|virtual(ly)?\b/i.test(s);
@@ -1432,6 +2182,7 @@ function kw(interest){
   if(SYN[k]) return SYN[k];
   return k.split(/[\s,\/]+/).filter(w => w.length > 2);
 }
+
 function score(o, p){
   const R = [];
   let pts = 0;
@@ -1486,7 +2237,7 @@ function score(o, p){
 
 const SKILLS = ["python","java","javascript","typescript","c++","c#","sql","react","node.js","html","css","git","docker","kubernetes","aws","azure","linux","machine learning","deep learning","tensorflow","pytorch","nlp","computer vision","data analysis","pandas","numpy","statistics","tableau","power bi","excel","networking","cryptography","penetration testing","flutter","android","communication"];
 const LEARN = {
-  python: "Python fundamentals, data structures, and a small project",
+  python: "Python fundamentals, data structures, and mini backend project",
   sql: "SQL joins, indexing, and window functions on sample datasets",
   "machine learning": "End-to-end ML pipeline with scikit-learn",
   "deep learning": "Neural networks in PyTorch or TensorFlow",
@@ -1539,6 +2290,8 @@ function progTokens(o){
   const h1 = (/^#\s+(.+)$/m.exec(o.text || "") || [])[1] || "";
   return [...new Set(((h1 || "") + " " + (o.title || "")).toLowerCase().match(/[a-z]{4,}/g) || [])].filter(w => !STOP.has(w) && w !== brand);
 }
+
+/* CLASSIFY APPLY (BUGS 1 & 2 FIX PRESERVED) */
 function classifyApply(o, pg){
   const out = {
     state: "none",
@@ -1553,7 +2306,7 @@ function classifyApply(o, pg){
     note: "Official application link not confirmed"
   };
 
-  // Bug 2 Fix: Detect campus placement office requirement without prematurely aborting link discovery!
+  // Bug 2 Fix: Detect campus placement office requirement
   const hasPlacementNotice = /(?:contact|approach|apply (?:through|via)|through)[^.\n]{0,40}(?:institute|college|university|institution)[’']?s?[^.\n]{0,20}placement (?:office|cell)|placement (?:office|cell)[^.\n]{0,30}(?:to know more|for (?:more )?details|to apply)/i.test(o.text || "");
   if(hasPlacementNotice){
     out.campusRecruitment = true;
@@ -1686,9 +2439,6 @@ function assess(o, p){
   return { key, label, met, unmet, miss };
 }
 
-/* BACKEND API BASE URL */
-const BACKEND_BASE = (window.location.protocol.startsWith("http")) ? window.location.origin : "http://127.0.0.1:5000";
-
 /* PROCESS RAW ITEMS INTO APPLICATION OBJECTS */
 function processRawPages(pagesList, profileObj, fetchedTimestamp, sourceMode = "fixture"){
   const out = [], dup = new Set();
@@ -1711,7 +2461,7 @@ function processRawPages(pagesList, profileObj, fetchedTimestamp, sourceMode = "
       kind,
       read,
       text,
-      sourceMode, // "live" or "fixture"
+      sourceMode,
       type: inferType(title, text),
       deadline: dl,
       expired: !!dl && dl < TODAY,
@@ -1762,6 +2512,31 @@ async function loadFixtureMode(p, statusNotice){
   render();
 }
 
+/* SHOW SKELETON LOADERS */
+function showSkeletons(){
+  const box = $("#cards");
+  box.textContent = "";
+  $("#toolbar").hidden = false;
+  for(let i=0; i<3; i++){
+    const sk = el("div", "skeleton-card");
+    sk.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div class="skeleton-shimmer" style="width:140px; height:20px;"></div>
+        <div class="skeleton-shimmer" style="width:60px; height:45px; border-radius:8px;"></div>
+      </div>
+      <div class="skeleton-shimmer" style="width:85%; height:28px;"></div>
+      <div style="display:flex; gap:8px;">
+        <div class="skeleton-shimmer" style="width:80px; height:24px; border-radius:12px;"></div>
+        <div class="skeleton-shimmer" style="width:110px; height:24px; border-radius:12px;"></div>
+        <div class="skeleton-shimmer" style="width:70px; height:24px; border-radius:12px;"></div>
+      </div>
+      <div class="skeleton-shimmer" style="width:60%; height:18px;"></div>
+      <div class="skeleton-shimmer" style="width:100%; height:40px; margin-top:10px; border-radius:8px;"></div>
+    `;
+    box.append(sk);
+  }
+}
+
 /* SEARCH & DATA FETCHING PIPELINE */
 async function run(forceDemo = false){
   if(busy) return;
@@ -1789,8 +2564,7 @@ async function run(forceDemo = false){
   persistProf();
   busy = true;
   $("#go").disabled = true;
-  all = [];
-  render();
+  showSkeletons();
 
   try {
     if(forceDemo){
@@ -1798,7 +2572,6 @@ async function run(forceDemo = false){
       return;
     }
 
-    // Step 1: Probe backend server status
     let backendStatus = null;
     try {
       const statusRes = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(3000) });
@@ -1810,7 +2583,6 @@ async function run(forceDemo = false){
     }
 
     if(backendStatus && backendStatus.has_api_key){
-      // LIVE MODE: Call backend TinyFish proxy
       setStatus("load", "Querying live web via TinyFish Search API...");
       const tl = {
         any: "internship OR scholarship OR fellowship",
@@ -1848,7 +2620,6 @@ async function run(forceDemo = false){
         return;
       }
 
-      // Pick top candidate URLs and fetch content
       const pick = candidates.slice(0, 6);
       const pickUrls = pick.map(c => c.url).filter(Boolean);
       setStatus("load", `Reading and extracting content from ${pickUrls.length} live pages via TinyFish Fetch API...`);
@@ -1895,15 +2666,13 @@ async function run(forceDemo = false){
       render(all.length ? null : "No readable opportunities were found.");
 
     } else if(backendStatus && !backendStatus.has_api_key){
-      // Backend is running, but TINYFISH_API_KEY is not configured
       await loadFixtureMode(p, "Backend active in Demo Mode (TINYFISH_API_KEY is not set in .env). Displaying verified program fixtures. Add your key to .env for live searches.");
     } else {
-      // Backend server not running
       await loadFixtureMode(p, "Backend server (server.py) is offline. Displaying verified program fixtures (Demo Mode). Start server.py to enable live TinyFish searches.");
     }
 
   } catch(e) {
-    setStatus("err", `Search error: ${e.message}`, "Load Offline Fixtures", () => run(true));
+    setStatus("err", `Search notice: ${e.message}`, "Load Offline Fixtures", () => run(true));
     render();
   } finally {
     busy = false;
@@ -1926,6 +2695,7 @@ function applyFilters(){
     // Quick pills filter
     if(currentQuickFilter === "likely" && o.as.key !== "likely") return false;
     if(currentQuickFilter === "internship" && o.type !== "internship") return false;
+    if(currentQuickFilter === "scholarship" && o.type !== "scholarship") return false;
     if(currentQuickFilter === "remote" && !o.remote) return false;
     if(currentQuickFilter === "closing"){
       if(!o.deadline || o.expired) return false;
@@ -1968,14 +2738,13 @@ function applyFilters(){
     r.sort((a,b) => b.pct - a.pct);
   }
 
-  // Update clear filters button visibility
   const hasActiveFilters = currentQuickFilter !== "all" || f.t !== "all" || f.m !== "all" || f.l !== "" || f.e !== "all" || f.d !== "all" || f.qLive !== "";
   $("#reset-filters-btn").style.display = hasActiveFilters ? "inline-flex" : "none";
 
   return r;
 }
 
-const TN = { internship: "Internship", scholarship: "Scholarship", fellowship: "Fellowship", program: "Developer Program", unknown: "Type Unclear" };
+const TN = { internship: "Internship", scholarship: "Scholarship", fellowship: "Fellowship", program: "Developer Program", unknown: "Opportunity" };
 const AC = { likely: "ok", possible: "warn", insufficient: "", not: "bad" };
 
 function snap(o){
@@ -1991,6 +2760,7 @@ function snap(o){
     elig: o.as.label,
     pct: o.pct,
     status: "Interested",
+    notes: "",
     savedAt: new Date().toISOString()
   };
 }
@@ -2034,8 +2804,12 @@ function fmtT(i){
 function saveCtl(o, wrap){
   wrap.textContent = "";
   if(!saved[o.id]){
-    const b = el("button", "btn btn-subtle", "☆ Save to Tracker");
-    b.onclick = () => { saved[o.id] = snap(o); refreshAll(); };
+    const b = el("button", "btn btn-subtle btn-sm", "☆ Track");
+    b.onclick = () => { 
+      saved[o.id] = snap(o); 
+      refreshAll(); 
+      showToast("Saved to Application Tracker!", "★");
+    };
     wrap.append(b);
     return;
   }
@@ -2047,10 +2821,18 @@ function saveCtl(o, wrap){
     s.append(op);
   });
   s.value = saved[o.id].status;
-  s.onchange = () => { saved[o.id].status = s.value; refreshAll(); };
+  s.onchange = () => { 
+    saved[o.id].status = s.value; 
+    refreshAll(); 
+    showToast(`Updated status to: ${s.value}`, "ℹ");
+  };
 
   const r = el("button", "btn btn-subtle btn-sm", "Remove");
-  r.onclick = () => { delete saved[o.id]; refreshAll(); };
+  r.onclick = () => { 
+    delete saved[o.id]; 
+    refreshAll(); 
+    showToast("Removed from tracker", "✕");
+  };
   wrap.append(s, r);
 }
 
@@ -2063,10 +2845,12 @@ function render(emptyMsg){
   if(!all.length){
     if(emptyMsg){
       const emp = el("div", "empty");
-      emp.innerHTML = `<svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <div style="font-weight:700; font-size:1.1rem; margin-bottom:6px; color:var(--ink);">Ready to Search Opportunities</div>
-        <div style="max-width:540px; margin:0 auto 16px; font-size:0.9rem;">${emptyMsg}</div>`;
-      const btn = el("button", "btn btn-gold btn-sm", "Load Verified Demo Opportunities");
+      emp.innerHTML = `
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+        <div style="font-weight:800; font-size:1.15rem; margin-bottom:6px; color:var(--ink);">Ready to Search Opportunities</div>
+        <div style="max-width:540px; margin:0 auto 18px; font-size:0.92rem; line-height:1.5;">${emptyMsg}</div>
+      `;
+      const btn = el("button", "btn btn-gold", "Load Verified Demo Opportunities");
       btn.onclick = () => run(true);
       emp.append(btn);
       box.append(emp);
@@ -2093,11 +2877,13 @@ function render(emptyMsg){
 
   if(!r.length){
     const emp = el("div", "empty");
-    emp.innerHTML = `<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <div style="font-weight:700; font-size:1.05rem; margin-bottom:6px;">No matching opportunities</div>
-      <div>Try adjusting your quick filter pills or resetting advanced filters.</div>`;
-    const clr = el("button", "btn btn-subtle btn-sm", "Reset All Filters");
-    clr.style.marginTop = "14px";
+    emp.innerHTML = `
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <div style="font-weight:800; font-size:1.1rem; margin-bottom:6px; color:var(--ink);">No opportunities match your filter criteria</div>
+      <div style="font-size:0.9rem;">Try adjusting your search keywords, clearing quick filters, or broadening your parameters.</div>
+    `;
+    const clr = el("button", "btn btn-subtle btn-sm", "Clear All Filters");
+    clr.style.marginTop = "16px";
     clr.onclick = resetAllFilters;
     emp.append(clr);
     box.append(emp);
@@ -2117,7 +2903,8 @@ function render(emptyMsg){
     const titleH3 = el("h3", null, o.title);
     l.append(orgRow, titleH3);
 
-    const sc = el("div", "match-score");
+    const scoreClass = o.pct >= 85 ? "high" : (o.pct >= 65 ? "med" : "");
+    const sc = el("div", "match-score " + scoreClass);
     sc.append(el("b", null, o.pct + "%"), el("small", null, "Match"));
     top.append(l, sc);
     c.append(top);
@@ -2127,11 +2914,11 @@ function render(emptyMsg){
     ch.append(el("span", "chip brand", TN[o.type] || "Opportunity"));
     ch.append(el("span", "chip " + AC[o.as.key], o.as.label));
     
-    // Explicit source mode badge (Never present fixtures as live)
+    // Explicit source mode badge
     if(o.sourceMode === "live"){
       ch.append(el("span", "chip ok", "🌐 Live TinyFish Result"));
     } else {
-      ch.append(el("span", "chip", "📁 Verified Fixture (Demo)"));
+      ch.append(el("span", "chip", "📁 Verified Fixture"));
     }
 
     // Bug 2 badge: campus placement cell notice
@@ -2144,11 +2931,11 @@ function render(emptyMsg){
         ch.append(el("span", "chip bad", "Expired"));
       } else {
         const dt = daysTo(o.deadline);
-        ch.append(el("span", "chip " + (dt <= 3 ? "bad" : dt <= 7 ? "warn" : "ok"), dt === 0 ? "Closes Today" : dt + " days left"));
+        ch.append(el("span", "chip " + (dt <= 3 ? "bad" : dt <= 7 ? "warn" : "ok"), dt === 0 ? "🔥 Closes Today" : `⏳ ${dt}d left`));
       }
     }
-    if(o.remote) ch.append(el("span", "chip", "🌐 Remote"));
-    if(o.locText && !o.remote) ch.append(el("span", "chip", "📍 " + o.locText.slice(0, 24)));
+    if(o.remote) ch.append(el("span", "chip", "🌐 Remote Friendly"));
+    if(o.locText && !o.remote) ch.append(el("span", "chip", "📍 " + o.locText.slice(0, 26)));
     c.append(ch);
 
     // Info rows
@@ -2204,7 +2991,7 @@ function render(emptyMsg){
     // Card Actions
     const act = el("div", "card-actions");
     const okA = o.ai && o.ai.state === "confirmed";
-    let btnText = okA ? (o.ai.kind ? `Apply: ${o.ai.kind} ↗` : "Apply Officially ↗") : (o.ai && o.ai.campusRecruitment ? "Placement Cell Instructions ↗" : "Open Source Page ↗");
+    let btnText = okA ? (o.ai.kind ? `Apply: ${o.ai.kind} ↗` : "Apply Officially ↗") : (o.ai && o.ai.campusRecruitment ? "Placement Cell Notice ↗" : "Open Source Page ↗");
     const applyBtn = el("a", "btn btn-gold", btnText);
     applyBtn.href = okA ? o.ai.url : o.url;
     applyBtn.target = "_blank";
@@ -2213,8 +3000,22 @@ function render(emptyMsg){
 
     const saveWrap = el("div", "card-actions");
     saveCtl(o, saveWrap);
-    act.append(saveWrap);
 
+    // Share / Copy Link Button
+    const shareBtn = el("button", "btn btn-subtle btn-icon", "");
+    shareBtn.setAttribute("title", "Copy link to clipboard");
+    shareBtn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+    shareBtn.onclick = () => {
+      const copyUrl = okA ? o.ai.url : o.url;
+      navigator.clipboard.writeText(copyUrl).then(() => {
+        showToast("Link copied to clipboard!", "📋");
+      }).catch(() => {
+        showToast("Could not copy link", "✕");
+      });
+    };
+    saveWrap.append(shareBtn);
+
+    act.append(saveWrap);
     c.append(act);
     box.append(c);
   });
@@ -2231,6 +3032,7 @@ function resetAllFilters(){
   $("#sort").value = "score";
   $("#live-search").value = "";
   render();
+  showToast("All filters reset", "↺");
 }
 
 /* DEADLINE RADAR */
@@ -2240,11 +3042,39 @@ function radarItems(){
   all.forEach(o => m[o.id] = { id: o.id, title: o.title, url: o.url, org: o.org, d: o.deadline, conf: (o.dls||[]).length > 1, ret: o.retrieved, o });
   return Object.values(m);
 }
+
+function exportDeadlinesICS(){
+  const items = radarItems().filter(x => x.d && daysTo(x.d) >= 0);
+  if(!items.length){
+    showToast("No active deadlines to export", "ℹ");
+    return;
+  }
+  let ics = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Opportunity Hunter//EN\n";
+  items.forEach(x => {
+    const dt = x.d.toISOString().replace(/[-:]/g,"").split(".")[0] + "Z";
+    ics += `BEGIN:VEVENT\nSUMMARY:Deadline: ${x.title}\nDESCRIPTION:Opportunity application deadline for ${x.org} (${x.url})\nDTSTART:${dt}\nDTEND:${dt}\nURL:${x.url}\nEND:VEVENT\n`;
+  });
+  ics += "END:VCALENDAR";
+  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "opportunity-deadlines.ics";
+  a.click();
+  showToast("Exported deadlines to calendar (.ics)", "📅");
+}
+
 function renderRadar(){
   const b = $("#v-radar");
   b.textContent = "";
   const p = el("div", "panel");
-  p.append(el("h2", "panel-title", "Deadline Urgency Radar"));
+
+  const pHeader = el("div", "panel-header");
+  pHeader.append(el("h2", "panel-title", "Deadline Urgency Radar"));
+  const exportBtn = el("button", "btn btn-subtle btn-sm", "📅 Export to Calendar (.ics)");
+  exportBtn.onclick = exportDeadlinesICS;
+  pHeader.append(exportBtn);
+  p.append(pHeader);
+
   const it = radarItems();
   if(!it.length){
     p.append(el("div", "empty", "No opportunities tracked yet. Run a search or save opportunities from Discover."));
@@ -2254,7 +3084,7 @@ function renderRadar(){
   const G = [
     ["Closing Soon (0–3 Days)", x => x.d && daysTo(x.d) >= 0 && daysTo(x.d) <= 3, "bad"],
     ["Closing This Week (4–7 Days)", x => x.d && daysTo(x.d) > 3 && daysTo(x.d) <= 7, "warn"],
-    ["Upcoming (8+ Days)", x => x.d && daysTo(x.d) > 7, ""],
+    ["Upcoming (8+ Days)", x => x.d && daysTo(x.d) > 7, "ok"],
     ["Expired", x => x.d && daysTo(x.d) < 0, "mute"],
     ["No Specified Deadline", x => !x.d, "mute"]
   ];
@@ -2271,8 +3101,8 @@ function renderRadar(){
       r.append(link(x.url, x.title));
       const sub = el("div", "info-row", (x.d ? fmt(x.d) + (daysTo(x.d) >= 0 ? ` • ${daysTo(x.d)} days left` : " • Passed") : "No deadline found") + (x.o ? "" : " • Saved snapshot"));
       r.append(sub);
-      const b2 = el("button", "btn btn-subtle btn-sm", saved[x.id] ? "Saved ✓" : "☆ Save");
-      if(x.o && !saved[x.id]) b2.onclick = () => { saved[x.id] = snap(x.o); refreshAll(); };
+      const b2 = el("button", "btn btn-subtle btn-sm", saved[x.id] ? "Tracked ✓" : "☆ Track");
+      if(x.o && !saved[x.id]) b2.onclick = () => { saved[x.id] = snap(x.o); refreshAll(); showToast("Saved to tracker", "★"); };
       else b2.disabled = true;
       r.append(b2);
       col.append(r);
@@ -2284,20 +3114,54 @@ function renderRadar(){
 }
 
 /* APPLICATION TRACKER */
+function exportTrackerCSV(){
+  const L = Object.values(saved);
+  if(!L.length){
+    showToast("No tracker items to export", "ℹ");
+    return;
+  }
+  let csv = "ID,Title,Organization,Type,Status,Deadline,URL\n";
+  L.forEach(x => {
+    const line = [
+      `"${x.id.replace(/"/g,'""')}"`,
+      `"${x.title.replace(/"/g,'""')}"`,
+      `"${x.org.replace(/"/g,'""')}"`,
+      `"${x.type || ""}"`,
+      `"${x.status || ""}"`,
+      `"${x.deadlineISO || ""}"`,
+      `"${x.url || ""}"`
+    ].join(",");
+    csv += line + "\n";
+  });
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "my-application-tracker.csv";
+  a.click();
+  showToast("Exported tracker to CSV", "📊");
+}
+
 function renderTracker(){
   const b = $("#v-tracker");
   b.textContent = "";
   const p = el("div", "panel");
-  p.append(el("h2", "panel-title", "Application Kanban Board"));
+
+  const pHeader = el("div", "panel-header");
+  pHeader.append(el("h2", "panel-title", "Application Kanban Pipeline"));
+  const exportBtn = el("button", "btn btn-subtle btn-sm", "📊 Export Tracker (.csv)");
+  exportBtn.onclick = exportTrackerCSV;
+  pHeader.append(exportBtn);
+  p.append(pHeader);
+
   const L = Object.values(saved);
   if(!L.length){
-    p.append(el("div", "empty", "No saved applications yet. Click '☆ Save to Tracker' on any opportunity card in Discover to monitor it here."));
+    p.append(el("div", "empty", "No saved applications yet. Click '☆ Track' on any opportunity card in Discover to monitor your applications here."));
     b.append(p);
     return;
   }
   const g = el("div", "board");
   ST.forEach(st => {
-    const col = el("div", "rcol " + (st === "Rejected/Closed" ? "mute" : st === "Applied" ? "ok" : ""));
+    const col = el("div", "rcol " + (st === "Closed/Archived" ? "mute" : (st === "Applied" || st === "Interviewing" ? "ok" : "")));
     const l = L.filter(x => x.status === st);
     const head = el("div", "rcol-head");
     head.append(el("span", null, st), el("span", "rcol-badge", String(l.length)));
@@ -2316,10 +3180,10 @@ function renderTracker(){
         s.append(op);
       });
       s.value = x.status;
-      s.onchange = () => { saved[x.id].status = s.value; refreshAll(); };
+      s.onchange = () => { saved[x.id].status = s.value; refreshAll(); showToast(`Status moved to ${s.value}`, "ℹ"); };
 
       const d = el("button", "btn btn-subtle btn-sm", "Remove");
-      d.onclick = () => { delete saved[x.id]; refreshAll(); };
+      d.onclick = () => { delete saved[x.id]; refreshAll(); showToast("Item removed", "✕"); };
       
       const rowAct = el("div", "card-actions");
       rowAct.append(s, d);
@@ -2335,7 +3199,7 @@ function renderTracker(){
 /* WELCOME DASHBOARD WIDGET */
 function updateWelcome(){
   const n = ($("#name").value || "").trim();
-  $("#hello").textContent = n ? "Welcome back, " + n + ". Let’s find your next opportunity" : "Find internships, scholarships & programs made for you";
+  $("#hello").innerHTML = n ? `Welcome back, <span>${n}</span>. Let’s find your next big opportunity` : `Find internships, scholarships & programs <span>tailored to you</span>`;
   const w = $("#welcome");
   w.textContent = "";
   const it = radarItems();
@@ -2360,9 +3224,26 @@ function updateProfileSummaryBar(){
   const name = ($("#name").value || "").trim() || "Student";
   const degree = ($("#degree").value || "").trim() || "Degree Unspecified";
   const year = $("#year").value || "Year Unspecified";
+  const loc = ($("#loc").value || "").trim() || "Location Unspecified";
+  
   $("#prof-prev-name").textContent = name;
   $("#prof-prev-degree").textContent = degree;
   $("#prof-prev-year").textContent = year;
+  $("#prof-prev-loc").textContent = loc;
+  $("#prof-avatar").textContent = name.charAt(0).toUpperCase();
+
+  // Calculate completion percentage
+  let filled = 0;
+  if($("#name").value.trim()) filled += 20;
+  if($("#degree").value.trim()) filled += 20;
+  if($("#year").value) filled += 20;
+  if($("#skills").value.trim()) filled += 20;
+  if($("#loc").value.trim()) filled += 10;
+  if($("#type").value !== "any") filled += 10;
+  filled = Math.min(100, Math.max(25, filled));
+
+  $("#prof-meter-text").textContent = filled + "% Complete";
+  $("#prof-meter-bar").style.width = filled + "%";
 }
 
 /* TABS NAVIGATION */
@@ -2377,9 +3258,10 @@ function show(v){
 
 /* EVENT LISTENERS */
 $("#go").addEventListener("click", () => run(false));
+$("#btn-quick-demo")?.addEventListener("click", () => run(true));
 $("#q").addEventListener("keydown", e => { if(e.key === "Enter") run(false); });
 
-$$(".hero-pill-btn").forEach(btn => {
+$$(".hero-tag-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     $("#q").value = btn.dataset.kw;
     run(false);
@@ -2418,6 +3300,25 @@ $("#btn-edit-prof").addEventListener("click", () => {
   $("#toggle-prof-btn").textContent = "Collapse Form";
 });
 
+// Quick Skill Chips Click Handler
+$$(".skill-chip-btn").forEach(chip => {
+  chip.addEventListener("click", () => {
+    const skill = chip.dataset.skill;
+    const skillsInput = $("#skills");
+    const current = skillsInput.value.split(",").map(s => s.trim()).filter(Boolean);
+    const idx = current.findIndex(s => s.toLowerCase() === skill.toLowerCase());
+    if(idx > -1){
+      current.splice(idx, 1);
+      chip.classList.remove("active");
+    } else {
+      current.push(skill);
+      chip.classList.add("active");
+    }
+    skillsInput.value = current.join(", ");
+    persistProf();
+  });
+});
+
 ["fType","fMode","fLoc","fElig","fDl","sort"].forEach(i => {
   $("#"+i).addEventListener("input", () => render());
 });
@@ -2437,6 +3338,7 @@ $("#name").addEventListener("input", () => { persistProf(); updateWelcome(); });
 
 /* INIT */
 initTheme();
+probeBackendStatus();
 refreshAll();
 updateProfileSummaryBar();
 
@@ -2447,8 +3349,8 @@ if($("#name").value || $("#degree").value){
   $("#toggle-prof-btn").textContent = "Expand Form";
 }
 
-// Initial prompt or auto-load fixtures
-render("Enter your interest above and click Find Opportunities to search live sources, or view verified program fixtures.");
+// Auto-load verified program fixtures on start so the application is immediately populated
+run(true);
 </script>
 </body>
 </html>

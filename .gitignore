@@ -20,3 +20,8 @@ ENV/
 Thumbs.db
 .vscode/
 .idea/
+
+# Legacy practice exercises
+image-equilibrium.jpg
+style.css
+

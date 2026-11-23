@@ -1,15 +1,44 @@
-# Opportunity Hunter — Internships & Scholarships
+# Opportunity Hunter — Internships, Scholarships & Programs 🎯
 
-An intelligent student opportunity discovery engine and application tracker. Finds internships, scholarships, and fellowships matched to your student profile, study year, and technical skills with transparent eligibility audits.
+An intelligent student opportunity discovery engine and application tracker with transparent eligibility audits, verified page extraction, and an intuitive modern interface.
+
+[![Backend Tests](https://img.shields.io/badge/Backend%20Tests-7%2F7%20Passing-brightgreen)](#running-automated-tests)
+[![Bug Fix Tests](https://img.shields.io/badge/Bug%20Fixes-3%2F3%20Verified-blue)](#bug-fixes-included)
+[![UI/UX](https://img.shields.io/badge/UI%2FUX-v2.0%20Modern%20Design-orange)](#uiux-enhancements)
 
 ---
 
-## Quick Start Guide
+## ✨ UI/UX Enhancements (v2.0)
+
+* **Modern Design System & Typography**: Rebuilt with Google’s *Plus Jakarta Sans* font, modern frosted glassmorphism (`backdrop-filter: blur(16px)`), luminous focus states, and responsive layout across desktops, tablets, and phones.
+* **Dual Theme Engine**: Seamless switch between deep dark mode (`Midnight Slate`) and soft light mode (`Clean Frost`) with preference persistence in `localStorage`.
+* **Live Connection Status Pill**: Real-time indicator in the navigation bar displays whether the app is running with the **Live TinyFish API proxy** or the **Verified Offline Fixture Engine**.
+* **Student Profile Hub**:
+  * Real-time **Profile Completion Meter** (e.g. `85% Complete`) that rewards students for completing their degree and skills.
+  * One-click **Quick Skill Tags** (`+ Python`, `+ React`, `+ SQL`, `+ Machine Learning`, etc.) for fast profile building.
+  * Collapsible profile summary bar displaying student avatar, study year, and location.
+* **Skeleton Shimmer Loading**: Displays smooth animated skeleton card states during search fetches instead of empty loaders.
+* **Instant Filter & Search**: Debounced client-side filtering by keywords, opportunity types, work modes, and closing deadlines.
+* **Interactive Opportunity Cards**:
+  * Glowing match score badges with color-coded gradients (90%+ Emerald, 75%+ Indigo, <75% Amber).
+  * Clear data source origin (`🌐 Live TinyFish Result` vs `📁 Verified Fixture`).
+  * Deep-dive accordion with **Eligibility Audits**, **Skill Gap Roadmap**, and **Source Transparency**.
+  * 1-click **Share / Copy Link** button with floating toast notification.
+* **Deadline Radar & Calendar Export**:
+  * Urgency-based columns (`0–3 Days`, `4–7 Days`, `8+ Days`, `Expired`).
+  * Export all active deadlines directly to **Google Calendar / Apple Calendar (`.ics`)**.
+* **Application Kanban Pipeline**:
+  * Track applications across stages: `Interested` ➔ `Planning to Apply` ➔ `Applied` ➔ `Interviewing` ➔ `Closed`.
+  * **Export to CSV (`.csv`)** for spreadsheet backups.
+* **Toast Notification System**: Instant feedback for copying links, tracking opportunities, and updating statuses.
+
+---
+
+## 🚀 Quick Start Guide
 
 ### 1. Requirements
-* **Python 3.8+** (Python 3.14 is already installed on your system).
+* **Python 3.8+** (Uses Python's standard library; no external npm/pip dependencies required).
 * Any modern web browser (Chrome, Edge, Firefox, Safari).
-* **No external npm/pip dependencies required** for basic operation. Python's standard library and pre-installed `requests` are used.
 
 ---
 
@@ -61,16 +90,16 @@ http://localhost:5000/opportunity-hunter.html
 Run the automated test suite in terminal:
 
 ```powershell
-# Run backend endpoints and security tests
+# Run backend endpoints and security tests (7 tests)
 python test_backend.py
 
-# Run verification tests for the 3 bug fixes
+# Run verification tests for the 3 bug fixes (3 tests)
 python test_bug_fixes.py
 ```
 
 ---
 
-## Architecture & Features
+## 🏛️ Architecture & Data Flow
 
 ```mermaid
 flowchart TD
