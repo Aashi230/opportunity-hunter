@@ -2010,11 +2010,27 @@ function setStatus(kind, msg, actionBtnText, actionCallback){
   }
   textSpan.textContent = msg;
   d.append(textSpan);
+
+  const rightGroup = el("div", null);
+  rightGroup.style.display = "flex";
+  rightGroup.style.alignItems = "center";
+  rightGroup.style.gap = "8px";
+
   if(actionBtnText && actionCallback){
     const b = el("button", "btn btn-sm btn-subtle", actionBtnText);
     b.onclick = actionCallback;
-    d.append(b);
+    rightGroup.append(b);
   }
+  if(kind !== "load"){
+    const closeBtn = el("button", "btn btn-subtle btn-sm", "✕");
+    closeBtn.style.padding = "4px 8px";
+    closeBtn.style.minHeight = "auto";
+    closeBtn.style.fontSize = "0.75rem";
+    closeBtn.setAttribute("title", "Dismiss notice");
+    closeBtn.onclick = () => { s.textContent = ""; };
+    rightGroup.append(closeBtn);
+  }
+  d.append(rightGroup);
   s.append(d);
 }
 
@@ -2129,7 +2145,14 @@ function levelCheck(t, year){
 
   if(!year) return "unclear";
   const found = Object.keys(LV).filter(k => LV[k].test(studentCtx));
-  if(found.length) return found.includes(year) ? "ok" : "mismatch";
+  if(found.length){
+    if(found.includes(year)) return "ok";
+    const isUndergradYear = ["1st year", "2nd year", "3rd year", "Final year"].includes(year);
+    const mentionsUndergrad = /\b(?:enrolled )?(?:undergraduate|college|university|bachelor(?:'s|s)?)\s+students?\b/i.test(studentCtx);
+    const hasExclusiveYearRestriction = /\b(?:only for|restricted to|specifically for)\b[^\n.]{0,30}(?:first|second|third|final|1st|2nd|3rd|4th)\s*year/i.test(studentCtx);
+    if(isUndergradYear && mentionsUndergrad && !hasExclusiveYearRestriction) return "ok";
+    return "mismatch";
+  }
   return /\b(?:open to|available to|for) (?:all|any) (?:enrolled )?(?:undergraduate |college |university )?students?\b/i.test(studentCtx) ? "ok" : "unclear";
 }
 
@@ -2356,6 +2379,32 @@ function classifyApply(o, pg){
   return out;
 }
 
+function degreeKeywords(degreeStr){
+  if(!degreeStr) return [];
+  const s = degreeStr.toLowerCase().trim();
+  const tokens = s.split(/[\s,\/.-]+/).filter(x => x.length >= 2);
+  const out = new Set(tokens);
+  if(/\b(b\.?tech|btech|b\.?e\.?|be|m\.?tech|mtech|engineering|engineer)\b/i.test(s)){
+    out.add("engineering");
+    out.add("computer science");
+    out.add("technology");
+    out.add("software");
+  }
+  if(/\b(cs|cse|it|computer\s*science|information\s*technology|software|bca|mca)\b/i.test(s)){
+    out.add("computer science");
+    out.add("software");
+    out.add("technology");
+    out.add("engineering");
+    out.add("information technology");
+  }
+  if(/\b(data|ds|ai|ml)\b/i.test(s)){
+    out.add("data science");
+    out.add("analytics");
+    out.add("machine learning");
+  }
+  return [...out];
+}
+
 function assess(o, p){
   const met = [], unmet = [], miss = [];
   if(!o.read) return { key: "insufficient", label: "Insufficient Information", met, unmet, miss: ["Page content could not be read"] };
@@ -2370,9 +2419,9 @@ function assess(o, p){
   if(!p.degree) miss.push("Specify your degree to check branch requirements");
   else if(!fm.length) miss.push("Field of study requirement not stated");
   else {
-    const w = p.degree.toLowerCase().split(/[\s,\/]+/).filter(x => x.length > 3);
-    const h = fm.filter(f => /^(any|all)/.test(f) || w.some(x => f.includes(x)));
-    h.length ? met.push("Field of study: Mentions “" + h[0] + "”") : miss.push("Page mentions " + fm.slice(0, 3).join(", ") + " — confirm degree eligibility");
+    const dk = degreeKeywords(p.degree);
+    const h = fm.filter(f => /^(any|all)/.test(f) || dk.some(k => f.includes(k) || k.includes(f)));
+    h.length ? met.push("Field of study: Aligns with “" + h[0] + "”") : miss.push("Page mentions " + fm.slice(0, 3).join(", ") + " — confirm degree eligibility");
   }
 
   const rs = /(?:open to|available to|eligible for|only for|limited to|restricted to)[^.\n]{0,60}(?:citizens|residents|nationals)[^.\n]{0,60}|must be (?:a )?(?:citizen|resident)[^.\n]{0,60}/i.exec(t);
@@ -2472,7 +2521,10 @@ async function loadFixtureMode(p, statusNotice){
   const fetchedAt = new Date().toISOString();
   all = processRawPages(fixtures, p, fetchedAt, "fixture");
   setStatus("", null);
-  setStatus("info", statusNotice, "Run Live Search", () => run(false));
+  const isGHPages = window.location.hostname.includes("github.io");
+  if(!isGHPages && statusNotice){
+    setStatus("info", statusNotice, "Run Live Search", () => run(false));
+  }
   render();
 }
 
@@ -2501,10 +2553,8 @@ function showSkeletons(){
   }
 }
 
-/* SEARCH & DATA FETCHING PIPELINE */
-async function run(forceDemo = false){
-  if(busy) return;
-  const p = {
+function getProfileData(){
+  return {
     interest: $("#q").value.trim(),
     degree: $("#degree").value.trim(),
     year: $("#year").value,
@@ -2513,6 +2563,28 @@ async function run(forceDemo = false){
     type: $("#type").value,
     mode: $("#mode").value
   };
+}
+
+function recalculateScores(){
+  const p = getProfileData();
+  P = p;
+  if(all && all.length){
+    all.forEach(o => {
+      o.elig = o.read ? levelCheck(o.text, p.year) : "unclear";
+      o.sg = skillGap(o, p);
+      o.as = assess(o, p);
+      const sc = score(o, p);
+      o.pct = sc.pct;
+      o.why = sc.why;
+    });
+    render();
+  }
+}
+
+/* SEARCH & DATA FETCHING PIPELINE */
+async function run(forceDemo = false){
+  if(busy) return;
+  const p = getProfileData();
 
   if(!p.interest && !forceDemo){
     setStatus("err", "Please enter an area of interest first (e.g. Data Science, AI/ML, Software Engineering).");
@@ -2532,7 +2604,8 @@ async function run(forceDemo = false){
 
   try {
     if(forceDemo){
-      await loadFixtureMode(p, "Displaying verified student program fixtures (Demo Mode).");
+      const isGHPages = window.location.hostname.includes("github.io");
+      await loadFixtureMode(p, isGHPages ? "" : "Displaying verified student program fixtures (Demo Mode).");
       return;
     }
 
@@ -2634,7 +2707,7 @@ async function run(forceDemo = false){
     } else {
       const isGHPages = window.location.hostname.includes("github.io");
       await loadFixtureMode(p, isGHPages 
-        ? "✨ Displaying verified student program fixtures (GitHub Pages Demo Mode). Full search, radar, and tracker features are active." 
+        ? "" 
         : "Backend server (server.py) is offline. Displaying verified program fixtures (Demo Mode). Start server.py to enable live TinyFish searches.");
     }
 
@@ -3285,6 +3358,7 @@ $$(".skill-tag-btn").forEach(chip => {
     }
     skillsInput.value = current.join(", ");
     persistProf();
+    recalculateScores();
   });
 });
 
@@ -3302,7 +3376,10 @@ $$(".m-nav-btn").forEach(b => b.addEventListener("click", () => show(b.dataset.v
 
 $("#name").addEventListener("input", () => { persistProf(); updateWelcome(); });
 ["degree","year","skills","loc","type","mode"].forEach(id => {
-  $("#"+id).addEventListener("input", persistProf);
+  $("#"+id).addEventListener("input", () => {
+    persistProf();
+    recalculateScores();
+  });
 });
 
 /* INIT */
