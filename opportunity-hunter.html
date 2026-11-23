@@ -2025,6 +2025,7 @@ async function probeBackendStatus(){
   const ind = $("#srv-indicator");
   const dot = $("#srv-dot");
   const txt = $("#srv-text");
+  const isGHPages = window.location.hostname.includes("github.io");
   try{
     const res = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(2500) });
     if(res.ok){
@@ -2035,14 +2036,18 @@ async function probeBackendStatus(){
         ind.style.display = "inline-flex";
       } else {
         dot.className = "dot warn";
-        txt.textContent = "Demo Fixture Mode";
+        txt.textContent = isGHPages ? "GitHub Pages Demo" : "Demo Fixture Mode";
         ind.style.display = "inline-flex";
       }
       return data;
+    } else {
+      dot.className = "dot warn";
+      txt.textContent = isGHPages ? "GitHub Pages Demo" : "Demo Mode";
+      ind.style.display = "inline-flex";
     }
   }catch(e){
     dot.className = "dot warn";
-    txt.textContent = "Offline Fallback";
+    txt.textContent = isGHPages ? "GitHub Pages Demo" : "Demo Mode";
     ind.style.display = "inline-flex";
   }
   return null;
@@ -2627,7 +2632,10 @@ async function run(forceDemo = false){
     } else if(backendStatus && !backendStatus.has_api_key){
       await loadFixtureMode(p, "Backend active in Demo Mode (TINYFISH_API_KEY is not configured in .env). Displaying verified program fixtures. Add your key to .env for live searches.");
     } else {
-      await loadFixtureMode(p, "Backend server (server.py) is offline. Displaying verified program fixtures (Demo Mode). Start server.py to enable live TinyFish searches.");
+      const isGHPages = window.location.hostname.includes("github.io");
+      await loadFixtureMode(p, isGHPages 
+        ? "✨ Displaying verified student program fixtures (GitHub Pages Demo Mode). Full search, radar, and tracker features are active." 
+        : "Backend server (server.py) is offline. Displaying verified program fixtures (Demo Mode). Start server.py to enable live TinyFish searches.");
     }
 
   } catch(e) {
