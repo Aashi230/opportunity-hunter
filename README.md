@@ -2,9 +2,15 @@
 
 An intelligent student opportunity discovery engine and application tracker with transparent eligibility audits, verified page extraction, and an intuitive modern interface.
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-aashi230.github.io%2Fopportunity--hunter-6366f1?style=for-the-badge&logo=githubpages&logoColor=white)](https://aashi230.github.io/opportunity-hunter/)
+
+[![Live Deployment](https://img.shields.io/badge/Live%20Demo-Online-success)](https://aashi230.github.io/opportunity-hunter/)
 [![Backend Tests](https://img.shields.io/badge/Backend%20Tests-7%2F7%20Passing-brightgreen)](#running-automated-tests)
 [![Bug Fix Tests](https://img.shields.io/badge/Bug%20Fixes-3%2F3%20Verified-blue)](#bug-fixes-included)
 [![UI/UX](https://img.shields.io/badge/UI%2FUX-v2.0%20Modern%20Design-orange)](#uiux-enhancements)
+
+> 🚀 **Live Application**: [https://aashi230.github.io/opportunity-hunter/](https://aashi230.github.io/opportunity-hunter/)
+
 
 ---
 
