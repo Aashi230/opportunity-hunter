@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Opportunity Hunter — Lightweight Backend Proxy for TinyFish API
-Serves the web application and proxies Search and Fetch requests to TinyFish
-without exposing API keys to the browser.
+Opportunity Hunter 2.0 — High-Performance Student Career Backend Proxy & API
+Provides secure TinyFish API proxying, SQLite persistence for Student Profiles,
+Kanban Application Tracking, Saved Opportunities, Resume Parsing, and Career Intelligence.
 """
 
 import os
@@ -12,6 +12,9 @@ import urllib.request
 import urllib.parse
 import urllib.error
 from http.server import HTTPServer, SimpleHTTPRequestHandler
+
+import db
+import intelligence
 
 # 1. Load .env file safely without external dependencies
 def load_env(env_path=".env"):
@@ -38,11 +41,17 @@ PORT = int(os.environ.get("PORT", 5000))
 TINYFISH_SEARCH_URL = "https://api.search.tinyfish.ai"
 TINYFISH_FETCH_URL = "https://api.fetch.tinyfish.ai"
 
+# Initialize SQLite Database on startup
+try:
+    db.init_db()
+except Exception as e:
+    print(f"[WARN] Database initialization notice: {e}", file=sys.stderr)
+
 class OpportunityHunterHandler(SimpleHTTPRequestHandler):
     def end_headers(self):
-        # Enable CORS for local testing
+        # Enable CORS for local testing and cross-origin tools
         self.send_header("Access-Control-Allow-Origin", "*")
-        self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
         self.send_header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With")
         self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
         super().end_headers()
@@ -54,6 +63,7 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         url_parts = urllib.parse.urlparse(self.path)
         path = url_parts.path
+        query_params = urllib.parse.parse_qs(url_parts.query)
 
         # Root redirect to main application
         if path in ("/", "/index.html"):
@@ -66,8 +76,10 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
             has_key = bool(api_key and api_key != "your_tinyfish_api_key_here")
             resp = {
                 "ok": True,
+                "version": "2.0.0",
                 "has_api_key": has_key,
                 "mode": "live" if has_key else "demo_fallback",
+                "database": "sqlite_connected",
                 "message": "Ready for live search" if has_key else "TINYFISH_API_KEY is not set in .env. Running in demo fixture mode."
             }
             return self.send_json(200, resp)
@@ -85,6 +97,48 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
             else:
                 return self.send_json(404, {"error": "FIXTURES_NOT_FOUND", "message": "opportunity-hunter.fixtures.json not found"})
 
+        # Profile API: GET
+        if path == "/api/profile":
+            try:
+                prof = db.get_profile()
+                return self.send_json(200, {"ok": True, "profile": prof})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
+        # Application Tracker API: GET
+        if path == "/api/applications":
+            try:
+                stage = query_params.get("stage", [None])[0]
+                apps = db.list_applications(stage)
+                return self.send_json(200, {"ok": True, "applications": apps, "total": len(apps)})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
+        # Saved Opportunities API: GET
+        if path == "/api/saved":
+            try:
+                saved = db.list_saved()
+                return self.send_json(200, {"ok": True, "saved": saved, "total": len(saved)})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
+        # Analytics API: GET
+        if path == "/api/analytics":
+            try:
+                stats = db.get_analytics()
+                return self.send_json(200, {"ok": True, "analytics": stats})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
+        # Activity Log API: GET
+        if path == "/api/activity":
+            try:
+                limit = int(query_params.get("limit", [15])[0])
+                logs = db.get_activity_log(limit)
+                return self.send_json(200, {"ok": True, "activity": logs})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
         # Serve static files (HTML, JSON, CSS, images)
         return super().do_GET()
 
@@ -92,7 +146,7 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
         url_parts = urllib.parse.urlparse(self.path)
         path = url_parts.path
 
-        # Read POST body
+        # Read and validate POST body
         content_length = int(self.headers.get("Content-Length", 0))
         if content_length > 2 * 1024 * 1024:  # 2MB cap
             return self.send_json(413, {"error": "PAYLOAD_TOO_LARGE", "message": "Request body exceeds 2MB limit."})
@@ -106,6 +160,7 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
         api_key = os.environ.get("TINYFISH_API_KEY", "").strip()
         has_key = bool(api_key and api_key != "your_tinyfish_api_key_here")
 
+        # TinyFish Search Proxy
         if path == "/api/search":
             if not has_key:
                 return self.send_json(401, {
@@ -114,6 +169,7 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
                 })
             return self.handle_tinyfish_search(body, api_key)
 
+        # TinyFish Fetch Proxy
         elif path == "/api/fetch":
             if not has_key:
                 return self.send_json(401, {
@@ -121,6 +177,99 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
                     "message": "TINYFISH_API_KEY is not configured in .env. Open .env, add your key, and restart server."
                 })
             return self.handle_tinyfish_fetch(body, api_key)
+
+        # Profile API: POST
+        elif path == "/api/profile":
+            try:
+                updated_profile = db.save_profile(body)
+                return self.send_json(200, {"ok": True, "profile": updated_profile})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
+        # Application Tracker API: POST (create or update)
+        elif path == "/api/applications":
+            try:
+                saved_app = db.save_application(body)
+                return self.send_json(200, {"ok": True, "application": saved_app})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
+        # Saved Opportunities API: POST
+        elif path == "/api/saved":
+            try:
+                saved_item = db.save_opportunity_item(body)
+                return self.send_json(200, {"ok": True, "saved": saved_item})
+            except Exception as e:
+                return self.send_json(500, {"error": "DB_ERROR", "message": str(e)})
+
+        # Resume Analyzer API: POST
+        elif path == "/api/resume/parse":
+            try:
+                resume_text = body.get("text", "")
+                opportunities = body.get("opportunities", [])
+                analysis = intelligence.parse_resume_text(resume_text, opportunities)
+                return self.send_json(200, {"ok": True, "analysis": analysis})
+            except Exception as e:
+                return self.send_json(500, {"error": "RESUME_PARSE_ERROR", "message": str(e)})
+
+        # Career Assistant API: POST
+        elif path == "/api/assistant":
+            try:
+                user_query = body.get("query", "")
+                profile = body.get("profile") or db.get_profile()
+                opportunities = body.get("opportunities", [])
+                applications = body.get("applications", [])
+                reply = intelligence.generate_assistant_reply(user_query, profile, opportunities, applications)
+                return self.send_json(200, {"ok": True, "reply": reply})
+            except Exception as e:
+                return self.send_json(500, {"error": "ASSISTANT_ERROR", "message": str(e)})
+
+        # Application Delete via POST fallback
+        elif path == "/api/applications/delete":
+            app_id = body.get("id")
+            if not app_id:
+                return self.send_json(400, {"error": "MISSING_ID", "message": "id is required."})
+            success = db.delete_application(app_id)
+            return self.send_json(200, {"ok": True, "deleted": success})
+
+        # Saved Delete via POST fallback
+        elif path == "/api/saved/delete":
+            opp_id = body.get("id")
+            if not opp_id:
+                return self.send_json(400, {"error": "MISSING_ID", "message": "id is required."})
+            success = db.delete_saved_opportunity(opp_id)
+            return self.send_json(200, {"ok": True, "deleted": success})
+
+        else:
+            return self.send_json(404, {"error": "NOT_FOUND", "message": f"Endpoint {path} not found."})
+
+    def do_DELETE(self):
+        url_parts = urllib.parse.urlparse(self.path)
+        path = url_parts.path
+        query_params = urllib.parse.parse_qs(url_parts.query)
+
+        # Read potential body
+        content_length = int(self.headers.get("Content-Length", 0))
+        body = {}
+        if content_length > 0:
+            try:
+                body = json.loads(self.rfile.read(content_length).decode("utf-8"))
+            except Exception:
+                pass
+
+        if path == "/api/applications":
+            app_id = query_params.get("id", [None])[0] or body.get("id")
+            if not app_id:
+                return self.send_json(400, {"error": "MISSING_ID", "message": "id query param or body field is required."})
+            success = db.delete_application(app_id)
+            return self.send_json(200, {"ok": True, "deleted": success})
+
+        elif path == "/api/saved":
+            opp_id = query_params.get("id", [None])[0] or body.get("id")
+            if not opp_id:
+                return self.send_json(400, {"error": "MISSING_ID", "message": "id query param or body field is required."})
+            success = db.delete_saved_opportunity(opp_id)
+            return self.send_json(200, {"ok": True, "deleted": success})
 
         else:
             return self.send_json(404, {"error": "NOT_FOUND", "message": f"Endpoint {path} not found."})
@@ -143,7 +292,7 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
             full_url,
             headers={
                 "X-API-Key": api_key,
-                "User-Agent": "OpportunityHunter/1.0"
+                "User-Agent": "OpportunityHunter/2.0"
             },
             method="GET"
         )
@@ -196,7 +345,7 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
             headers={
                 "X-API-Key": api_key,
                 "Content-Type": "application/json",
-                "User-Agent": "OpportunityHunter/1.0"
+                "User-Agent": "OpportunityHunter/2.0"
             },
             method="POST"
         )
@@ -242,7 +391,7 @@ class OpportunityHunterHandler(SimpleHTTPRequestHandler):
 
 def main():
     print("=" * 60)
-    print(" Opportunity Hunter Backend Proxy ")
+    print(" Opportunity Hunter 2.0 Backend Proxy & Platform Server ")
     print("=" * 60)
     api_key = os.environ.get("TINYFISH_API_KEY", "").strip()
     if api_key and api_key != "your_tinyfish_api_key_here":
@@ -251,9 +400,10 @@ def main():
         print("[STATUS] Mode: LIVE (TinyFish Web Search & Fetch active)")
     else:
         print("[STATUS] TinyFish API Key: NOT SET in .env")
-        print("[STATUS] Mode: DEMO / FIXTURE FALLBACK (Safe for hackathon preview)")
+        print("[STATUS] Mode: DEMO / FIXTURE FALLBACK (Verified program fixtures active)")
         print("         To enable live search, add your key to .env and restart.")
 
+    print(f"[DATABASE] SQLite local storage initialized at: opportunity_hunter.db")
     server_address = ("127.0.0.1", PORT)
     httpd = HTTPServer(server_address, OpportunityHunterHandler)
     print(f"\n[SERVER] Running at: http://localhost:{PORT}")

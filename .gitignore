@@ -21,6 +21,11 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
 # Legacy practice exercises
 image-equilibrium.jpg
 style.css

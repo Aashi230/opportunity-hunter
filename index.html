@@ -1,1882 +1,1389 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Next-Gen Student Opportunity Discovery Engine and Application Tracker. Internships, scholarships, and fellowships with verified eligibility audits.">
-<title>Opportunity Hunter &mdash; Internships, Scholarships &amp; Programs</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --font-display: "Outfit", sans-serif;
-  --font-body: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opportunity Hunter 2.0 — Your Personal Career &amp; Opportunity Companion</title>
+  <meta name="description" content="Discover verified student internships, scholarships, fellowships, and developer programs with explainable eligibility audits, Kanban tracking, and AI career guidance.">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  /* Premium Dark Theme (Default) */
-  --bg: #07090e;
-  --bg-elevated: #0d111a;
-  --card: #121826;
-  --card-subtle: #161e30;
-  --card-hover: #1a243a;
+  <style>
+
+/* MODERN SAAS THEME TOKENS */
+:root {
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', var(--font-main);
+  
+  /* Color Palette: Navy, Lavender, Off-white & Accents */
+  --bg-base: #0a0f1d;
+  --bg-card: #11182c;
+  --bg-card-elevated: #18223d;
+  --bg-subtle: #1e2945;
   --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.16);
   --border-hover: rgba(99, 102, 241, 0.4);
-
-  --ink: #f8fafc;
-  --ink-secondary: #cbd5e1;
-  --mute: #94a3b8;
-  --mute-light: #64748b;
-
-  /* Vibrant Neon Palettes */
-  --brand: #6366f1;
-  --brand-hover: #4f46e5;
-  --brand-light: rgba(99, 102, 241, 0.14);
-  --brand-border: rgba(99, 102, 241, 0.35);
-  --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #06b6d4 100%);
-  --brand-glow: rgba(99, 102, 241, 0.3);
-
-  --accent-gold: #f59e0b;
-  --accent-gold-glow: rgba(245, 158, 11, 0.3);
-  --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #fbbf24 60%, #ea580c 100%);
-
-  --ok: #10b981;
-  --ok-bg: rgba(16, 185, 129, 0.12);
-  --ok-line: rgba(16, 185, 129, 0.35);
-  --ok-glow: rgba(16, 185, 129, 0.3);
-
-  --warn: #fbbf24;
-  --warn-bg: rgba(251, 191, 36, 0.12);
-  --warn-line: rgba(251, 191, 36, 0.35);
-
-  --bad: #f43f5e;
-  --bad-bg: rgba(244, 63, 94, 0.12);
-  --bad-line: rgba(244, 63, 94, 0.35);
-
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 16px 36px -4px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 35px -5px rgba(99, 102, 241, 0.25);
-
-  --radius-xs: 8px;
-  --radius-sm: 12px;
-  --radius-md: 18px;
-  --radius-lg: 24px;
-  --radius-pill: 9999px;
-
-  --trans: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-  --trans-spring: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --border-focus: #6366f1;
+  
+  --primary: #6366f1;
+  --primary-hover: #4f46e5;
+  --primary-glow: rgba(99, 102, 241, 0.25);
+  --lavender: #818cf8;
+  --lavender-soft: #c7d2fe;
+  
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+  
+  --success: #10b981;
+  --success-bg: rgba(16, 185, 129, 0.12);
+  --warning: #f59e0b;
+  --warning-bg: rgba(245, 158, 11, 0.12);
+  --danger: #ef4444;
+  --danger-bg: rgba(239, 68, 68, 0.12);
+  --info: #38bdf8;
+  --info-bg: rgba(56, 189, 248, 0.12);
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  
+  --header-h: 72px;
 }
 
-/* Light Theme Mode */
-:root[data-theme="light"]{
-  --bg: #f8fafc;
-  --bg-elevated: #ffffff;
-  --card: #ffffff;
-  --card-subtle: #f1f5f9;
-  --card-hover: #f8fafc;
-  --border: rgba(15, 23, 42, 0.08);
-  --border-strong: rgba(15, 23, 42, 0.16);
-  --border-hover: rgba(79, 70, 229, 0.35);
-
-  --ink: #0f172a;
-  --ink-secondary: #334155;
-  --mute: #64748b;
-  --mute-light: #94a3b8;
-
-  --brand: #4f46e5;
-  --brand-hover: #4338ca;
-  --brand-light: #eef2ff;
-  --brand-border: #c7d2fe;
-  --brand-gradient: linear-gradient(135deg, #4f46e5 0%, #6366f1 60%, #0284c7 100%);
-  --brand-glow: rgba(79, 70, 229, 0.2);
-
-  --accent-gold: #d97706;
-  --accent-gold-glow: rgba(217, 119, 6, 0.2);
-  --gold-gradient: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-
-  --ok: #059669;
-  --ok-bg: #ecfdf5;
-  --ok-line: #a7f3d0;
-  --ok-glow: rgba(5, 150, 105, 0.2);
-
-  --warn: #d97706;
-  --warn-bg: #fffbeb;
-  --warn-line: #fde68a;
-
-  --bad: #e11d48;
-  --bad-bg: #fff1f2;
-  --bad-line: #fecdd3;
-
-  --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.05);
-  --shadow-md: 0 10px 20px -3px rgba(15, 23, 42, 0.08);
-  --shadow-lg: 0 20px 30px -6px rgba(15, 23, 42, 0.1);
-  --shadow-glow: 0 0 35px -5px rgba(79, 70, 229, 0.15);
+[data-theme="light"] {
+  --bg-base: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-elevated: #f1f5f9;
+  --bg-subtle: #e2e8f0;
+  --border: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(99, 102, 241, 0.4);
+  --border-focus: #6366f1;
+  
+  --text-main: #0f172a;
+  --text-muted: #475569;
+  --text-dim: #94a3b8;
+  
+  --primary-glow: rgba(99, 102, 241, 0.15);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
-*, *::before, *::after{
+/* BASE RESET */
+*, *::before, *::after {
   box-sizing: border-box;
-}
-
-html{
-  scroll-padding-top: calc(env(safe-area-inset-top, 0px) + 80px);
-  scroll-behavior: smooth;
-}
-
-body{
   margin: 0;
-  background: var(--bg);
-  color: var(--ink);
-  font: 15px/1.65 var(--font-body);
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-main);
+  background: var(--bg-base);
+  color: var(--text-main);
+  scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  padding-bottom: 90px;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
   overflow-x: hidden;
-  position: relative;
 }
 
-@media(min-width: 680px){
-  body{
-    padding-bottom: 40px;
-  }
-}
-
-/* Ambient glow & dot grid background */
-.ambient-mesh{
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-.ambient-glow-1{
-  position: absolute;
-  top: -150px;
-  right: -100px;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(99, 102, 241, 0.18) 0%, transparent 70%);
-  filter: blur(80px);
-  opacity: 0.8;
-}
-.ambient-glow-2{
-  position: absolute;
-  top: 100px;
-  left: -200px;
-  width: 500px;
-  height: 500px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.12) 0%, transparent 70%);
-  filter: blur(90px);
-  opacity: 0.7;
-}
-.ambient-grid{
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 32px 32px;
-  opacity: 0.6;
-}
-
-a{
-  color: var(--brand);
-  text-decoration: none;
-  transition: var(--trans);
-}
-a:hover{
-  text-decoration: underline;
-}
-
-/* FLOATING HEADER */
-header{
+/* TOP NAVBAR */
+header.app-header {
   position: sticky;
   top: 0;
-  z-index: 50;
-  background: rgba(7, 9, 14, 0.8);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  z-index: 100;
+  height: var(--header-h);
+  background: rgba(10, 15, 29, 0.85);
+  backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--border);
-  transition: var(--trans);
-}
-
-:root[data-theme="light"] header{
-  background: rgba(255, 255, 255, 0.85);
-}
-
-.bar{
-  max-width: 1320px;
-  margin: auto;
-  padding: 14px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
+  padding: 0 28px;
+  transition: all 0.3s ease;
 }
 
-.logo-wrap{
+[data-theme="light"] header.app-header {
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.brand {
   display: flex;
   align-items: center;
   gap: 12px;
   text-decoration: none;
+  color: var(--text-main);
 }
 
-.logo-icon{
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-sm);
-  background: var(--brand-gradient);
+.brand-icon {
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, var(--primary), #a855f7);
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px var(--brand-glow);
-  color: #ffffff;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
+  box-shadow: 0 0 16px var(--primary-glow);
+  color: #fff;
 }
 
-.logo-icon::after{
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, transparent 60%);
-}
-
-.logo-text{
+.brand-title {
   font-family: var(--font-display);
-  font-weight: 800;
   font-size: 1.25rem;
-  letter-spacing: -0.5px;
-  color: var(--ink);
+  font-weight: 800;
+  letter-spacing: -0.02em;
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.logo-badge{
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid rgba(245, 158, 11, 0.35);
-  color: #fbbf24;
+.brand-badge {
   font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.8px;
+  font-weight: 700;
+  padding: 2px 7px;
+  background: var(--primary-glow);
+  color: var(--lavender);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: var(--radius-full);
   text-transform: uppercase;
-  padding: 3px 8px;
-  border-radius: var(--radius-pill);
 }
 
-/* NAVIGATION TABS */
-.nav-desktop{
-  display: none;
-  gap: 6px;
-  background: var(--card);
-  padding: 5px;
-  border-radius: var(--radius-pill);
+/* NAV TABS */
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-card);
+  padding: 4px;
+  border-radius: var(--radius-full);
   border: 1px solid var(--border);
 }
-@media(min-width: 720px){
-  .nav-desktop{
-    display: flex;
-  }
-}
 
-.nav-btn{
+.nav-tab-btn {
   background: transparent;
-  border: 0;
-  color: var(--mute);
-  font: inherit;
+  border: none;
+  padding: 8px 16px;
+  font-size: 0.875rem;
   font-weight: 600;
-  font-size: 0.86rem;
-  padding: 8px 18px;
-  border-radius: var(--radius-pill);
+  color: var(--text-muted);
+  border-radius: var(--radius-full);
   cursor: pointer;
-  white-space: nowrap;
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: var(--trans);
+  gap: 6px;
+  transition: all 0.2s ease;
 }
 
-.nav-btn:hover{
-  color: var(--ink);
-  background: rgba(255, 255, 255, 0.05);
+.nav-tab-btn:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.04);
 }
 
-.nav-btn.on{
-  background: var(--brand-gradient);
+.nav-tab-btn.active {
+  background: var(--primary);
   color: #ffffff;
-  box-shadow: 0 4px 14px var(--brand-glow);
+  box-shadow: 0 2px 10px var(--primary-glow);
 }
 
-.nav-badge{
-  background: rgba(255, 255, 255, 0.25);
-  color: #ffffff;
-  border-radius: var(--radius-pill);
-  padding: 1px 7px;
+.tab-badge {
   font-size: 0.72rem;
-  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.2);
+  color: inherit;
+  font-weight: 700;
 }
 
-.header-right{
+/* HEADER CONTROLS */
+.header-actions {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
-.backend-indicator{
-  display: none;
+.status-pill {
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  font-size: 0.76rem;
-  color: var(--ink-secondary);
+  gap: 6px;
+  font-size: 0.78rem;
   font-weight: 600;
-}
-@media(min-width: 960px){
-  .backend-indicator{
-    display: inline-flex;
-  }
+  padding: 5px 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
 }
 
-.dot{
+.status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--ok);
-  box-shadow: 0 0 10px var(--ok);
-  animation: pulseDot 2s infinite;
-}
-.dot.warn{
-  background: var(--accent-gold);
-  box-shadow: 0 0 10px var(--accent-gold);
-}
-@keyframes pulseDot{
-  0%, 100%{ opacity: 1; transform: scale(1); }
-  50%{ opacity: 0.6; transform: scale(0.85); }
+  background: var(--warning);
 }
 
-.theme-toggle{
-  background: var(--card);
+.status-dot.live {
+  background: var(--success);
+  box-shadow: 0 0 8px var(--success);
+}
+
+.icon-btn {
+  background: var(--bg-card);
   border: 1px solid var(--border);
-  color: var(--ink);
-  border-radius: var(--radius-pill);
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  color: var(--text-main);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--trans);
-  font-size: 1.05rem;
-}
-.theme-toggle:hover{
-  border-color: var(--border-strong);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-/* HERO SECTION */
-.hero{
-  position: relative;
-  z-index: 2;
-  padding: 64px 24px 92px;
-  text-align: center;
+.icon-btn:hover {
+  background: var(--bg-card-elevated);
+  border-color: var(--border-hover);
 }
 
-.hero-in{
-  max-width: 980px;
-  margin: auto;
-}
-
-.hero-pill-badge{
-  display: inline-flex;
+.header-avatar-btn {
+  display: flex;
   align-items: center;
   gap: 8px;
-  background: rgba(99, 102, 241, 0.12);
-  border: 1px solid rgba(99, 102, 241, 0.3);
-  color: #a5b4fc;
-  border-radius: var(--radius-pill);
-  padding: 6px 16px;
-  font-size: 0.78rem;
+  padding: 4px 10px 4px 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  color: var(--text-main);
+}
+
+.avatar-disc {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--lavender));
+  color: #fff;
   font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  margin-bottom: 22px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(99, 102, 241, 0.15);
-}
-
-.hero h1{
-  font-family: var(--font-display);
-  font-size: clamp(2.3rem, 5.5vw, 3.8rem);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -1.5px;
-  margin: 0 0 18px;
-  color: var(--ink);
-}
-
-.hero h1 .gradient-text{
-  background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 70%, #38bdf8 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-:root[data-theme="light"] .hero h1 .gradient-text{
-  background: linear-gradient(135deg, #1e1b4b 20%, #4f46e5 70%, #0284c7 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero p{
-  font-size: 1.14rem;
-  color: var(--mute);
-  max-width: 720px;
-  margin: 0 auto 36px;
-  line-height: 1.65;
-}
-
-/* SEARCH COMMAND DECK */
-.search-deck{
-  background: rgba(18, 24, 38, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  padding: 10px;
-  box-shadow: var(--shadow-glow), var(--shadow-lg);
+  font-size: 0.85rem;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  transition: var(--trans);
-  max-width: 860px;
-  margin: auto;
+  align-items: center;
+  justify-content: center;
 }
 
-:root[data-theme="light"] .search-deck{
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 20px 40px -10px rgba(79, 70, 229, 0.15), 0 0 0 1px rgba(79, 70, 229, 0.1);
-}
-
-@media(min-width: 680px){
-  .search-deck{
-    flex-direction: row;
-    align-items: center;
-    padding: 10px 14px;
-  }
-}
-
-.search-input-wrap{
+/* MAIN CONTAINER */
+main.app-main {
   flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 6px 10px;
-}
-
-.search-input-wrap svg{
-  color: var(--brand);
-  flex-shrink: 0;
-}
-
-.search-input-wrap input{
+  max-width: 1400px;
   width: 100%;
-  border: 0;
-  font-size: 1.1rem;
-  font-weight: 500;
-  padding: 10px 0;
-  background: transparent;
-  color: var(--ink);
-  outline: none;
-  font-family: inherit;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
 }
 
-.search-input-wrap input::placeholder{
-  color: var(--mute-light);
-}
-
-.search-actions{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-/* BUTTONS */
-.btn{
-  font-family: var(--font-body);
-  font-weight: 700;
-  font-size: 0.94rem;
-  padding: 12px 22px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  border: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: var(--trans-spring);
-  min-height: 48px;
-  text-decoration: none;
-}
-
-.btn:hover{
-  transform: translateY(-2px);
-  text-decoration: none;
-}
-.btn:active{
-  transform: scale(0.98);
-}
-
-.btn-primary{
-  background: var(--brand-gradient);
-  color: #ffffff;
-  box-shadow: 0 6px 20px var(--brand-glow);
-}
-.btn-primary:hover{
-  box-shadow: 0 8px 28px rgba(99, 102, 241, 0.5);
-}
-
-.btn-gold{
-  background: var(--gold-gradient);
-  color: #0f172a;
-  box-shadow: 0 4px 18px var(--accent-gold-glow);
-}
-.btn-gold:hover{
-  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.45);
-}
-
-.btn-subtle{
-  background: var(--card-subtle);
-  border: 1px solid var(--border);
-  color: var(--ink);
-}
-.btn-subtle:hover{
-  background: var(--card-hover);
-  border-color: var(--border-strong);
-}
-
-.btn-sm{
-  padding: 8px 14px;
-  font-size: 0.82rem;
-  min-height: 38px;
-  border-radius: var(--radius-xs);
-}
-
-.btn-icon{
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  border-radius: var(--radius-xs);
-  flex-shrink: 0;
-}
-
-/* HERO QUICK TAGS */
-.hero-pills{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 22px;
-  justify-content: center;
-  align-items: center;
-}
-
-.hero-pills-label{
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--mute-light);
-  text-transform: uppercase;
-  letter-spacing: 0.6px;
-}
-
-.hero-tag-btn{
-  background: var(--card);
-  border: 1px solid var(--border);
-  color: var(--ink-secondary);
-  border-radius: var(--radius-pill);
-  padding: 6px 14px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--trans);
-  backdrop-filter: blur(8px);
-}
-.hero-tag-btn:hover{
-  border-color: var(--brand);
-  color: #ffffff;
-  background: var(--brand-light);
-  transform: translateY(-2px);
-}
-
-/* MAIN APPLICATION WRAPPER */
-main{
-  position: relative;
-  z-index: 10;
-  max-width: 1320px;
-  margin: auto;
-  padding: 0 24px;
-}
-
-/* BENTO PANELS */
-.bento-card{
-  background: var(--card);
+/* BENTO CARDS & SURFACES */
+.bento-card {
+  background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 26px;
-  margin-bottom: 24px;
+  padding: 24px;
   box-shadow: var(--shadow-sm);
-  transition: var(--trans);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
 }
 
-.bento-card:hover{
-  border-color: var(--border-strong);
+.bento-card:hover {
+  border-color: var(--border-hover);
 }
 
-.card-title-bar{
+.card-header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin-bottom: 20px;
-  gap: 12px;
-  flex-wrap: wrap;
 }
 
-.card-title{
-  font-family: var(--font-display);
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--ink);
-  letter-spacing: -0.3px;
+.card-title-group {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.card-title::before{
-  content: "";
-  display: inline-block;
-  width: 4px;
-  height: 18px;
-  background: var(--brand-gradient);
-  border-radius: 4px;
-}
-
-/* STUDENT PROFILE BENTO HUD */
-.profile-hud{
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 18px;
-  background: var(--card-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 16px 22px;
-}
-
-.profile-identity-group{
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.profile-avatar-circle{
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--brand-gradient);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.card-title {
   font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 1.3rem;
-  color: #ffffff;
-  box-shadow: 0 4px 16px var(--brand-glow);
-  flex-shrink: 0;
-  border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.profile-info h4{
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 800;
-  color: var(--ink);
-}
-
-.profile-meta-tags{
-  font-size: 0.84rem;
-  color: var(--mute);
-  margin-top: 4px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-
-.pill-badge{
-  background: var(--brand-light);
-  border: 1px solid var(--brand-border);
-  color: #818cf8;
-  padding: 2px 10px;
-  border-radius: var(--radius-pill);
+  font-size: 1.15rem;
   font-weight: 700;
-  font-size: 0.74rem;
+  letter-spacing: -0.01em;
 }
 
-/* STRENGTH METER */
-.strength-box{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--mute);
+.card-subtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
-.strength-bar{
-  width: 110px;
-  height: 8px;
-  border-radius: var(--radius-pill);
-  background: rgba(255, 255, 255, 0.1);
-  overflow: hidden;
-}
-
-.strength-fill{
-  height: 100%;
-  border-radius: var(--radius-pill);
-  background: var(--brand-gradient);
-  transition: width 0.4s ease;
-}
-
-/* FORM GRID */
-.grid{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
-
-@media(min-width: 520px){
-  .grid{ grid-template-columns: repeat(2, 1fr); }
-}
-@media(min-width: 900px){
-  .grid{ grid-template-columns: repeat(3, 1fr); }
-}
-
-label{
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 800;
-  color: var(--mute);
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-}
-
-input, select{
-  width: 100%;
-  padding: 12px 16px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  background: var(--card-subtle);
-  color: var(--ink);
-  font-size: 0.95rem;
-  font-family: inherit;
-  transition: var(--trans);
-  min-height: 46px;
-}
-
-input:focus, select:focus{
-  outline: none;
-  border-color: var(--brand);
-  box-shadow: 0 0 0 3px var(--brand-glow);
-  background: var(--card);
-}
-
-/* QUICK ADD SKILL TAGS */
-.skill-tags-group{
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 10px;
-}
-
-.skill-tag-btn{
-  background: var(--card-subtle);
-  border: 1px dashed var(--border-strong);
-  color: var(--mute);
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  font-size: 0.76rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--trans);
-}
-
-.skill-tag-btn:hover{
-  background: var(--brand-light);
-  border-color: var(--brand);
-  color: #ffffff;
-}
-
-.skill-tag-btn.active{
-  background: var(--brand);
-  border-color: var(--brand);
-  color: #ffffff;
-}
-
-/* BENTO KPIS STRIP */
-.kpis{
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-bottom: 24px;
-}
-
-@media(min-width: 720px){
-  .kpis{
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.kpi{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  transition: var(--trans-spring);
-  position: relative;
-  overflow: hidden;
-}
-
-.kpi::before{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--brand-gradient);
-}
-.kpi:nth-child(2)::before{
-  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
-}
-.kpi:nth-child(3)::before{
-  background: var(--gold-gradient);
-}
-.kpi:nth-child(4)::before{
-  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
-}
-
-.kpi:hover{
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--border-strong);
-}
-
-.kpi b{
-  font-family: var(--font-display);
-  display: block;
-  font-size: 2rem;
-  line-height: 1;
-  font-weight: 900;
-  color: var(--ink);
-  letter-spacing: -0.5px;
-}
-
-.kpi span{
-  font-size: 0.76rem;
-  color: var(--mute);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  font-weight: 700;
-  margin-top: 6px;
-  display: block;
-}
-
-/* SEARCH & FILTER BAR */
-.filter-deck{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 20px;
-  margin-bottom: 26px;
-  box-shadow: var(--shadow-sm);
-}
-
-.filter-top-bar{
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-@media(min-width: 760px){
-  .filter-top-bar{
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-}
-
-.filter-search-box{
-  flex: 1;
-  position: relative;
-  min-width: 220px;
-}
-
-.filter-search-box input{
-  padding-left: 42px;
-  min-height: 44px;
-}
-
-.filter-search-icon{
-  position: absolute;
-  left: 14px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--mute);
-  pointer-events: none;
-}
-
-.pills-scroll-row{
-  display: flex;
-  gap: 6px;
-  overflow-x: auto;
-  padding-bottom: 4px;
-  scrollbar-width: none;
-  align-items: center;
-}
-.pills-scroll-row::-webkit-scrollbar{
-  display: none;
-}
-
-.pill-filter{
-  background: var(--card-subtle);
-  border: 1px solid var(--border);
-  color: var(--mute);
-  border-radius: var(--radius-pill);
-  padding: 7px 16px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: var(--trans);
+/* BUTTONS */
+.btn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-}
-
-.pill-filter:hover{
-  background: var(--card-hover);
-  color: var(--ink);
-  border-color: var(--border-strong);
-}
-
-.pill-filter.on{
-  background: var(--brand-light);
-  border-color: var(--brand);
-  color: #818cf8;
-  font-weight: 800;
-  box-shadow: 0 0 16px var(--brand-glow);
-}
-
-.advanced-filters-drawer{
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px dashed var(--border);
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 14px;
-}
-
-@media(min-width: 480px){
-  .advanced-filters-drawer{ grid-template-columns: repeat(2, 1fr); }
-}
-@media(min-width: 860px){
-  .advanced-filters-drawer{ grid-template-columns: repeat(3, 1fr); }
-}
-@media(min-width: 1100px){
-  .advanced-filters-drawer{ grid-template-columns: repeat(6, 1fr); }
-}
-
-.filter-footer-bar{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 16px;
-  font-size: 0.86rem;
-  color: var(--mute);
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-/* CARDS STREAM */
-.cards{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 22px;
-}
-
-@media(min-width: 720px){
-  .cards{
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 390px), 1fr));
-  }
-}
-
-.card{
-  background: var(--card);
-  border: 1px solid var(--border);
+  justify-content: center;
+  gap: 8px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 10px 18px;
   border-radius: var(--radius-md);
-  padding: 24px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  box-shadow: 0 4px 14px var(--primary-glow);
+}
+
+.btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.btn-subtle {
+  background: var(--bg-card-elevated);
+  color: var(--text-main);
+  border: 1px solid var(--border);
+}
+
+.btn-subtle:hover {
+  border-color: var(--border-hover);
+  background: var(--bg-subtle);
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 0.8rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-danger {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.btn-danger:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* FORM ELEMENTS */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.form-group {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  box-shadow: var(--shadow-sm);
-  transition: var(--trans-spring);
-  position: relative;
-  overflow: hidden;
-}
-
-.card::before{
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
-  transition: var(--trans);
-}
-
-.card:hover{
-  transform: translateY(-5px);
-  border-color: var(--border-hover);
-  box-shadow: var(--shadow-lg), 0 0 30px -10px var(--brand-glow);
-}
-
-.card:hover::before{
-  background: var(--brand-gradient);
-  height: 3px;
-}
-
-.card-header{
-  display: flex;
-  justify-content: space-between;
-  gap: 14px;
-  align-items: flex-start;
-}
-
-.card-org-line{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 0.84rem;
-  color: var(--mute);
-  margin-bottom: 6px;
-}
-
-.org-avatar{
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  background: var(--brand-light);
-  color: var(--brand);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.74rem;
-  flex-shrink: 0;
-  border: 1px solid var(--brand-border);
-}
-
-.card h3{
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.2rem;
-  font-weight: 800;
-  line-height: 1.35;
-  color: var(--ink);
-  letter-spacing: -0.3px;
-}
-
-/* MATCH SCORE DIAL */
-.match-score{
-  flex-shrink: 0;
-  min-width: 72px;
-  padding: 8px 6px;
-  border-radius: var(--radius-sm);
-  background: var(--card-subtle);
-  border: 1px solid var(--border);
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.match-score.high{
-  border-color: var(--ok-line);
-  background: var(--ok-bg);
-}
-.match-score.high b{
-  color: var(--ok);
-  text-shadow: 0 0 10px var(--ok-glow);
-}
-
-.match-score.med{
-  border-color: var(--brand-border);
-  background: var(--brand-light);
-}
-.match-score.med b{
-  color: #818cf8;
-}
-
-.match-score b{
-  font-family: var(--font-display);
-  display: block;
-  font-size: 1.35rem;
-  line-height: 1;
-  font-weight: 900;
-  letter-spacing: -0.5px;
-}
-
-.match-score small{
-  display: block;
-  font-size: 0.64rem;
-  font-weight: 800;
-  letter-spacing: 0.8px;
-  color: var(--mute);
-  text-transform: uppercase;
-  margin-top: 3px;
-}
-
-/* BADGES & CHIPS */
-.chips{
-  display: flex;
-  flex-wrap: wrap;
   gap: 6px;
-  align-items: center;
 }
 
-.chip{
-  background: var(--card-subtle);
+label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+input, select, textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.9rem;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  background: var(--bg-card-elevated);
   border: 1px solid var(--border);
-  color: var(--mute);
-  border-radius: var(--radius-pill);
-  padding: 4px 12px;
-  font-size: 0.76rem;
-  font-weight: 700;
+  color: var(--text-main);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+/* PILLS & BADGES */
+.badge {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-}
-
-.chip.ok{
-  background: var(--ok-bg);
-  color: var(--ok);
-  border-color: var(--ok-line);
-}
-.chip.warn{
-  background: var(--warn-bg);
-  color: var(--warn);
-  border-color: var(--warn-line);
-}
-.chip.bad{
-  background: var(--bad-bg);
-  color: var(--bad);
-  border-color: var(--bad-line);
-}
-.chip.brand{
-  background: var(--brand-light);
-  color: #818cf8;
-  border-color: var(--brand-border);
-}
-
-/* DETAILS & AUDIT ACCORDION */
-details{
-  border-top: 1px dashed var(--border);
-  padding-top: 14px;
-  margin-top: 6px;
-}
-
-summary{
-  cursor: pointer;
+  font-size: 0.75rem;
   font-weight: 700;
-  font-size: 0.88rem;
-  color: var(--brand);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badge-success { background: var(--success-bg); color: var(--success); border: 1px solid rgba(16, 185, 129, 0.25); }
+.badge-warning { background: var(--warning-bg); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.25); }
+.badge-danger { background: var(--danger-bg); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.25); }
+.badge-info { background: var(--info-bg); color: var(--info); border: 1px solid rgba(56, 189, 248, 0.25); }
+.badge-lavender { background: rgba(99, 102, 241, 0.15); color: var(--lavender); border: 1px solid rgba(99, 102, 241, 0.3); }
+
+/* DASHBOARD OVERVIEW */
+.hero-deck {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.welcome-card {
+  background: linear-gradient(135deg, var(--bg-card), #161e38);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.kpi-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-hover);
+}
+
+.kpi-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  background: var(--bg-card-elevated);
+}
+
+.kpi-num {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.kpi-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+/* OPPORTUNITY CARDS */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: 20px;
+}
+
+.opp-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+.opp-card:hover {
+  border-color: var(--border-hover);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  transform: translateY(-2px);
+}
+
+.opp-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.opp-org-badge {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--lavender);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.opp-title {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin-top: 4px;
+}
+
+/* MATCH DIAL */
+.match-dial {
+  width: 56px;
+  height: 56px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.match-dial svg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.match-dial-text {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+/* KANBAN BOARD */
+.kanban-board {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+  min-height: 600px;
+}
+
+.kanban-col {
+  flex: 0 0 310px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  max-height: 800px;
+}
+
+.kanban-col-header {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--border);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  list-style: none;
-  padding: 4px 0;
-  user-select: none;
-  transition: var(--trans);
+  font-size: 0.88rem;
+  font-weight: 700;
 }
 
-summary::-webkit-details-marker{
-  display: none;
-}
-
-summary::after{
-  content: "▾";
-  font-size: 1.1rem;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-details[open] summary::after{
-  transform: rotate(180deg);
-}
-
-.audit-section{
-  margin-top: 12px;
-  background: var(--card-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px 16px;
-}
-
-.audit-section h4{
-  margin: 0 0 8px;
-  font-size: 0.74rem;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--mute);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.audit-section ul{
-  margin: 0;
-  padding-left: 20px;
-  font-size: 0.85rem;
-}
-
-.audit-section li{
-  margin-bottom: 5px;
-}
-.audit-section li.y::marker{ color: var(--ok); }
-.audit-section li.n::marker{ color: var(--bad); }
-.audit-section li.m::marker{ color: var(--warn); }
-
-/* CARD ACTIONS */
-.card-actions{
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: auto;
-  padding-top: 10px;
-}
-
-@media(min-width: 440px){
-  .card-actions{
-    flex-direction: row;
-    align-items: center;
-  }
-  .card-actions .btn{
-    flex: 1;
-  }
-}
-
-.card-actions select{
-  flex: 1;
-  font-size: 0.86rem;
-  min-height: 42px;
-}
-
-/* DEADLINE RADAR & KANBAN */
-.radar, .board{
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
-}
-
-@media(min-width: 720px){
-  .radar, .board{
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  }
-}
-
-.rcol{
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-top: 4px solid var(--brand);
-  border-radius: var(--radius-md);
-  padding: 18px;
+.kanban-col-body {
+  padding: 14px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  box-shadow: var(--shadow-sm);
+  overflow-y: auto;
+  flex: 1;
 }
 
-.rcol.bad{ border-top-color: var(--bad); }
-.rcol.warn{ border-top-color: var(--warn); }
-.rcol.ok{ border-top-color: var(--ok); }
-.rcol.mute{ border-top-color: var(--mute-light); }
-
-.rcol-head{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.86rem;
-  font-weight: 800;
-  letter-spacing: -0.2px;
-}
-
-.rcol-badge{
-  background: var(--card-subtle);
-  border: 1px solid var(--border);
-  padding: 3px 9px;
-  border-radius: var(--radius-pill);
-  font-size: 0.74rem;
-  font-weight: 800;
-}
-
-.ritem{
-  background: var(--card-subtle);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  font-size: 0.86rem;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  transition: var(--trans);
-}
-
-.ritem:hover{
-  border-color: var(--border-strong);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-
-.ritem a{
-  font-weight: 700;
-  color: var(--ink);
-  line-height: 1.35;
-}
-.ritem a:hover{
-  color: var(--brand);
-}
-
-/* SKELETON LOADERS */
-.skeleton-card{
-  background: var(--card);
+.kanban-item {
+  background: var(--bg-card-elevated);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
+  padding: 14px;
+  cursor: grab;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.kanban-item:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+}
+
+/* RESUME ANALYZER */
+.dropzone {
+  border: 2px dashed var(--border-hover);
+  background: var(--bg-card-elevated);
+  border-radius: var(--radius-lg);
+  padding: 40px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.dropzone:hover, .dropzone.dragover {
+  border-color: var(--primary);
+  background: rgba(99, 102, 241, 0.06);
+}
+
+/* CAREER ASSISTANT CHAT */
+.chat-window {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  height: 650px;
+  overflow: hidden;
+}
+
+.chat-messages {
+  flex: 1;
   padding: 24px;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
 }
 
-.skeleton-shimmer{
-  background: linear-gradient(90deg, var(--card-subtle) 25%, var(--border-strong) 50%, var(--card-subtle) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: var(--radius-xs);
+.chat-bubble {
+  max-width: 80%;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
-@keyframes shimmer{
-  0%{ background-position: 200% 0; }
-  100%{ background-position: -200% 0; }
+.chat-bubble.bot {
+  background: var(--bg-card-elevated);
+  border: 1px solid var(--border);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
 }
 
-/* STATUS BANNER */
-.status{
-  padding: 16px 22px;
-  border-radius: var(--radius-sm);
-  background: var(--brand-light);
-  color: #818cf8;
-  margin-bottom: 22px;
-  font-size: 0.94rem;
-  font-weight: 600;
-  border-left: 4px solid var(--brand);
+.chat-bubble.user {
+  background: var(--primary);
+  color: #fff;
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-input-bar {
+  padding: 16px 20px;
+  background: var(--bg-card-elevated);
+  border-top: 1px solid var(--border);
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 12px;
 }
-
-.status.err{
-  background: var(--bad-bg);
-  color: var(--bad);
-  border-left-color: var(--bad);
-}
-
-.status.info{
-  background: var(--card-subtle);
-  color: var(--ink);
-  border-left-color: var(--accent-gold);
-}
-
-.spin{
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  border: 2.5px solid currentColor;
-  border-top-color: transparent;
-  border-radius: 50%;
-  animation: spinAnim 0.75s linear infinite;
-  vertical-align: -3px;
-}
-@keyframes spinAnim{ to{ transform: rotate(360deg); } }
 
 /* TOASTS */
-#toast-container{
+#toast-box {
   position: fixed;
   bottom: 24px;
   right: 24px;
-  z-index: 999;
+  z-index: 9999;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  pointer-events: none;
 }
 
-.toast{
-  background: rgba(18, 24, 38, 0.95);
-  backdrop-filter: blur(16px);
-  color: #ffffff;
-  padding: 14px 20px;
-  border-radius: var(--radius-sm);
-  font-size: 0.88rem;
-  font-weight: 700;
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4);
-  border: 1px solid var(--border-strong);
+.toast-msg {
+  background: #1e2945;
+  color: #fff;
+  border: 1px solid var(--border-hover);
+  padding: 12px 18px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
   display: flex;
   align-items: center;
-  gap: 12px;
-  pointer-events: auto;
-  animation: slideToast 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  max-width: 380px;
+  gap: 10px;
+  font-size: 0.88rem;
+  animation: slideIn 0.3s ease;
 }
 
-@keyframes slideToast{
-  from{ opacity: 0; transform: translateY(20px); }
-  to{ opacity: 1; transform: translateY(0); }
+@keyframes slideIn {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
 }
 
-/* MOBILE NAV DOCK */
-.mobile-nav{
-  display: flex;
+/* MOBILE BOTTOM NAV */
+.mobile-dock {
+  display: none;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 50;
-  background: rgba(13, 17, 26, 0.92);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  height: 64px;
+  background: rgba(10, 15, 29, 0.95);
+  backdrop-filter: blur(16px);
   border-top: 1px solid var(--border);
-  padding: 8px 16px calc(8px + env(safe-area-inset-bottom, 0px));
-  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.4);
+  z-index: 100;
+  align-items: center;
   justify-content: space-around;
+  padding: 0 8px;
 }
 
-@media(min-width: 720px){
-  .mobile-nav{
-    display: none;
-  }
+[data-theme="light"] .mobile-dock {
+  background: rgba(255, 255, 255, 0.95);
 }
 
-.m-nav-btn{
-  flex: 1;
-  background: none;
-  border: 0;
-  color: var(--mute);
-  padding: 6px 4px;
-  font-size: 0.74rem;
-  font-weight: 700;
+.m-tab-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  font-size: 0.72rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: var(--trans);
-  position: relative;
+  padding: 6px;
 }
 
-.m-nav-btn.on{
-  color: #818cf8;
+.m-tab-btn.active {
+  color: var(--primary);
 }
 
-.m-badge{
-  position: absolute;
-  top: 2px;
-  right: calc(50% - 16px);
-  background: var(--gold-gradient);
-  color: #0f172a;
-  font-size: 0.65rem;
-  font-weight: 800;
-  border-radius: var(--radius-pill);
-  padding: 1px 5px;
-  line-height: 1;
+/* RESPONSIVE QUERIES */
+@media (max-width: 1024px) {
+  .hero-deck { grid-template-columns: 1fr; }
+  .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+  .cards-grid { grid-template-columns: 1fr; }
 }
 
-footer{
-  max-width: 1320px;
-  margin: auto;
-  padding: 0 24px 32px;
-  color: var(--mute);
-  font-size: 0.85rem;
-  text-align: center;
+@media (max-width: 768px) {
+  .nav-tabs { display: none; }
+  .mobile-dock { display: flex; }
+  header.app-header { padding: 0 16px; }
+  main.app-main { padding: 16px 14px 80px; }
+  .kpi-grid { grid-template-columns: 1fr; }
 }
-</style>
+
+  </style>
 </head>
 <body>
 
-<div class="ambient-mesh">
-  <div class="ambient-glow-1"></div>
-  <div class="ambient-glow-2"></div>
-  <div class="ambient-grid"></div>
-</div>
-
-<header>
-  <div class="bar">
-    <a class="logo-wrap" href="#top">
-      <div class="logo-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5">
-          <circle cx="12" cy="12" r="10"/>
-          <circle cx="12" cy="12" r="5" stroke="#fde047" stroke-width="2"/>
-          <circle cx="12" cy="12" r="1.5" fill="#fde047"/>
-        </svg>
+<!-- APPLICATION HEADER -->
+<header class="app-header">
+  <div style="display:flex; align-items:center; gap:24px;">
+    <a href="#" class="brand" onclick="showTab('dashboard'); return false;">
+      <div class="brand-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
       </div>
-      <div class="logo-text">
+      <div class="brand-title">
         Opportunity Hunter
-        <span class="logo-badge">Pro 2.0</span>
+        <span class="brand-badge">2.0 Pro</span>
       </div>
     </a>
-    
-    <nav class="nav-desktop" id="nav-desktop">
-      <button data-v="discover" class="nav-btn on">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <span>Discover</span>
+
+    <!-- TOP NAVIGATION TABS (DESKTOP) -->
+    <nav class="nav-tabs" aria-label="Main Navigation">
+      <button class="nav-tab-btn active" data-tab="dashboard" onclick="showTab('dashboard')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+        Dashboard
       </button>
-      <button data-v="radar" class="nav-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="m12 12 5-5"/></svg>
-        <span>Deadline Radar</span>
+      <button class="nav-tab-btn" data-tab="discover" onclick="showTab('discover')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        Discover
       </button>
-      <button data-v="tracker" class="nav-btn">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 2 2 4-4"/></svg>
-        <span>Tracker</span>
-        <span class="nav-badge" id="nsave">0</span>
+      <button class="nav-tab-btn" data-tab="resume" onclick="showTab('resume')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
+        Resume Analyzer
+      </button>
+      <button class="nav-tab-btn" data-tab="skillgap" onclick="showTab('skillgap')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20v-6M6 20V10M18 20V4"/></svg>
+        Skill Gap
+      </button>
+      <button class="nav-tab-btn" data-tab="tracker" onclick="showTab('tracker')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 2 2 4-4"/></svg>
+        Tracker
+        <span class="tab-badge" id="nav-tracker-count">0</span>
+      </button>
+      <button class="nav-tab-btn" data-tab="radar" onclick="showTab('radar')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="m12 12 5-5"/></svg>
+        Radar
+      </button>
+      <button class="nav-tab-btn" data-tab="assistant" onclick="showTab('assistant')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Career Assistant
       </button>
     </nav>
+  </div>
 
-    <div class="header-right">
-      <div class="backend-indicator" id="srv-indicator" title="Backend Server Status">
-        <span class="dot" id="srv-dot"></span>
-        <span id="srv-text">Checking proxy...</span>
-      </div>
-      <button class="theme-toggle" id="theme-btn" aria-label="Toggle dark/light mode">
-        <span id="theme-icon">🌙</span>
-      </button>
+  <!-- RIGHT CONTROLS -->
+  <div class="header-actions">
+    <div class="status-pill" id="srv-indicator" title="Backend Server & Data Origin">
+      <span class="status-dot" id="srv-dot"></span>
+      <span id="srv-text">Checking status...</span>
+    </div>
+
+    <button class="icon-btn" id="theme-btn" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
+      <span id="theme-icon">☀️</span>
+    </button>
+
+    <div class="header-avatar-btn" onclick="openProfileModal()" title="View and Edit Student Profile">
+      <div class="avatar-disc" id="head-avatar">A</div>
+      <span style="font-size:0.82rem; font-weight:700;" id="head-prof-pct">85%</span>
     </div>
   </div>
 </header>
 
-<!-- HERO SECTION -->
-<section class="hero" id="top">
-  <div class="hero-in">
-    <div class="hero-pill-badge">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-      <span>AI-Powered Discovery &bull; Verbatim Page Audits</span>
-    </div>
-    <h1 id="hello">Unlock student opportunities <span class="gradient-text">tailored to your potential</span></h1>
-    <p>Targeted search matched to your study year, tech stack, and location with transparent eligibility audits extracted directly from official university and corporate career portals.</p>
-    
-    <div class="search-deck">
-      <div class="search-input-wrap">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="q" placeholder="Enter keywords, e.g. Software Engineering, AI/ML, Data Science…" aria-label="Area of interest" list="ints" autocomplete="off">
-      </div>
-      <div class="search-actions">
-        <button class="btn btn-primary" id="go">
-          <span>Hunt Opportunities</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </button>
-        <button type="button" class="btn btn-subtle" id="btn-quick-demo" title="Explore sample opportunities without waiting">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
-          <span>Explore Demo</span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="hero-pills">
-      <span class="hero-pills-label">Trending Tracks:</span>
-      <button class="hero-tag-btn" data-kw="Software Engineering">Software Engineering</button>
-      <button class="hero-tag-btn" data-kw="AI/ML">AI / Machine Learning</button>
-      <button class="hero-tag-btn" data-kw="Data Science">Data Science</button>
-      <button class="hero-tag-btn" data-kw="Web Development">Full Stack Web</button>
-      <button class="hero-tag-btn" data-kw="Cybersecurity">Cybersecurity</button>
-      <button class="hero-tag-btn" data-kw="Cloud & DevOps">Cloud &amp; DevOps</button>
-      <button class="hero-tag-btn" data-kw="Open Source">Open Source / GSoC</button>
-    </div>
-    <datalist id="ints">
-      <option value="Software Engineering">
-      <option value="AI/ML">
-      <option value="Data Science">
-      <option value="Web Development">
-      <option value="Cybersecurity">
-      <option value="Cloud Computing">
-      <option value="Open Source">
-    </datalist>
-  </div>
-</section>
+<!-- MAIN CONTAINER -->
+<main class="app-main">
 
-<!-- MAIN APP BODY -->
-<main>
-  <!-- TAB: DISCOVER -->
-  <div id="v-discover">
-    <div class="bento-card" id="welcome"></div>
-
-    <!-- STUDENT PROFILE BENTO HUD -->
-    <div class="bento-card" id="profile">
-      <div class="card-title-bar">
-        <h2 class="card-title">Student Profile HUD</h2>
-        <div style="display:flex; align-items:center; gap:12px;">
-          <div class="strength-box">
-            <span id="prof-meter-text">85% Strength</span>
-            <div class="strength-bar"><div class="strength-fill" id="prof-meter-bar" style="width: 85%;"></div></div>
-          </div>
-          <button class="btn btn-subtle btn-sm" id="toggle-prof-btn">Collapse Form</button>
-        </div>
-      </div>
-
-      <!-- Quick summary HUD view -->
-      <div class="profile-hud" id="profile-summary-bar">
-        <div class="profile-identity-group">
-          <div class="profile-avatar-circle" id="prof-avatar">A</div>
-          <div class="profile-info">
-            <h4 id="prof-prev-name">Student</h4>
-            <div class="profile-meta-tags">
-              <span id="prof-prev-degree">B.Tech Computer Science</span> &bull; 
-              <span class="pill-badge" id="prof-prev-year">2nd year</span> &bull; 
-              <span id="prof-prev-loc">India</span>
+  <!-- ======================================================== -->
+  <!-- TAB 1: EXECUTIVE DASHBOARD OVERVIEW -->
+  <!-- ======================================================== -->
+  <section id="v-dashboard" class="tab-view">
+    <!-- WELCOME HERO BENTO -->
+    <div class="hero-deck">
+      <div class="welcome-card">
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div>
+              <span class="badge badge-lavender" style="margin-bottom:10px;">Personal Career Hub</span>
+              <h1 style="font-family:var(--font-display); font-size:1.85rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:6px;">
+                Welcome back, <span id="dash-greeting-name" style="color:var(--lavender);">Student</span>!
+              </h1>
+              <p style="color:var(--text-muted); font-size:0.95rem;" id="dash-greeting-meta">
+                B.Tech Computer Science &bull; 2nd year &bull; Software Engineering Track
+              </p>
             </div>
+            <button class="btn btn-subtle btn-sm" onclick="openProfileModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+              Edit Profile
+            </button>
           </div>
         </div>
-        <button class="btn btn-subtle btn-sm" id="btn-edit-prof">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-          Edit Profile
-        </button>
-      </div>
 
-      <!-- Expandable Form -->
-      <div id="profile-form-body" style="margin-top:20px;">
-        <div class="grid">
-          <div>
-            <label for="name">Your Full Name</label>
-            <input id="name" placeholder="e.g. Aashi Srivastava">
+        <div style="margin-top:24px;">
+          <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:700; margin-bottom:8px;">
+            <span style="color:var(--text-muted);">Profile Match Strength</span>
+            <span id="dash-prof-strength-num" style="color:var(--lavender);">85% Complete</span>
           </div>
-          <div>
-            <label for="degree">Degree &amp; Branch</label>
-            <input id="degree" placeholder="B.Tech Computer Science">
-          </div>
-          <div>
-            <label for="year">Year of Study</label>
-            <select id="year">
-              <option value="">Not specified</option>
-              <option>1st year</option>
-              <option>2nd year</option>
-              <option>3rd year</option>
-              <option>Final year</option>
-              <option>Master’s</option>
-              <option>PhD</option>
-              <option>Graduated</option>
-            </select>
-          </div>
-          <div style="grid-column: 1 / -1;">
-            <label for="skills">Technical Stack (Comma separated or click tags below)</label>
-            <input id="skills" placeholder="Python, SQL, React, Machine Learning, Git">
-            <div class="skill-tags-group">
-              <span style="font-size:0.75rem; color:var(--mute); align-self:center; font-weight:700;">Tap to Add:</span>
-              <button type="button" class="skill-tag-btn" data-skill="Python">+ Python</button>
-              <button type="button" class="skill-tag-btn" data-skill="React">+ React</button>
-              <button type="button" class="skill-tag-btn" data-skill="SQL">+ SQL</button>
-              <button type="button" class="skill-tag-btn" data-skill="Machine Learning">+ Machine Learning</button>
-              <button type="button" class="skill-tag-btn" data-skill="C++">+ C++</button>
-              <button type="button" class="skill-tag-btn" data-skill="Java">+ Java</button>
-              <button type="button" class="skill-tag-btn" data-skill="Git">+ Git</button>
-              <button type="button" class="skill-tag-btn" data-skill="AWS">+ AWS</button>
-              <button type="button" class="skill-tag-btn" data-skill="Docker">+ Docker</button>
-            </div>
-          </div>
-          <div>
-            <label for="loc">Preferred Country / City</label>
-            <input id="loc" placeholder="India">
-          </div>
-          <div>
-            <label for="type">Opportunity Type</label>
-            <select id="type">
-              <option value="any">Any Opportunity</option>
-              <option value="internship">Internship</option>
-              <option value="scholarship">Scholarship</option>
-              <option value="fellowship">Fellowship</option>
-              <option value="program">Developer Program</option>
-            </select>
-          </div>
-          <div>
-            <label for="mode">Work Mode</label>
-            <select id="mode">
-              <option value="any">No preference</option>
-              <option value="remote">Remote Only</option>
-              <option value="onsite">On-site / Hybrid</option>
-            </select>
+          <div style="height:8px; background:var(--bg-subtle); border-radius:var(--radius-full); overflow:hidden;">
+            <div id="dash-prof-strength-bar" style="height:100%; width:85%; background:linear-gradient(90deg, var(--primary), #a855f7); border-radius:var(--radius-full); transition:width 0.4s ease;"></div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- RESULTS SECTION -->
-    <div id="results">
-      <div id="status"></div>
-
-      <!-- FILTER & TOOLS BAR -->
-      <div class="filter-deck" id="toolbar" hidden>
-        <div class="kpis" id="kpis"></div>
-
-        <div class="filter-top-bar">
-          <div class="filter-search-box">
-            <svg class="filter-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <input type="text" id="live-search" placeholder="Type to filter results instantly..." aria-label="Search within results">
-          </div>
-
-          <div class="pills-scroll-row">
-            <button class="pill-filter on" data-quick="all">All</button>
-            <button class="pill-filter" data-quick="likely">✨ Likely Eligible</button>
-            <button class="pill-filter" data-quick="internship">💼 Internships</button>
-            <button class="pill-filter" data-quick="scholarship">🎓 Scholarships</button>
-            <button class="pill-filter" data-quick="remote">🌐 Remote</button>
-            <button class="pill-filter" data-quick="closing">⏳ Closing Soon</button>
-            <button class="pill-filter" data-quick="official">🏛️ Official Sites</button>
-          </div>
-
-          <button class="btn btn-subtle btn-sm" id="toggle-advanced-filters">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
-            <span>Advanced Filters</span>
+      <!-- QUICK ACTION DOCK -->
+      <div class="bento-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div class="card-title-group">
+          <h3 class="card-title">Quick Actions</h3>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px; margin:16px 0;">
+          <button class="btn btn-primary" onclick="showTab('resume')" style="justify-content:flex-start;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+            Upload Resume for Instant Audit
+          </button>
+          <button class="btn btn-subtle" onclick="showTab('discover')" style="justify-content:flex-start;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            Explore Opportunities
+          </button>
+          <button class="btn btn-subtle" onclick="showTab('tracker')" style="justify-content:flex-start;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+            Open Kanban Application Pipeline
           </button>
         </div>
+        <div style="font-size:0.78rem; color:var(--text-dim); text-align:center;">
+          Verified programs updated daily from official university & career portals.
+        </div>
+      </div>
+    </div>
 
-        <!-- COLLAPSIBLE ADVANCED FILTERS -->
-        <div class="advanced-filters-drawer" id="advanced-filters-panel" hidden>
+    <!-- REAL STATS KPIS -->
+    <div class="kpi-grid">
+      <div class="kpi-card" onclick="showTab('discover')">
+        <div class="kpi-icon-box" style="color:var(--success);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <div>
+          <div class="kpi-num" id="kpi-dash-matched">0</div>
+          <div class="kpi-label">Matching Opportunities</div>
+        </div>
+      </div>
+      <div class="kpi-card" onclick="showTab('tracker')">
+        <div class="kpi-icon-box" style="color:var(--lavender);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></div>
+        <div>
+          <div class="kpi-num" id="kpi-dash-saved">0</div>
+          <div class="kpi-label">Saved in Tracker</div>
+        </div>
+      </div>
+      <div class="kpi-card" onclick="showTab('tracker')">
+        <div class="kpi-icon-box" style="color:var(--info);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <div>
+          <div class="kpi-num" id="kpi-dash-active-apps">0</div>
+          <div class="kpi-label">Active Applications</div>
+        </div>
+      </div>
+      <div class="kpi-card" onclick="showTab('radar')">
+        <div class="kpi-icon-box" style="color:var(--warning);"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div>
+          <div class="kpi-num" id="kpi-dash-urgent">0</div>
+          <div class="kpi-label">Deadlines Within 7 Days</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMMENDED OPPORTUNITIES GRID -->
+    <div class="bento-card" style="margin-bottom:24px;">
+      <div class="card-header-bar">
+        <div>
+          <h3 class="card-title">Recommended Opportunities for You</h3>
+          <p class="card-subtitle">Personalized opportunities scoring 75%+ match against your degree and skills</p>
+        </div>
+        <button class="btn btn-subtle btn-sm" onclick="showTab('discover')">View All Matches &rarr;</button>
+      </div>
+      <div class="cards-grid" id="dash-recommended-grid"></div>
+    </div>
+
+    <!-- SPLIT DECK: UPCOMING DEADLINES & RECENT ACTIVITY -->
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+      <!-- UPCOMING DEADLINES WIDGET -->
+      <div class="bento-card">
+        <div class="card-header-bar">
           <div>
-            <label for="fType">Type</label>
-            <select id="fType">
-              <option value="all">All Types</option>
-              <option value="internship">Internship</option>
-              <option value="scholarship">Scholarship</option>
-              <option value="fellowship">Fellowship</option>
-              <option value="program">Developer Program</option>
-              <option value="unknown">Unclear</option>
-            </select>
+            <h3 class="card-title">Upcoming Deadlines</h3>
+            <p class="card-subtitle">Keep track of closing dates</p>
           </div>
+          <button class="btn btn-subtle btn-sm" onclick="showTab('radar')">Radar &rarr;</button>
+        </div>
+        <div id="dash-deadlines-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+      </div>
+
+      <!-- RECENT ACTIVITY FEED -->
+      <div class="bento-card">
+        <div class="card-header-bar">
           <div>
-            <label for="fMode">Remote / On-site</label>
-            <select id="fMode">
-              <option value="all">All Modes</option>
-              <option value="remote">Remote Only</option>
-              <option value="onsite">On-site Mentioned</option>
-            </select>
+            <h3 class="card-title">Recent Activity &amp; Pipeline Updates</h3>
+            <p class="card-subtitle">Tracked events from your job search</p>
           </div>
+          <button class="btn btn-subtle btn-sm" onclick="showTab('tracker')">Tracker &rarr;</button>
+        </div>
+        <div id="dash-activity-list" style="display:flex; flex-direction:column; gap:12px;"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- TAB 2: ADVANCED OPPORTUNITY DISCOVERY -->
+  <!-- ======================================================== -->
+  <section id="v-discover" class="tab-view" style="display:none;">
+    <!-- SEARCH & COMMAND DECK -->
+    <div class="bento-card" style="margin-bottom:24px; padding:28px;">
+      <h2 style="font-family:var(--font-display); font-size:1.6rem; font-weight:800; letter-spacing:-0.02em; margin-bottom:8px;">
+        Find Verified Student Opportunities
+      </h2>
+      <p style="color:var(--text-muted); font-size:0.92rem; margin-bottom:20px;">
+        Discover internships, fellowships, hackathons, and research scholarships with transparent eligibility verification.
+      </p>
+
+      <!-- INPUT GROUP -->
+      <div style="display:flex; gap:12px; margin-bottom:16px;">
+        <div style="position:relative; flex:1;">
+          <input type="text" id="q" placeholder="Search by role or domain (e.g. Software Engineering, AI/ML, Data Science, Web Development)..." style="padding-left:42px; font-size:1rem; height:48px;">
+          <svg style="position:absolute; left:14px; top:15px; color:var(--text-dim);" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <button class="btn btn-primary" id="btn-discover-go" style="padding:0 24px; height:48px;" onclick="run(false)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          Search Opportunities
+        </button>
+      </div>
+
+      <!-- DOMAIN QUICK TAGS -->
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+        <span style="font-size:0.78rem; font-weight:700; color:var(--text-dim);">Popular Tracks:</span>
+        <button type="button" class="btn btn-subtle btn-sm" onclick="setSearchQuery('Software Engineering')">Software Engineering</button>
+        <button type="button" class="btn btn-subtle btn-sm" onclick="setSearchQuery('AI/ML')">AI / Machine Learning</button>
+        <button type="button" class="btn btn-subtle btn-sm" onclick="setSearchQuery('Data Science')">Data Science</button>
+        <button type="button" class="btn btn-subtle btn-sm" onclick="setSearchQuery('Web Development')">Web Development</button>
+        <button type="button" class="btn btn-subtle btn-sm" onclick="setSearchQuery('Cloud Computing')">Cloud &amp; DevOps</button>
+        <button type="button" class="btn btn-subtle btn-sm" onclick="setSearchQuery('Cybersecurity')">Cybersecurity</button>
+        <button type="button" class="btn btn-subtle btn-sm" onclick="setSearchQuery('Open Source')">Open Source</button>
+      </div>
+    </div>
+
+    <!-- STUDENT PROFILE HUD STRIP -->
+    <div class="bento-card" style="margin-bottom:24px;">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; align-items:center; gap:16px;">
+          <div class="avatar-disc" id="hud-avatar" style="width:42px; height:42px; font-size:1.1rem;">A</div>
           <div>
-            <label for="fLoc">Location Contains</label>
-            <input id="fLoc" placeholder="e.g. India, Redmond">
-          </div>
-          <div>
-            <label for="fElig">Eligibility Status</label>
-            <select id="fElig">
-              <option value="all">All Levels</option>
-              <option value="likely">Likely eligible</option>
-              <option value="possible">Possibly eligible</option>
-              <option value="insufficient">Needs Verification</option>
-              <option value="not">Not eligible</option>
-            </select>
-          </div>
-          <div>
-            <label for="fDl">Deadline Status</label>
-            <select id="fDl">
-              <option value="all">Any Deadline</option>
-              <option value="live">Hide expired</option>
-              <option value="7">Within 7 days</option>
-              <option value="30">Within 30 days</option>
-              <option value="90">Within 90 days</option>
-              <option value="found">Deadline found on page</option>
-            </select>
-          </div>
-          <div>
-            <label for="sort">Sort By</label>
-            <select id="sort">
-              <option value="score">Match score (High to Low)</option>
-              <option value="deadline">Nearest deadline</option>
-              <option value="title">Opportunity Title (A-Z)</option>
-            </select>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <h4 id="hud-name" style="font-size:1.05rem; font-weight:700;">Student Profile</h4>
+              <span class="badge badge-lavender" id="hud-year">2nd year</span>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-muted);" id="hud-degree">B.Tech Computer Science &bull; Location: India</p>
           </div>
         </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <button class="btn btn-subtle btn-sm" onclick="openProfileModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit Profile
+          </button>
+        </div>
+      </div>
+    </div>
 
-        <div class="filter-footer-bar">
-          <div id="count">Showing 0 results</div>
-          <button class="btn btn-subtle btn-sm" id="reset-filters-btn" style="display:none;">Clear All Filters</button>
+    <!-- STATUS BANNER (DISMISSIBLE IF TRIGGERED) -->
+    <div id="status"></div>
+
+    <!-- FILTER TOOLBAR -->
+    <div class="bento-card" style="margin-bottom:20px; padding:16px 20px;">
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px;">
+        <!-- CATEGORY PILLS -->
+        <div style="display:flex; flex-wrap:wrap; gap:6px;">
+          <button class="pill-filter on" data-category="all" onclick="setCategoryFilter('all')">All</button>
+          <button class="pill-filter" data-category="internship" onclick="setCategoryFilter('internship')">💼 Internships</button>
+          <button class="pill-filter" data-category="scholarship" onclick="setCategoryFilter('scholarship')">🎓 Scholarships</button>
+          <button class="pill-filter" data-category="fellowship" onclick="setCategoryFilter('fellowship')">🌟 Fellowships</button>
+          <button class="pill-filter" data-category="program" onclick="setCategoryFilter('program')">🚀 Programs &amp; Hackathons</button>
+          <button class="pill-filter" data-category="remote" onclick="setCategoryFilter('remote')">🌐 Remote</button>
+        </div>
+
+        <div style="display:flex; align-items:center; gap:12px;">
+          <input type="text" id="live-search" placeholder="Filter by keyword..." style="width:200px; padding:6px 12px; font-size:0.85rem;" oninput="render()">
+          <select id="sort" style="width:180px; padding:6px 12px; font-size:0.85rem;" onchange="render()">
+            <option value="score">Sort: Highest Match</option>
+            <option value="deadline">Sort: Earliest Deadline</option>
+            <option value="title">Sort: Title (A-Z)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARDS RESULTS SECTION -->
+    <div id="cards" class="cards-grid"></div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- TAB 3: RESUME ANALYZER MODULE -->
+  <!-- ======================================================== -->
+  <section id="v-resume" class="tab-view" style="display:none;">
+    <div class="bento-card" style="margin-bottom:24px;">
+      <div class="card-header-bar">
+        <div>
+          <span class="badge badge-lavender" style="margin-bottom:6px;">Intelligent Career Module</span>
+          <h2 class="card-title" style="font-size:1.6rem; margin-top:4px;">Resume Analyzer &amp; Skill Extractor</h2>
+          <p class="card-subtitle">
+            Upload your resume to extract technical skills, calculate resume strength, discover gaps, and find suitable opportunities.
+          </p>
         </div>
       </div>
 
-      <!-- CARDS LIST -->
-      <div class="cards" id="cards"></div>
+      <!-- RESUME DROPZONE -->
+      <div class="dropzone" id="resume-dropzone" onclick="$('#resume-file-input').click()">
+        <input type="file" id="resume-file-input" accept=".pdf,.txt,.docx" style="display:none;" onchange="handleResumeFileUpload(event)">
+        <div style="width:54px; height:54px; border-radius:50%; background:var(--primary-glow); color:var(--primary); display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" x2="12" y1="3" y2="15"/></svg>
+        </div>
+        <h4 style="font-family:var(--font-display); font-size:1.15rem; font-weight:700; margin-bottom:6px;">
+          Upload your Resume (PDF, DOCX, or TXT)
+        </h4>
+        <p style="font-size:0.88rem; color:var(--text-muted); max-width:440px; margin:0 auto 12px;">
+          Drag and drop your file here, or click to browse. Processing is performed securely and your private data is never exposed.
+        </p>
+        <div style="display:flex; justify-content:center; gap:8px;">
+          <span class="badge badge-info">PDF Safe Parsing</span>
+          <span class="badge badge-success">Privacy Guaranteed</span>
+        </div>
+      </div>
+
+      <!-- OR TEXT PASTE -->
+      <div style="margin-top:20px;">
+        <button class="btn btn-subtle btn-sm" onclick="toggleResumePasteArea()" id="btn-toggle-paste">Or paste resume text manually &darr;</button>
+        <div id="resume-paste-box" style="display:none; margin-top:12px;">
+          <textarea id="resume-manual-text" rows="8" placeholder="Paste your resume contents or project summary here..."></textarea>
+          <button class="btn btn-primary btn-sm" style="margin-top:10px;" onclick="analyzeResumeTextManual()">Analyze Pasted Resume</button>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <!-- TAB: DEADLINE RADAR -->
-  <div id="v-radar" hidden></div>
+    <!-- RESUME RESULTS CONTAINER -->
+    <div id="resume-results" style="display:none;"></div>
+  </section>
 
-  <!-- TAB: TRACKER -->
-  <div id="v-tracker" hidden></div>
+  <!-- ======================================================== -->
+  <!-- TAB 4: SKILL GAP ANALYZER -->
+  <!-- ======================================================== -->
+  <section id="v-skillgap" class="tab-view" style="display:none;">
+    <div class="bento-card" style="margin-bottom:24px;">
+      <span class="badge badge-lavender" style="margin-bottom:6px;">Market Intelligence</span>
+      <h2 class="card-title" style="font-size:1.6rem; margin-top:4px;">Skill Gap &amp; Career Roadmap</h2>
+      <p class="card-subtitle">
+        Compare your profile skills against the technical prerequisites of top verified student programs.
+      </p>
+    </div>
 
-  <!-- HOW IT WORKS ARCHITECTURE PANEL -->
-  <div class="bento-card" id="about" style="margin-top:32px">
-    <h2 class="card-title">Transparent Verification &amp; Match Architecture</h2>
-    <p style="font-size:0.92rem; color:var(--mute); margin-bottom:10px;">
-      Results are fetched live from public web sources via TinyFish API proxy or verified program fixtures. Deadlines, locations, and eligibility rules are extracted verbatim from official page texts.
-    </p>
-    <p style="font-size:0.92rem; color:var(--mute);">
-      <b>Transparent Scoring (100 pts max):</b> Interest alignment (35 pts) &bull; Skills overlap (25 pts) &bull; Opportunity type (15 pts) &bull; Location / work mode (15 pts) &bull; Study year criteria (10 pts).
-    </p>
-  </div>
+    <div id="skillgap-container"></div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- TAB 5: APPLICATION TRACKER (8-STAGE KANBAN) -->
+  <!-- ======================================================== -->
+  <section id="v-tracker" class="tab-view" style="display:none;">
+    <div class="bento-card" style="margin-bottom:20px; padding:20px 24px;">
+      <div class="card-header-bar" style="margin-bottom:0;">
+        <div>
+          <span class="badge badge-lavender" style="margin-bottom:6px;">Application Pipeline</span>
+          <h2 class="card-title" style="font-size:1.5rem; margin-top:2px;">Student Application Tracker</h2>
+          <p class="card-subtitle">Manage your opportunities across 8 structured Kanban stages</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn btn-subtle btn-sm" onclick="exportTrackerCSV()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            Export CSV
+          </button>
+          <button class="btn btn-primary btn-sm" onclick="openAddCustomAppModal()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Custom Opportunity
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8 KANBAN STAGES BOARD -->
+    <div class="kanban-board" id="kanban-board-container"></div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- TAB 6: DEADLINE RADAR & CALENDAR -->
+  <!-- ======================================================== -->
+  <section id="v-radar" class="tab-view" style="display:none;">
+    <div class="bento-card" style="margin-bottom:24px;">
+      <div class="card-header-bar" style="margin-bottom:0;">
+        <div>
+          <span class="badge badge-warning" style="margin-bottom:6px;">Time Management</span>
+          <h2 class="card-title" style="font-size:1.5rem; margin-top:2px;">Deadline Radar &amp; Calendar</h2>
+          <p class="card-subtitle">Stay ahead of application closing dates with urgency bands and calendar export</p>
+        </div>
+        <button class="btn btn-primary btn-sm" onclick="exportAllDeadlinesICS()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"/><line x1="16" x2="16" y1="2" y2="6"/><line x1="8" x2="8" y1="2" y2="6"/><line x1="3" x2="21" y1="10" y2="10"/></svg>
+          Export Deadlines (.ics Calendar)
+        </button>
+      </div>
+    </div>
+
+    <div id="radar-board-container"></div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- TAB 7: CAREER ASSISTANT -->
+  <!-- ======================================================== -->
+  <section id="v-assistant" class="tab-view" style="display:none;">
+    <div class="bento-card" style="margin-bottom:20px;">
+      <span class="badge badge-lavender" style="margin-bottom:6px;">Contextual AI Companion</span>
+      <h2 class="card-title" style="font-size:1.5rem; margin-top:2px;">Opportunity Hunter Career Assistant</h2>
+      <p class="card-subtitle">
+        Ask intelligent questions regarding your opportunity eligibility, technical resume improvements, and interview preparation.
+      </p>
+    </div>
+
+    <div class="chat-window">
+      <!-- QUICK PROMPT CHIPS -->
+      <div style="padding:12px 20px; background:var(--bg-subtle); display:flex; flex-wrap:wrap; gap:8px; border-bottom:1px solid var(--border);">
+        <button class="btn btn-subtle btn-sm" onclick="sendPrompt('Which internships match my profile best?')">🎯 Which internships match me best?</button>
+        <button class="btn btn-subtle btn-sm" onclick="sendPrompt('Am I eligible for Microsoft Explore?')">🏛️ Am I eligible for Explore Microsoft?</button>
+        <button class="btn btn-subtle btn-sm" onclick="sendPrompt('Which skills should I learn next?')">📈 What skills should I learn next?</button>
+        <button class="btn btn-subtle btn-sm" onclick="sendPrompt('How can I improve my resume for technical roles?')">📄 How to improve my resume?</button>
+        <button class="btn btn-subtle btn-sm" onclick="sendPrompt('What should I prepare for an internship interview?')">💼 Technical interview prep tips</button>
+      </div>
+
+      <!-- MESSAGES CONTAINER -->
+      <div class="chat-messages" id="chat-messages-box"></div>
+
+      <!-- INPUT BAR -->
+      <div class="chat-input-bar">
+        <input type="text" id="assistant-input-text" placeholder="Type a career question or ask about an opportunity..." onkeydown="if(event.key === 'Enter') handleAssistantSend()">
+        <button class="btn btn-primary" onclick="handleAssistantSend()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send
+        </button>
+      </div>
+    </div>
+  </section>
 </main>
 
-<!-- MOBILE STICKY BOTTOM NAV DOCK -->
-<nav class="mobile-nav">
-  <button class="m-nav-btn on" data-v="discover">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+<!-- PROFILE MODAL -->
+<div id="profile-modal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
+  <div class="bento-card" style="max-width:580px; width:100%; max-height:90vh; overflow-y:auto;">
+    <div class="card-header-bar">
+      <h3 class="card-title">Edit Student Profile</h3>
+      <button class="icon-btn" onclick="closeProfileModal()">&times;</button>
+    </div>
+    <div class="form-grid">
+      <div class="form-group" style="grid-column: 1 / -1;">
+        <label for="prof-name">Full Name</label>
+        <input type="text" id="prof-name" placeholder="e.g. Aashi Srivastava">
+      </div>
+      <div class="form-group">
+        <label for="prof-degree">Degree &amp; Major</label>
+        <input type="text" id="prof-degree" placeholder="B.Tech Computer Science">
+      </div>
+      <div class="form-group">
+        <label for="prof-year">Academic Study Year</label>
+        <select id="prof-year">
+          <option value="">Not Specified</option>
+          <option value="1st year">1st year</option>
+          <option value="2nd year">2nd year</option>
+          <option value="3rd year">3rd year</option>
+          <option value="Final year">Final year</option>
+          <option value="Master’s">Master’s</option>
+          <option value="PhD">PhD</option>
+          <option value="Graduated">Graduated / Fresher</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="prof-grad-year">Graduation Year</label>
+        <input type="text" id="prof-grad-year" placeholder="e.g. 2027">
+      </div>
+      <div class="form-group">
+        <label for="prof-loc">Location / Country</label>
+        <input type="text" id="prof-loc" placeholder="e.g. India">
+      </div>
+      <div class="form-group" style="grid-column: 1 / -1;">
+        <label for="prof-skills">Technical Skills (Comma separated or click below)</label>
+        <input type="text" id="prof-skills" placeholder="Python, SQL, React, Git, Docker, Machine Learning">
+        <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('Python')">+ Python</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('SQL')">+ SQL</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('React')">+ React</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('Machine Learning')">+ ML</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('C++')">+ C++</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('Java')">+ Java</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('Docker')">+ Docker</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('Git')">+ Git</button>
+          <button type="button" class="btn btn-subtle btn-sm" onclick="toggleModalSkill('AWS')">+ AWS</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="prof-type">Preferred Opportunity Type</label>
+        <select id="prof-type">
+          <option value="any">Any Opportunity</option>
+          <option value="internship">Internship</option>
+          <option value="scholarship">Scholarship</option>
+          <option value="fellowship">Fellowship</option>
+          <option value="program">Developer Program / Hackathon</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="prof-mode">Work Mode</label>
+        <select id="prof-mode">
+          <option value="any">Any Mode</option>
+          <option value="remote">Remote Only</option>
+          <option value="onsite">On-site / Hybrid</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:24px;">
+      <button class="btn btn-subtle" onclick="closeProfileModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="saveProfileFromModal()">Save Profile</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD CUSTOM APPLICATION MODAL -->
+<div id="custom-app-modal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
+  <div class="bento-card" style="max-width:500px; width:100%;">
+    <div class="card-header-bar">
+      <h3 class="card-title">Track New Application</h3>
+      <button class="icon-btn" onclick="closeCustomAppModal()">&times;</button>
+    </div>
+    <div class="form-grid" style="grid-template-columns:1fr;">
+      <div class="form-group">
+        <label for="custom-app-title">Opportunity Title *</label>
+        <input type="text" id="custom-app-title" placeholder="e.g. Summer Software Intern">
+      </div>
+      <div class="form-group">
+        <label for="custom-app-org">Company / Organization *</label>
+        <input type="text" id="custom-app-org" placeholder="e.g. Google, Microsoft, Infosys">
+      </div>
+      <div class="form-group">
+        <label for="custom-app-url">Application URL</label>
+        <input type="url" id="custom-app-url" placeholder="https://careers...">
+      </div>
+      <div class="form-group">
+        <label for="custom-app-stage">Initial Pipeline Stage</label>
+        <select id="custom-app-stage">
+          <option value="interested">💡 Interested</option>
+          <option value="planning">📝 Planning to Apply</option>
+          <option value="applied">📨 Applied</option>
+          <option value="assessment">💻 Assessment</option>
+          <option value="interviewing">🤝 Interviewing</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="custom-app-deadline">Deadline Date</label>
+        <input type="date" id="custom-app-deadline">
+      </div>
+      <div class="form-group">
+        <label for="custom-app-notes">Notes &amp; Links</label>
+        <textarea id="custom-app-notes" rows="3" placeholder="Requisition ID, recruiter contact, referral notes..."></textarea>
+      </div>
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px;">
+      <button class="btn btn-subtle" onclick="closeCustomAppModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="submitCustomApplication()">Save to Tracker</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST CONTAINER -->
+<div id="toast-box"></div>
+
+<!-- MOBILE BOTTOM DOCK -->
+<nav class="mobile-dock" aria-label="Mobile Navigation">
+  <button class="m-tab-btn active" data-tab="dashboard" onclick="showTab('dashboard')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+    <span>Home</span>
+  </button>
+  <button class="m-tab-btn" data-tab="discover" onclick="showTab('discover')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <span>Discover</span>
   </button>
-  <button class="m-nav-btn" data-v="radar">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 10 10"/><path d="m12 12 5-5"/></svg>
-    <span>Radar</span>
+  <button class="m-tab-btn" data-tab="resume" onclick="showTab('resume')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
+    <span>Resume</span>
   </button>
-  <button class="m-nav-btn" data-v="tracker">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/><path d="m14 9 2 2 4-4"/></svg>
+  <button class="m-tab-btn" data-tab="tracker" onclick="showTab('tracker')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
     <span>Tracker</span>
-    <span class="m-badge" id="m-nsave">0</span>
+  </button>
+  <button class="m-tab-btn" data-tab="assistant" onclick="showTab('assistant')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span>Assistant</span>
   </button>
 </nav>
 
-<!-- TOAST CONTAINER -->
-<div id="toast-container"></div>
 
-<footer>
-  Opportunity Hunter &bull; Student Discovery Engine &bull; All Rights Reserved
-</footer>
+  <script>
 
-<script>
-"use strict";
 const $ = s => document.querySelector(s);
 const $$ = s => document.querySelectorAll(s);
 const el = (t, c, x) => {
@@ -1888,20 +1395,20 @@ const el = (t, c, x) => {
 
 /* TOAST NOTIFICATION UTILITY */
 function showToast(msg, icon = "✓"){
-  const tc = $("#toast-container");
+  const tc = $("#toast-box");
   if(!tc) return;
-  const t = el("div", "toast");
-  t.innerHTML = `<span style="font-size:1.1rem;">${icon}</span><span>${msg}</span>`;
+  const t = el("div", "toast-msg");
+  t.innerHTML = `<span style="font-size:1.15rem;">${icon}</span><span>${msg}</span>`;
   tc.append(t);
   setTimeout(() => {
     t.style.opacity = "0";
-    t.style.transform = "translateY(12px)";
+    t.style.transform = "translateX(20px)";
     t.style.transition = "all 0.3s ease";
     setTimeout(() => t.remove(), 300);
-  }, 2600);
+  }, 2800);
 }
 
-/* DEMO FIXTURES FALLBACK (from opportunity-hunter.fixtures.json) */
+/* VERIFIED PROGRAM FIXTURES (PRESERVED) */
 const EMBEDDED_FIXTURES = [
   {
     url: "https://careers.microsoft.com/v2/global/en/exploremicrosoft",
@@ -1945,18 +1452,57 @@ const SYN = {
   "mobile development": ["android","ios","mobile","flutter"],
   "open source": ["open source","google summer of code","gsoc","outreach"]
 };
+
 const AGG = ["internshala","unstop","indeed","linkedin","glassdoor","prosple","letsintern","naukri","shine.com","wellfound","github.com","scholarships.com","buddy4study","simplyhired","ziprecruiter","monster","fresherworld"];
 const BLOCK = "instagram.com,facebook.com,youtube.com,quora.com,reddit.com,pinterest.com,twitter.com,x.com,tiktok.com";
 const MON = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 const TODAY = new Date(); TODAY.setHours(0,0,0,0);
+
+/* STATE STORAGE */
 let all = [], busy = false;
-let currentQuickFilter = "all";
+let currentCategoryFilter = "all";
+let currentTab = "dashboard";
+let userProfile = {
+  name: "Student",
+  degree: "B.Tech Computer Science",
+  year: "2nd year",
+  graduation_year: "2027",
+  skills: ["Python", "SQL", "React", "Git", "Docker"],
+  location: "India",
+  opportunity_type: "any",
+  work_mode: "any",
+  interests: "Software Engineering"
+};
+
+const KANBAN_STAGES = [
+  { id: "interested", title: "Interested", icon: "💡" },
+  { id: "planning", title: "Planning to Apply", icon: "📝" },
+  { id: "applied", title: "Applied", icon: "📨" },
+  { id: "assessment", title: "Assessment", icon: "💻" },
+  { id: "interviewing", title: "Interviewing", icon: "🤝" },
+  { id: "selected", title: "Selected", icon: "🎉" },
+  { id: "rejected", title: "Rejected", icon: "❌" },
+  { id: "withdrawn", title: "Withdrawn", icon: "⏸️" }
+];
+
+let applications = [];
+let savedOpportunities = {};
+let recentActivity = [];
+
+/* BACKEND BASE */
+const BACKEND_BASE = (window.location.protocol.startsWith("http")) ? window.location.origin : "http://127.0.0.1:5000";
+
+/* LOCAL STORAGE WRAPPER */
+const LSX = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d }catch(e){ return d } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true }catch(e){ return false } }
+};
 
 /* THEME SUPPORT */
 function initTheme(){
   const savedTheme = localStorage.getItem("oh:theme") || "dark";
   setTheme(savedTheme);
-  $("#theme-btn").addEventListener("click", () => {
+  $("#theme-btn")?.addEventListener("click", () => {
     const isDark = document.documentElement.getAttribute("data-theme") === "dark";
     setTheme(isDark ? "light" : "dark");
   });
@@ -1964,112 +1510,11 @@ function initTheme(){
 function setTheme(theme){
   document.documentElement.setAttribute("data-theme", theme);
   localStorage.setItem("oh:theme", theme);
-  $("#theme-icon").textContent = theme === "dark" ? "☀️" : "🌙";
+  const icon = $("#theme-icon");
+  if(icon) icon.textContent = theme === "dark" ? "☀️" : "🌙";
 }
 
-/* STORAGE */
-const LSX = {
-  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d }catch(e){ return d } },
-  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); return true }catch(e){ return false } }
-};
-let P = {}, saved = {};
-const ST = ["Interested","Planning to Apply","Applied","Interviewing","Closed/Archived"];
-
-(function(){
-  const s = LSX.get("oh:saved", {});
-  if(s && typeof s === "object"){
-    Object.keys(s).forEach(k => {
-      const x = s[k];
-      if(x && typeof x.title === "string" && safeUrl(x.url)) saved[k] = x;
-    });
-  }
-})();
-
-function persist(){
-  if(!LSX.set("oh:saved", saved)) setStatus("err","Browser storage blocked. Tracker items won't persist after page refresh.");
-}
-const PF = ["name","q","degree","year","skills","loc","type","mode"];
-function persistProf(){
-  const o = {};
-  PF.forEach(i => o[i] = $("#"+i).value);
-  LSX.set("oh:profile", o);
-  updateProfileSummaryBar();
-}
-
-/* STATUS & NOTICES */
-function setStatus(kind, msg, actionBtnText, actionCallback){
-  const s = $("#status");
-  s.textContent = "";
-  if(!msg) return;
-  const d = el("div", "status" + (kind === "err" ? " err" : (kind === "info" ? " info" : "")));
-  const textSpan = el("span", null, "");
-  if(kind === "load"){
-    const sp = el("span", "spin");
-    sp.style.marginRight = "10px";
-    d.append(sp);
-  }
-  textSpan.textContent = msg;
-  d.append(textSpan);
-
-  const rightGroup = el("div", null);
-  rightGroup.style.display = "flex";
-  rightGroup.style.alignItems = "center";
-  rightGroup.style.gap = "8px";
-
-  if(actionBtnText && actionCallback){
-    const b = el("button", "btn btn-sm btn-subtle", actionBtnText);
-    b.onclick = actionCallback;
-    rightGroup.append(b);
-  }
-  if(kind !== "load"){
-    const closeBtn = el("button", "btn btn-subtle btn-sm", "✕");
-    closeBtn.style.padding = "4px 8px";
-    closeBtn.style.minHeight = "auto";
-    closeBtn.style.fontSize = "0.75rem";
-    closeBtn.setAttribute("title", "Dismiss notice");
-    closeBtn.onclick = () => { s.textContent = ""; };
-    rightGroup.append(closeBtn);
-  }
-  d.append(rightGroup);
-  s.append(d);
-}
-
-/* BACKEND BASE */
-const BACKEND_BASE = (window.location.protocol.startsWith("http")) ? window.location.origin : "http://127.0.0.1:5000";
-
-async function probeBackendStatus(){
-  const ind = $("#srv-indicator");
-  const dot = $("#srv-dot");
-  const txt = $("#srv-text");
-  const isGHPages = window.location.hostname.includes("github.io");
-  try{
-    const res = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(2500) });
-    if(res.ok){
-      const data = await res.json();
-      if(data.has_api_key){
-        dot.className = "dot";
-        txt.textContent = "Live TinyFish Proxy";
-        ind.style.display = "inline-flex";
-      } else {
-        dot.className = "dot warn";
-        txt.textContent = isGHPages ? "GitHub Pages Demo" : "Demo Fixture Mode";
-        ind.style.display = "inline-flex";
-      }
-      return data;
-    } else {
-      dot.className = "dot warn";
-      txt.textContent = isGHPages ? "GitHub Pages Demo" : "Demo Mode";
-      ind.style.display = "inline-flex";
-    }
-  }catch(e){
-    dot.className = "dot warn";
-    txt.textContent = isGHPages ? "GitHub Pages Demo" : "Demo Mode";
-    ind.style.display = "inline-flex";
-  }
-  return null;
-}
-
-/* HELPERS */
+/* HELPER UTILITIES */
 function safeUrl(u){ try{ const x = new URL(u); return x.protocol === "https:" || x.protocol === "http:" ? x.href : null }catch(e){ return null } }
 function host(u){ try{ return new URL(u).hostname.replace(/^www\./,"") }catch(e){ return "" } }
 function key(u){ try{ const x = new URL(u); return x.hostname.replace(/^www\./,"") + x.pathname.replace(/\/$/,"") }catch(e){ return u } }
@@ -2109,7 +1554,7 @@ function inferType(title, text){
     program: (s.match(/hackathon|summer of code|developer program|bootcamp|mentorship program|programme/g)||[]).length
   };
   const b = Object.entries(c).sort((a,b) => b[1] - a[1])[0];
-  return b[1] ? b[0] : "unknown";
+  return b[1] ? b[0] : "internship";
 }
 function eligSentence(t){
   const ss = t.split(/(?<=[.!?])\s+|\n+/);
@@ -2161,117 +1606,42 @@ function locInfo(t, pLoc){
   const remote = /\bremote\b|work from home|100% online|fully online|virtual(ly)?\b/i.test(s);
   const m = /Location\s*[:\-–]\s*([^\n|]{2,60})/i.exec(s);
   const hasLoc = pLoc && s.toLowerCase().includes(pLoc.toLowerCase());
-  return { remote, text: remote ? "Remote / online options" : (m ? m[1].trim() : (hasLoc ? "Mentions " + pLoc : null)), hasLoc: !!hasLoc };
+  return { remote, text: remote ? "Remote / Online Options" : (m ? m[1].trim() : (hasLoc ? "Mentions " + pLoc : "On-site / Unspecified")), hasLoc: !!hasLoc };
 }
 
-function kw(interest){
-  const k = interest.toLowerCase().trim();
-  if(SYN[k]) return SYN[k];
-  return k.split(/[\s,\/]+/).filter(w => w.length > 2);
-}
-
-function score(o, p){
-  const R = [];
-  let pts = 0;
-  const txt = (o.title + " " + o.text).toLowerCase();
-  const tt = o.title.toLowerCase();
-  const ks = kw(p.interest);
-  let hits = 0, tHit = false;
-  ks.forEach(k => {
-    if(tt.includes(k)) tHit = true;
-    hits += (txt.match(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"), "g")) || []).length;
-  });
-  const iv = ks.length ? Math.min(1, (tHit ? 0.6 : 0) + Math.min(0.4, hits * 0.05)) : 0;
-  pts += iv * 35;
-  R.push(ks.length ? (iv > 0 ? "Interest aligned (" + Math.round(iv * 35) + "/35)" : "No direct interest keywords") : "No interest query");
-  
-  const sk = p.skills;
-  if(sk.length){
-    const m = sk.filter(s => txt.includes(s));
-    pts += (m.length / sk.length) * 25;
-    R.push(m.length ? "Skills found: " + m.join(", ") : "None of your skills detected");
-  } else {
-    R.push("No skills specified");
+/* DEGREE NORMALIZATION */
+function degreeKeywords(degreeStr){
+  if(!degreeStr) return [];
+  const s = degreeStr.toLowerCase().trim();
+  const tokens = s.split(/[\s,\/.-]+/).filter(x => x.length >= 2);
+  const out = new Set(tokens);
+  if(/\b(b\.?tech|btech|b\.?e\.?|be|m\.?tech|mtech|engineering|engineer)\b/i.test(s)){
+    out.add("engineering");
+    out.add("computer science");
+    out.add("technology");
+    out.add("software");
   }
-
-  if(p.type === "any" || o.type === p.type){
-    pts += 15;
-    R.push(o.type === "unknown" ? "Type unclear" : "Type matches");
-  } else if(o.type === "unknown"){
-    pts += 5;
-    R.push("Type unclear");
-  } else {
-    R.push("Different type (" + o.type + ")");
+  if(/\b(cs|cse|it|computer\s*science|information\s*technology|software|bca|mca)\b/i.test(s)){
+    out.add("computer science");
+    out.add("software");
+    out.add("technology");
+    out.add("engineering");
+    out.add("information technology");
   }
-
-  if(p.mode === "remote"){
-    if(o.remote){ pts += 15; R.push("Remote friendly"); }
-    else { pts += 3; R.push("Remote unconfirmed"); }
-  } else if(p.loc){
-    if(o.locHas){ pts += 15; R.push("Mentions " + p.loc); }
-    else if(o.remote){ pts += 9; R.push("Remote option"); }
-    else { pts += 3; R.push("Location unconfirmed"); }
-  } else {
-    pts += 8;
+  if(/\b(data|ds|ai|ml)\b/i.test(s)){
+    out.add("data science");
+    out.add("analytics");
+    out.add("machine learning");
   }
-
-  if(o.elig === "ok"){ pts += 10; R.push("Study level compatible"); }
-  else if(o.elig === "unclear"){ pts += 5; R.push("Eligibility unstated on page"); }
-  else { R.push("Page specifies other student levels"); }
-
-  return { pct: Math.round(pts), why: R.join(" • ") };
-}
-
-const SKILLS = ["python","java","javascript","typescript","c++","c#","sql","react","node.js","html","css","git","docker","kubernetes","aws","azure","linux","machine learning","deep learning","tensorflow","pytorch","nlp","computer vision","data analysis","pandas","numpy","statistics","tableau","power bi","excel","networking","cryptography","penetration testing","flutter","android","communication"];
-const LEARN = {
-  python: "Python fundamentals, data structures, and mini backend project",
-  sql: "SQL joins, indexing, and window functions on sample datasets",
-  "machine learning": "End-to-end ML pipeline with scikit-learn",
-  "deep learning": "Neural networks in PyTorch or TensorFlow",
-  statistics: "Hypothesis testing, probability, and exploratory data analysis",
-  git: "Git branching, rebasing, and collaborating on GitHub repos",
-  react: "Modern React state hooks and API data fetching",
-  docker: "Containerizing backend and frontend services",
-  networking: "TCP/IP, HTTP/HTTPS, DNS inspection with Wireshark",
-  cryptography: "Symmetric vs asymmetric keys and TLS principles",
-  "data analysis": "Pandas data cleaning and visualization reports",
-  aws: "Deploying basic services using AWS free tier"
-};
-const esc = x => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-function skillGap(o, p){
-  const t = o.text.slice(0, 30000).toLowerCase();
-  if(!o.read) return { req: [], match: [], missing: [], learn: [] };
-  const req = SKILLS.filter(s => new RegExp("(^|[^a-z+#])" + esc(s) + "($|[^a-z+#])").test(t)).slice(0, 12);
-  const have = p.skills;
-  const match = req.filter(s => have.some(h => h === s || (h.length > 2 && (h.includes(s) || s.includes(h)))));
-  const missing = req.filter(s => !match.includes(s)).slice(0, 6);
-  return {
-    req, match, missing,
-    learn: missing.slice(0, 3).map(s => LEARN[s] ? s + ": " + LEARN[s] : s + ": Study fundamentals and build a mini-project")
-  };
-}
-function allDeadlines(t){
-  const r = /\b(deadline|apply by|applications? (?:close|due|end)|closing date|last date|due date|closes?(?: on)?)[^\n]{0,50}/gi;
-  let m;
-  const seen = {}, out = [];
-  while((m = r.exec(t)) && out.length < 3){
-    r.lastIndex = m.index + m[1].length;
-    if(/loading/i.test(m[0])) continue;
-    const d = parseDate(m[0]);
-    if(d && !isNaN(d) && d.getFullYear() > 2000 && !seen[+d]){
-      seen[+d] = 1;
-      out.push(d);
-    }
-  }
-  return out;
+  return [...out];
 }
 
 const ATS = ["greenhouse.io","lever.co","myworkdayjobs.com","smartrecruiters.com","icims.com","workable.com","ashbyhq.com","forms.gle","typeform.com"];
-const STOP = new Set("this that with from your have will careers career jobs internship internships intern program programs programme opportunities opportunity apply application home page official india students student university college stage prod".split(" "));
 function baseDom(h){
   const p = h.split("."), n = p.length;
   return n > 2 && p[n-1].length === 2 && ["co","com","org","net","ac","edu","gov"].includes(p[n-2]) ? p.slice(-3).join(".") : p.slice(-2).join(".");
 }
+const STOP = new Set("this that with from your have will careers career jobs internship internships intern program programs programme opportunities opportunity apply application home page official india students student university college stage prod".split(" "));
 function progTokens(o){
   const brand = baseDom(host(o.url)).split(".")[0];
   const h1 = (/^#\s+(.+)$/m.exec(o.text || "") || [])[1] || "";
@@ -2379,30 +1749,35 @@ function classifyApply(o, pg){
   return out;
 }
 
-function degreeKeywords(degreeStr){
-  if(!degreeStr) return [];
-  const s = degreeStr.toLowerCase().trim();
-  const tokens = s.split(/[\s,\/.-]+/).filter(x => x.length >= 2);
-  const out = new Set(tokens);
-  if(/\b(b\.?tech|btech|b\.?e\.?|be|m\.?tech|mtech|engineering|engineer)\b/i.test(s)){
-    out.add("engineering");
-    out.add("computer science");
-    out.add("technology");
-    out.add("software");
-  }
-  if(/\b(cs|cse|it|computer\s*science|information\s*technology|software|bca|mca)\b/i.test(s)){
-    out.add("computer science");
-    out.add("software");
-    out.add("technology");
-    out.add("engineering");
-    out.add("information technology");
-  }
-  if(/\b(data|ds|ai|ml)\b/i.test(s)){
-    out.add("data science");
-    out.add("analytics");
-    out.add("machine learning");
-  }
-  return [...out];
+const SKILLS_CATALOG = ["python","java","javascript","typescript","c++","c#","sql","react","node.js","html","css","git","docker","kubernetes","aws","azure","linux","machine learning","deep learning","tensorflow","pytorch","nlp","computer vision","data analysis","pandas","numpy","statistics","tableau","power bi","networking","cryptography"];
+const LEARN_RESOURCES = {
+  python: { label: "Python 3 Fundamentals", url: "https://docs.python.org/3/tutorial/" },
+  sql: { label: "Interactive SQL Tutorials", url: "https://sqlbolt.com/" },
+  docker: { label: "Docker for Beginners", url: "https://docker-curriculum.com/" },
+  git: { label: "Pro Git Free Handbook", url: "https://git-scm.com/book/en/v2" },
+  react: { label: "Official React Documentation", url: "https://react.dev/" },
+  aws: { label: "AWS Cloud Fundamentals", url: "https://aws.amazon.com/free/" },
+  "machine learning": { label: "Scikit-Learn Machine Learning Roadmap", url: "https://scikit-learn.org/stable/tutorial/basic/tutorial.html" }
+};
+
+const esc = x => x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+function skillGap(o, p){
+  const t = o.text.slice(0, 30000).toLowerCase();
+  if(!o.read) return { req: [], match: [], missing: [], learn: [] };
+  const req = SKILLS_CATALOG.filter(s => new RegExp("(^|[^a-z+#])" + esc(s) + "($|[^a-z+#])").test(t)).slice(0, 10);
+  const have = (p.skills || []).map(s => s.toLowerCase());
+  const match = req.filter(s => have.some(h => h === s || (h.length > 2 && (h.includes(s) || s.includes(h)))));
+  const missing = req.filter(s => !match.includes(s)).slice(0, 5);
+  return {
+    req, match, missing,
+    learn: missing.map(s => LEARN_RESOURCES[s] || { label: `${s.toUpperCase()} Guide & Tutorial`, url: `https://www.google.com/search?q=${encodeURIComponent(s + " tutorial roadmap")}` })
+  };
+}
+
+function kw(interest){
+  const k = (interest || "").toLowerCase().trim();
+  if(SYN[k]) return SYN[k];
+  return k.split(/[\s,\/]+/).filter(w => w.length > 2);
 }
 
 function assess(o, p){
@@ -2426,10 +1801,10 @@ function assess(o, p){
 
   const rs = /(?:open to|available to|eligible for|only for|limited to|restricted to)[^.\n]{0,60}(?:citizens|residents|nationals)[^.\n]{0,60}|must be (?:a )?(?:citizen|resident)[^.\n]{0,60}/i.exec(t);
   if(rs){
-    if(p.loc && rs[0].includes(p.loc.toLowerCase())) met.push("Residency: Mentions “" + p.loc + "”");
-    else if(p.loc) unmet.push("Residency restriction on page doesn't explicitly include “" + p.loc + "”");
+    if(p.location && rs[0].includes(p.location.toLowerCase())) met.push("Residency: Mentions “" + p.location + "”");
+    else if(p.location) unmet.push("Residency restriction on page doesn't explicitly include “" + p.location + "”");
     else miss.push("Residency rule found; please enter your location");
-  } else if(p.loc && o.locHas) met.push("Location: Page explicitly references " + p.loc);
+  } else if(p.location && o.locHas) met.push("Location: Page explicitly references " + p.location);
   else if(o.remote) met.push("Remote / online participation mentioned");
   else miss.push("Residency or location constraints not specified");
 
@@ -2452,6 +1827,58 @@ function assess(o, p){
   return { key, label, met, unmet, miss };
 }
 
+function score(o, p){
+  const R = [];
+  let pts = 0;
+  const txt = (o.title + " " + o.text).toLowerCase();
+  const tt = o.title.toLowerCase();
+  const ks = kw(p.interests || "Software Engineering");
+  let hits = 0, tHit = false;
+  ks.forEach(k => {
+    if(tt.includes(k)) tHit = true;
+    hits += (txt.match(new RegExp(k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&"), "g")) || []).length;
+  });
+  const iv = ks.length ? Math.min(1, (tHit ? 0.6 : 0) + Math.min(0.4, hits * 0.05)) : 0;
+  pts += iv * 35;
+  R.push(ks.length ? (iv > 0 ? "Interest aligned (" + Math.round(iv * 35) + "/35)" : "No direct interest keywords") : "No interest query");
+  
+  const sk = p.skills || [];
+  if(sk.length){
+    const m = sk.filter(s => txt.includes(s.toLowerCase()));
+    pts += (m.length / sk.length) * 25;
+    R.push(m.length ? "Skills found: " + m.join(", ") : "None of your skills detected");
+  } else {
+    R.push("No skills specified");
+  }
+
+  if(p.opportunity_type === "any" || o.type === p.opportunity_type){
+    pts += 15;
+    R.push(o.type === "unknown" ? "Type unclear" : "Type matches");
+  } else if(o.type === "unknown"){
+    pts += 5;
+    R.push("Type unclear");
+  } else {
+    R.push("Different type (" + o.type + ")");
+  }
+
+  if(p.work_mode === "remote"){
+    if(o.remote){ pts += 15; R.push("Remote friendly"); }
+    else { pts += 3; R.push("Remote unconfirmed"); }
+  } else if(p.location){
+    if(o.locHas){ pts += 15; R.push("Mentions " + p.location); }
+    else if(o.remote){ pts += 9; R.push("Remote option"); }
+    else { pts += 3; R.push("Location unconfirmed"); }
+  } else {
+    pts += 8;
+  }
+
+  if(o.elig === "ok"){ pts += 10; R.push("Study level compatible"); }
+  else if(o.elig === "unclear"){ pts += 5; R.push("Eligibility unstated on page"); }
+  else { R.push("Page specifies other student levels"); }
+
+  return { pct: Math.round(pts), why: R.join(" • ") };
+}
+
 /* PROCESS RAW ITEMS INTO APPLICATION OBJECTS */
 function processRawPages(pagesList, profileObj, fetchedTimestamp, sourceMode = "fixture"){
   const out = [], dup = new Set();
@@ -2464,7 +1891,7 @@ function processRawPages(pagesList, profileObj, fetchedTimestamp, sourceMode = "
     
     const read = !!(c.text && c.text.length > 50);
     const dl = read ? findDeadline(text) : null;
-    const li = locInfo(text, profileObj.loc);
+    const li = locInfo(text, profileObj.location);
     const kind = sourceKind(c.url);
     const o = {
       id: key(c.url),
@@ -2485,14 +1912,9 @@ function processRawPages(pagesList, profileObj, fetchedTimestamp, sourceMode = "
       locText: li.text,
       locHas: li.hasLoc
     };
-    o.dls = read ? allDeadlines(text) : [];
-    if(o.dls.length > 1){
-      const f = o.dls.filter(d => d >= TODAY).sort((a,b) => a - b)[0] || o.dls.slice().sort((a,b) => b - a)[0];
-      o.deadline = f;
-      o.expired = f < TODAY;
-    }
+    
     o.ai = read ? classifyApply(o, c) : { state: "none", note: "Official link unconfirmed" };
-    o.apply = o.ai.state === "confirmed" ? o.ai.url : null;
+    o.apply = o.ai.state === "confirmed" ? o.ai.url : (o.url || null);
     o.retrieved = read ? fetchedTimestamp : null;
     o.sg = skillGap(o, profileObj);
     o.as = assess(o, profileObj);
@@ -2504,7 +1926,845 @@ function processRawPages(pagesList, profileObj, fetchedTimestamp, sourceMode = "
   return out;
 }
 
-/* HELPER: LOAD VERIFIED FIXTURES FALLBACK */
+/* NAVIGATION & TAB SWITCHING */
+function showTab(tabId){
+  currentTab = tabId;
+  $$(".tab-view").forEach(s => s.style.display = "none");
+  const target = $("#v-" + tabId);
+  if(target) target.style.display = "block";
+  
+  $$(".nav-tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabId));
+  $$(".m-tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabId));
+  
+  if(tabId === "dashboard") renderDashboard();
+  if(tabId === "discover") render();
+  if(tabId === "tracker") renderTracker();
+  if(tabId === "radar") renderRadar();
+  if(tabId === "skillgap") renderSkillGap();
+  if(tabId === "assistant") renderAssistant();
+  
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* MODALS */
+function openProfileModal(){
+  $("#prof-name").value = userProfile.name || "";
+  $("#prof-degree").value = userProfile.degree || "";
+  $("#prof-year").value = userProfile.year || "";
+  $("#prof-grad-year").value = userProfile.graduation_year || "";
+  $("#prof-loc").value = userProfile.location || "";
+  $("#prof-skills").value = (userProfile.skills || []).join(", ");
+  $("#prof-type").value = userProfile.opportunity_type || "any";
+  $("#prof-mode").value = userProfile.work_mode || "any";
+  $("#profile-modal").style.display = "flex";
+}
+function closeProfileModal(){
+  $("#profile-modal").style.display = "none";
+}
+function toggleModalSkill(s){
+  const inp = $("#prof-skills");
+  const cur = inp.value.split(",").map(x => x.trim()).filter(Boolean);
+  if(!cur.includes(s)) cur.push(s);
+  else cur.splice(cur.indexOf(s), 1);
+  inp.value = cur.join(", ");
+}
+async function saveProfileFromModal(){
+  userProfile.name = $("#prof-name").value.trim() || "Student";
+  userProfile.degree = $("#prof-degree").value.trim() || "";
+  userProfile.year = $("#prof-year").value || "";
+  userProfile.graduation_year = $("#prof-grad-year").value.trim() || "";
+  userProfile.location = $("#prof-loc").value.trim() || "";
+  userProfile.skills = $("#prof-skills").value.split(",").map(x => x.trim()).filter(Boolean);
+  userProfile.opportunity_type = $("#prof-type").value || "any";
+  userProfile.work_mode = $("#prof-mode").value || "any";
+
+  LSX.set("oh:profile", userProfile);
+  try {
+    await fetch(`${BACKEND_BASE}/api/profile`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userProfile)
+    });
+  } catch(e){}
+
+  closeProfileModal();
+  showToast("Student profile updated successfully!", "✓");
+  recalculateAllScores();
+  refreshAll();
+}
+
+function openAddCustomAppModal(){
+  $("#custom-app-title").value = "";
+  $("#custom-app-org").value = "";
+  $("#custom-app-url").value = "";
+  $("#custom-app-stage").value = "interested";
+  $("#custom-app-deadline").value = "";
+  $("#custom-app-notes").value = "";
+  $("#custom-app-modal").style.display = "flex";
+}
+function closeCustomAppModal(){
+  $("#custom-app-modal").style.display = "none";
+}
+async function submitCustomApplication(){
+  const title = $("#custom-app-title").value.trim();
+  const org = $("#custom-app-org").value.trim();
+  if(!title || !org){
+    alert("Please provide both Opportunity Title and Organization.");
+    return;
+  }
+  const appObj = {
+    id: "custom-" + Date.now(),
+    title,
+    organization: org,
+    url: $("#custom-app-url").value.trim(),
+    stage: $("#custom-app-stage").value,
+    deadline: $("#custom-app-deadline").value,
+    notes: $("#custom-app-notes").value.trim(),
+    applied_date: new Date().toISOString().split("T")[0],
+    created_at: new Date().toISOString()
+  };
+  
+  applications.push(appObj);
+  LSX.set("oh:applications", applications);
+  
+  try {
+    await fetch(`${BACKEND_BASE}/api/applications`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(appObj)
+    });
+  } catch(e){}
+  
+  closeCustomAppModal();
+  showToast(`Added '${title}' to Application Tracker!`, "📋");
+  refreshAll();
+}
+
+/* RECALCULATE SCORES IN REAL TIME */
+function recalculateAllScores(){
+  if(all && all.length){
+    all.forEach(o => {
+      o.elig = o.read ? levelCheck(o.text, userProfile.year) : "unclear";
+      o.sg = skillGap(o, userProfile);
+      o.as = assess(o, userProfile);
+      const sc = score(o, userProfile);
+      o.pct = sc.pct;
+      o.why = sc.why;
+    });
+  }
+}
+
+/* RENDER DASHBOARD */
+function renderDashboard(){
+  $("#dash-greeting-name").textContent = userProfile.name || "Student";
+  $("#dash-greeting-meta").textContent = `${userProfile.degree || "Technical Track"} • ${userProfile.year || "Student"} • ${userProfile.location || "Global"}`;
+  
+  // Profile strength
+  let filled = 20;
+  if(userProfile.degree) filled += 20;
+  if(userProfile.year) filled += 20;
+  if((userProfile.skills || []).length) filled += 20;
+  if(userProfile.location) filled += 10;
+  if(userProfile.graduation_year) filled += 10;
+  filled = Math.min(100, Math.max(30, filled));
+  
+  $("#dash-prof-strength-num").textContent = filled + "% Complete";
+  $("#dash-prof-strength-bar").style.width = filled + "%";
+  $("#head-prof-pct").textContent = filled + "%";
+  $("#head-avatar").textContent = (userProfile.name || "S").charAt(0).toUpperCase();
+  $("#hud-avatar").textContent = (userProfile.name || "S").charAt(0).toUpperCase();
+  $("#hud-name").textContent = userProfile.name || "Student";
+  $("#hud-year").textContent = userProfile.year || "Student";
+  $("#hud-degree").textContent = `${userProfile.degree || "Degree Unspecified"} • ${userProfile.location || "Location Unspecified"}`;
+
+  // Real KPIs
+  const matchedCount = all.filter(o => o.pct >= 70).length;
+  $("#kpi-dash-matched").textContent = matchedCount;
+  $("#kpi-dash-saved").textContent = applications.length;
+  
+  const activeApps = applications.filter(a => ["applied", "assessment", "interviewing"].includes(a.stage)).length;
+  $("#kpi-dash-active-apps").textContent = activeApps;
+  
+  const urgentDeadlines = all.filter(o => o.deadline && !o.expired && daysTo(o.deadline) <= 7).length;
+  $("#kpi-dash-urgent").textContent = urgentDeadlines;
+  
+  // Recommended Grid
+  const recBox = $("#dash-recommended-grid");
+  recBox.textContent = "";
+  const topMatches = all.slice().sort((a,b) => b.pct - a.pct).slice(0, 3);
+  if(!topMatches.length){
+    recBox.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:30px; color:var(--text-muted);">No recommendations loaded yet. Search in the <b>Discover</b> tab to load active opportunities.</div>`;
+  } else {
+    topMatches.forEach(o => recBox.append(createOpportunityCard(o)));
+  }
+
+  // Upcoming Deadlines List
+  const dlBox = $("#dash-deadlines-list");
+  dlBox.textContent = "";
+  const dls = all.filter(o => o.deadline && !o.expired).sort((a,b) => a.deadline - b.deadline).slice(0, 4);
+  if(!dls.length){
+    dlBox.innerHTML = `<div style="padding:16px; color:var(--text-muted); font-size:0.88rem;">No active upcoming deadlines found in loaded programs.</div>`;
+  } else {
+    dls.forEach(o => {
+      const dt = daysTo(o.deadline);
+      const row = el("div", "bento-card", "");
+      row.style.padding = "12px 16px";
+      row.style.background = "var(--bg-card-elevated)";
+      row.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <div>
+            <div style="font-weight:700; font-size:0.95rem;">${o.title}</div>
+            <div style="font-size:0.8rem; color:var(--text-muted);">${o.org} &bull; Deadline: ${fmt(o.deadline)}</div>
+          </div>
+          <span class="badge ${dt <= 3 ? 'badge-danger' : 'badge-warning'}">${dt === 0 ? 'Closes Today' : dt + ' Days Left'}</span>
+        </div>
+      `;
+      dlBox.append(row);
+    });
+  }
+
+  // Recent Activity Feed
+  const actBox = $("#dash-activity-list");
+  actBox.textContent = "";
+  if(!recentActivity.length){
+    actBox.innerHTML = `
+      <div style="padding:14px; background:var(--bg-card-elevated); border-radius:var(--radius-md); font-size:0.85rem; color:var(--text-muted);">
+        ✨ System initialized. Ready to track your job search applications and deadlined opportunities.
+      </div>
+    `;
+  } else {
+    recentActivity.slice(0, 5).forEach(act => {
+      const it = el("div", null, "");
+      it.style.padding = "10px 14px";
+      it.style.background = "var(--bg-card-elevated)";
+      it.style.borderRadius = "var(--radius-md)";
+      it.style.fontSize = "0.85rem";
+      it.innerHTML = `<b>${act.action.replace('_', ' ').toUpperCase()}</b>: ${act.details}`;
+      actBox.append(it);
+    });
+  }
+}
+
+/* CREATE OPPORTUNITY CARD */
+function createOpportunityCard(o){
+  const card = el("div", "opp-card");
+  
+  // Top header with org and match dial
+  const top = el("div", "opp-card-top");
+  const leftMeta = el("div");
+  leftMeta.append(el("div", "opp-org-badge", o.org));
+  const titleEl = el("h3", "opp-title", o.title);
+  leftMeta.append(titleEl);
+  top.append(leftMeta);
+
+  // Match Dial
+  const dial = el("div", "match-dial");
+  const color = o.pct >= 85 ? "var(--success)" : (o.pct >= 70 ? "var(--lavender)" : "var(--warning)");
+  dial.innerHTML = `
+    <svg viewBox="0 0 36 36">
+      <path stroke="rgba(255,255,255,0.08)" stroke-width="3" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+      <path stroke="${color}" stroke-dasharray="${o.pct}, 100" stroke-width="3" stroke-linecap="round" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+    </svg>
+    <div class="match-dial-text" style="color:${color}">${o.pct}%</div>
+  `;
+  top.append(dial);
+  card.append(top);
+
+  // Meta pills row
+  const pills = el("div", null);
+  pills.style.display = "flex";
+  pills.style.flexWrap = "wrap";
+  pills.style.gap = "6px";
+  
+  pills.append(el("span", "badge badge-lavender", o.type.toUpperCase()));
+  if(o.remote) pills.append(el("span", "badge badge-info", "REMOTE"));
+  else if(o.locText) pills.append(el("span", "badge badge-info", o.locText));
+  
+  if(o.deadline){
+    const dt = daysTo(o.deadline);
+    const dlBadge = el("span", `badge ${dt <= 3 ? 'badge-danger' : (dt <= 7 ? 'badge-warning' : 'badge-lavender')}`, dt < 0 ? 'EXPIRED' : (dt === 0 ? 'DUE TODAY' : `CLOSES IN ${dt}D`));
+    pills.append(dlBadge);
+  }
+  
+  if(o.kind === "official") pills.append(el("span", "badge badge-success", "OFFICIAL VERIFIED"));
+  card.append(pills);
+
+  // Description / excerpt
+  const desc = el("p", null, o.text.slice(0, 160) + "...");
+  desc.style.fontSize = "0.88rem";
+  desc.style.color = "var(--text-muted)";
+  desc.style.lineHeight = "1.5";
+  card.append(desc);
+
+  // Why recommended / eligibility callout
+  const audit = el("div", null);
+  audit.style.padding = "10px 14px";
+  audit.style.background = "var(--bg-card-elevated)";
+  audit.style.borderRadius = "var(--radius-sm)";
+  audit.style.fontSize = "0.82rem";
+  
+  let eligText = o.as.label;
+  if(o.as.met.length) eligText += " • " + o.as.met[0];
+  audit.innerHTML = `<b>Evaluation</b>: ${eligText}`;
+  card.append(audit);
+
+  // Action Buttons Bottom Bar
+  const actions = el("div", null);
+  actions.style.display = "flex";
+  actions.style.justifyContent = "space-between";
+  actions.style.alignItems = "center";
+  actions.style.marginTop = "auto";
+  actions.style.paddingTop = "12px";
+  actions.style.borderTop = "1px solid var(--border)";
+
+  const leftBtns = el("div");
+  leftBtns.style.display = "flex";
+  leftBtns.style.gap = "8px";
+
+  const isTracked = applications.some(a => a.id === o.id || a.url === o.url);
+  const trackBtn = el("button", `btn btn-sm ${isTracked ? 'btn-primary' : 'btn-subtle'}`, isTracked ? "✓ Tracked" : "+ Track");
+  trackBtn.onclick = () => {
+    if(!isTracked){
+      const newApp = {
+        id: o.id,
+        title: o.title,
+        organization: o.org,
+        url: o.apply || o.url,
+        stage: "interested",
+        deadline: o.deadline ? o.deadline.toISOString().split("T")[0] : "",
+        notes: `Extracted from ${o.org}. Match: ${o.pct}%`,
+        created_at: new Date().toISOString()
+      };
+      applications.push(newApp);
+      LSX.set("oh:applications", applications);
+      showToast(`Tracked '${o.title}' in your Pipeline!`, "📋");
+      refreshAll();
+    } else {
+      showTab("tracker");
+    }
+  };
+  leftBtns.append(trackBtn);
+
+  const shareBtn = el("button", "btn btn-subtle btn-sm", "Share");
+  shareBtn.onclick = () => {
+    navigator.clipboard.writeText(o.apply || o.url);
+    showToast("Application link copied to clipboard!", "🔗");
+  };
+  leftBtns.append(shareBtn);
+  actions.append(leftBtns);
+
+  const applyLink = el("a", "btn btn-primary btn-sm", "Apply &rarr;");
+  applyLink.href = o.apply || o.url;
+  applyLink.target = "_blank";
+  applyLink.rel = "noopener noreferrer";
+  actions.append(applyLink);
+
+  card.append(actions);
+  return card;
+}
+
+/* RENDER DISCOVER CARDS */
+function render(){
+  const box = $("#cards");
+  if(!box) return;
+  box.textContent = "";
+  
+  const searchFilter = ($("#live-search")?.value || "").toLowerCase().trim();
+  let list = all.filter(o => {
+    if(currentCategoryFilter !== "all"){
+      if(currentCategoryFilter === "remote" && !o.remote) return false;
+      if(currentCategoryFilter !== "remote" && o.type !== currentCategoryFilter) return false;
+    }
+    if(searchFilter){
+      const haystack = (o.title + " " + o.org + " " + o.text).toLowerCase();
+      if(!haystack.includes(searchFilter)) return false;
+    }
+    return true;
+  });
+
+  const sortVal = $("#sort")?.value || "score";
+  if(sortVal === "deadline"){
+    list.sort((a,b) => (a.deadline || 8.64e15) - (b.deadline || 8.64e15));
+  } else if(sortVal === "title"){
+    list.sort((a,b) => a.title.localeCompare(b.title));
+  } else {
+    list.sort((a,b) => b.pct - a.pct);
+  }
+
+  if(!list.length){
+    box.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:40px; color:var(--text-muted);">No opportunities match the selected criteria. Try adjusting filters or searching a broader topic.</div>`;
+    return;
+  }
+  list.forEach(o => box.append(createOpportunityCard(o)));
+}
+
+function setCategoryFilter(cat){
+  currentCategoryFilter = cat;
+  $$(".pill-filter").forEach(b => b.classList.toggle("on", b.dataset.category === cat));
+  render();
+}
+
+function setSearchQuery(kw){
+  $("#q").value = kw;
+  run(false);
+}
+
+/* RENDER APPLICATION TRACKER (8 KANBAN STAGES) */
+function renderTracker(){
+  const container = $("#kanban-board-container");
+  if(!container) return;
+  container.textContent = "";
+
+  KANBAN_STAGES.forEach(st => {
+    const col = el("div", "kanban-col");
+    const items = applications.filter(a => (a.stage || "interested") === st.id);
+    
+    col.innerHTML = `
+      <div class="kanban-col-header">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span>${st.icon}</span>
+          <span>${st.title}</span>
+        </div>
+        <span class="badge badge-lavender">${items.length}</span>
+      </div>
+    `;
+
+    const body = el("div", "kanban-col-body");
+    if(!items.length){
+      body.innerHTML = `<div style="text-align:center; padding:30px 10px; color:var(--text-dim); font-size:0.82rem;">No applications in this stage.</div>`;
+    } else {
+      items.forEach(a => {
+        const item = el("div", "kanban-item");
+        item.innerHTML = `
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+            <div style="font-size:0.75rem; font-weight:700; color:var(--lavender); text-transform:uppercase;">${a.organization || 'General'}</div>
+            <button class="btn btn-subtle btn-sm" style="padding:2px 6px; font-size:0.7rem;" onclick="deleteApplication('${a.id}')">&times;</button>
+          </div>
+          <div style="font-weight:700; font-size:0.95rem; margin-bottom:8px; line-height:1.3;">${a.title}</div>
+          ${a.deadline ? `<div style="font-size:0.78rem; color:var(--warning); margin-bottom:8px;">⏳ Deadline: ${a.deadline}</div>` : ''}
+          ${a.notes ? `<div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:10px;">${a.notes}</div>` : ''}
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+            <select style="width:auto; padding:4px 8px; font-size:0.75rem;" onchange="moveAppStage('${a.id}', this.value)">
+              ${KANBAN_STAGES.map(s => `<option value="${s.id}" ${s.id === a.stage ? 'selected' : ''}>${s.icon} ${s.title}</option>`).join('')}
+            </select>
+            ${a.url ? `<a href="${a.url}" target="_blank" class="btn btn-subtle btn-sm" style="padding:3px 8px; font-size:0.75rem;">Portal &rarr;</a>` : ''}
+          </div>
+        `;
+        body.append(item);
+      });
+    }
+    col.append(body);
+    container.append(col);
+  });
+  
+  $("#nav-tracker-count").textContent = applications.length;
+}
+
+async function moveAppStage(appId, newStage){
+  const app = applications.find(a => a.id === appId);
+  if(app){
+    app.stage = newStage;
+    LSX.set("oh:applications", applications);
+    try {
+      await fetch(`${BACKEND_BASE}/api/applications`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(app)
+      });
+    } catch(e){}
+    showToast(`Moved to ${newStage.toUpperCase()}`, "✓");
+    renderTracker();
+    renderDashboard();
+  }
+}
+
+async function deleteApplication(appId){
+  applications = applications.filter(a => a.id !== appId);
+  LSX.set("oh:applications", applications);
+  try {
+    await fetch(`${BACKEND_BASE}/api/applications?id=${appId}`, { method: "DELETE" });
+  } catch(e){}
+  showToast("Application removed from tracker.", "✓");
+  renderTracker();
+  renderDashboard();
+}
+
+function exportTrackerCSV(){
+  if(!applications.length){
+    alert("No applications currently tracked to export.");
+    return;
+  }
+  const headers = ["Title", "Organization", "Stage", "Deadline", "URL", "Notes", "Date"];
+  const rows = applications.map(a => [
+    `"${(a.title||'').replace(/"/g, '""')}"`,
+    `"${(a.organization||'').replace(/"/g, '""')}"`,
+    `"${a.stage||''}"`,
+    `"${a.deadline||''}"`,
+    `"${a.url||''}"`,
+    `"${(a.notes||'').replace(/"/g, '""')}"`,
+    `"${a.created_at||''}"`
+  ]);
+  const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map(e => e.join(","))].join("\n");
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement("a");
+  link.setAttribute("href", encodedUri);
+  link.setAttribute("download", `Opportunity_Hunter_Applications_${new Date().toISOString().split("T")[0]}.csv`);
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+}
+
+/* RENDER DEADLINE RADAR & CALENDAR */
+function renderRadar(){
+  const box = $("#radar-board-container");
+  if(!box) return;
+  box.textContent = "";
+
+  const groups = [
+    { label: "🔴 Urgent (0–3 Days)", items: all.filter(o => o.deadline && !o.expired && daysTo(o.deadline) <= 3) },
+    { label: "🟠 Closing Soon (4–7 Days)", items: all.filter(o => o.deadline && !o.expired && daysTo(o.deadline) > 3 && daysTo(o.deadline) <= 7) },
+    { label: "🟢 Planning Window (8+ Days)", items: all.filter(o => o.deadline && !o.expired && daysTo(o.deadline) > 7) },
+    { label: "⚪ Expired Opportunities", items: all.filter(o => o.deadline && o.expired) }
+  ];
+
+  const grid = el("div", null);
+  grid.style.display = "grid";
+  grid.style.gridTemplateColumns = "repeat(auto-fit, minmax(280px, 1fr))";
+  grid.style.gap = "16px";
+
+  groups.forEach(g => {
+    const col = el("div", "bento-card");
+    col.innerHTML = `
+      <div style="font-weight:700; font-size:1.05rem; margin-bottom:14px; display:flex; justify-content:space-between;">
+        <span>${g.label}</span>
+        <span class="badge badge-lavender">${g.items.length}</span>
+      </div>
+    `;
+    if(!g.items.length){
+      col.append(el("div", null, "No programs in this window."));
+    } else {
+      g.items.forEach(o => {
+        const item = el("div", "bento-card", "");
+        item.style.padding = "12px";
+        item.style.marginBottom = "10px";
+        item.style.background = "var(--bg-card-elevated)";
+        item.innerHTML = `
+          <div style="font-weight:700; font-size:0.92rem;">${o.title}</div>
+          <div style="font-size:0.8rem; color:var(--text-muted); margin:4px 0;">${o.org} &bull; ${fmt(o.deadline)}</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
+            <span class="badge badge-lavender">${o.pct}% Match</span>
+            <a href="${o.apply || o.url}" target="_blank" class="btn btn-subtle btn-sm" style="padding:2px 8px; font-size:0.75rem;">Apply &rarr;</a>
+          </div>
+        `;
+        col.append(item);
+      });
+    }
+    grid.append(col);
+  });
+  box.append(grid);
+}
+
+function exportAllDeadlinesICS(){
+  const dls = all.filter(o => o.deadline && !o.expired);
+  if(!dls.length){
+    alert("No active deadlines to export.");
+    return;
+  }
+  let ics = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Opportunity Hunter//Student Career Calendar//EN\n";
+  dls.forEach(o => {
+    const dStr = o.deadline.toISOString().replace(/[-:]/g, "").split(".")[0] + "Z";
+    ics += "BEGIN:VEVENT\n";
+    ics += `SUMMARY:${o.title} Application Deadline\n`;
+    ics += `DESCRIPTION:Official Opportunity at ${o.org}. Apply here: ${o.apply || o.url}\n`;
+    ics += `DTSTART:${dStr}\n`;
+    ics += `DTEND:${dStr}\n`;
+    ics += `URL:${o.apply || o.url}\n`;
+    ics += "END:VEVENT\n";
+  });
+  ics += "END:VCALENDAR";
+
+  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `Opportunity_Hunter_Deadlines_${new Date().toISOString().split("T")[0]}.ics`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  showToast("Deadlines exported to .ics calendar file!", "📅");
+}
+
+/* RENDER SKILL GAP ANALYZER */
+function renderSkillGap(){
+  const box = $("#skillgap-container");
+  if(!box) return;
+  box.textContent = "";
+
+  const demandCounts = {};
+  all.forEach(o => {
+    (o.sg.req || []).forEach(s => {
+      demandCounts[s] = (demandCounts[s] || 0) + 1;
+    });
+  });
+
+  const sortedDemand = Object.entries(demandCounts).sort((a,b) => b[1] - a[1]);
+  const userSkillsLow = (userProfile.skills || []).map(s => s.toLowerCase());
+
+  const grid = el("div", null);
+  grid.style.display = "grid";
+  grid.style.gridTemplateColumns = "1.5fr 1fr";
+  grid.style.gap = "20px";
+
+  // Left: Market Demand & Missing Skills
+  const left = el("div", "bento-card");
+  left.innerHTML = `
+    <h3 class="card-title" style="margin-bottom:12px;">Technical Skills In-Demand</h3>
+    <p class="card-subtitle" style="margin-bottom:20px;">Frequency of skills listed across current student requisitions</p>
+  `;
+
+  if(!sortedDemand.length){
+    left.append(el("div", null, "Search or load opportunities to analyze skill frequencies."));
+  } else {
+    sortedDemand.forEach(([skill, cnt]) => {
+      const pct = Math.round((cnt / all.length) * 100);
+      const isOwned = userSkillsLow.includes(skill);
+      const row = el("div", null);
+      row.style.marginBottom = "14px";
+      row.innerHTML = `
+        <div style="display:flex; justify-content:space-between; font-size:0.88rem; font-weight:700; margin-bottom:4px;">
+          <span>${skill.toUpperCase()} ${isOwned ? '<span class="badge badge-success" style="font-size:0.65rem;">You Have This</span>' : '<span class="badge badge-warning" style="font-size:0.65rem;">Gap to Learn</span>'}</span>
+          <span>${pct}% of listings</span>
+        </div>
+        <div style="height:8px; background:var(--bg-subtle); border-radius:var(--radius-full); overflow:hidden;">
+          <div style="height:100%; width:${pct}%; background:${isOwned ? 'var(--success)' : 'var(--warning)'}; border-radius:var(--radius-full);"></div>
+        </div>
+      `;
+      left.append(row);
+    });
+  }
+  grid.append(left);
+
+  // Right: Curated Free Learning Roadmaps
+  const right = el("div", "bento-card");
+  right.innerHTML = `
+    <h3 class="card-title" style="margin-bottom:12px;">Curated Learning Roadmaps</h3>
+    <p class="card-subtitle" style="margin-bottom:20px;">Recommended paths and projects to close your gaps</p>
+  `;
+
+  const roadmaps = [
+    { skill: "Docker & Containerization", desc: "Learn to containerize Python and Node backends with Dockerfile and Docker Compose.", url: "https://docker-curriculum.com/" },
+    { skill: "SQL & Data Modeling", desc: "Master relational schema design, indexes, and complex window queries.", url: "https://sqlbolt.com/" },
+    { skill: "Git & Open Source Workflow", desc: "Branching, PRs, rebasing, and collaborating on production repositories.", url: "https://git-scm.com/book/en/v2" },
+    { skill: "Cloud Architecture (AWS)", desc: "Deploy serverless functions and storage using the AWS Free Tier.", url: "https://aws.amazon.com/free/" }
+  ];
+
+  roadmaps.forEach(r => {
+    const card = el("div", "bento-card", "");
+    card.style.padding = "14px";
+    card.style.marginBottom = "12px";
+    card.style.background = "var(--bg-card-elevated)";
+    card.innerHTML = `
+      <div style="font-weight:700; font-size:0.95rem; margin-bottom:4px;">${r.skill}</div>
+      <div style="font-size:0.82rem; color:var(--text-muted); margin-bottom:10px;">${r.desc}</div>
+      <a href="${r.url}" target="_blank" class="btn btn-subtle btn-sm" style="font-size:0.75rem;">Open Free Resource &rarr;</a>
+    `;
+    right.append(card);
+  });
+  grid.append(right);
+
+  box.append(grid);
+}
+
+/* RESUME ANALYZER (SAFE CLIENT-SIDE PARSER) */
+function toggleResumePasteArea(){
+  const box = $("#resume-paste-box");
+  const isHidden = box.style.display === "none";
+  box.style.display = isHidden ? "block" : "none";
+  $("#btn-toggle-paste").textContent = isHidden ? "Hide text paste box &uarr;" : "Or paste resume text manually &darr;";
+}
+
+function handleResumeFileUpload(evt){
+  const file = evt.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  
+  if(file.name.endsWith(".txt")){
+    reader.onload = e => executeResumeAudit(e.target.result);
+    reader.readAsText(file);
+  } else if(file.name.endsWith(".pdf")){
+    reader.onload = e => {
+      // Safe stream text extraction from ArrayBuffer
+      const buf = e.target.result;
+      const decoder = new TextDecoder("utf-8");
+      const raw = decoder.decode(buf);
+      
+      // Extract string literals from PDF stream
+      const matches = raw.match(/\(([^()\\]|\\.)*\)/g) || [];
+      const extracted = matches.map(s => s.slice(1, -1)).join(" ");
+      executeResumeAudit(extracted || raw.slice(0, 10000));
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    reader.onload = e => executeResumeAudit(e.target.result);
+    reader.readAsText(file);
+  }
+}
+
+function analyzeResumeTextManual(){
+  const t = $("#resume-manual-text").value.trim();
+  if(!t){
+    alert("Please paste resume text to analyze.");
+    return;
+  }
+  executeResumeAudit(t);
+}
+
+async function executeResumeAudit(text){
+  let result = null;
+  // Try backend endpoint first
+  try {
+    const res = await fetch(`${BACKEND_BASE}/api/resume/parse`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, opportunities: all })
+    });
+    if(res.ok){
+      const data = await res.json();
+      result = data.analysis;
+    }
+  } catch(e){}
+
+  // Fallback client-side rule extraction if offline
+  if(!result){
+    const low = text.toLowerCase();
+    const skillsFound = SKILLS_CATALOG.filter(s => new RegExp("(^|[^a-z+#])" + esc(s) + "($|[^a-z+#])").test(low));
+    result = {
+      candidate_name: "Candidate",
+      degree: /b\.?tech/i.test(low) ? "B.Tech Computer Science" : "Technical Degree",
+      study_year: "2nd year",
+      extracted_skills: skillsFound,
+      strength_score: Math.min(95, 40 + skillsFound.length * 8),
+      strengths: [`Found ${skillsFound.length} technical skills: ${skillsFound.slice(0, 5).join(", ")}`],
+      improvement_tips: ["Add quantifiable impact metrics to project bullet points."],
+      recommended_opportunities: all.slice(0, 2)
+    };
+  }
+
+  displayResumeResults(result);
+}
+
+function displayResumeResults(res){
+  const box = $("#resume-results");
+  box.style.display = "block";
+  box.textContent = "";
+
+  const card = el("div", "bento-card");
+  card.innerHTML = `
+    <div class="card-header-bar">
+      <div>
+        <span class="badge badge-success">Audit Complete</span>
+        <h3 class="card-title" style="margin-top:4px;">Resume Strength: ${res.strength_score}/100</h3>
+        <p class="card-subtitle">Inferred Degree: ${res.degree} &bull; Skills Found: ${res.extracted_skills.length}</p>
+      </div>
+      <button class="btn btn-primary btn-sm" onclick="applyResumeSkillsToProfile(${JSON.stringify(res.extracted_skills).replace(/"/g, '&quot;')}, '${res.degree}')">
+        Sync Skills &amp; Degree to Profile
+      </button>
+    </div>
+
+    <div style="margin-bottom:16px;">
+      <h4 style="font-size:0.9rem; margin-bottom:8px;">Extracted Technical Skills:</h4>
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        ${res.extracted_skills.map(s => `<span class="badge badge-lavender">${s}</span>`).join('')}
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px; margin-top:20px;">
+      <div style="padding:14px; background:var(--bg-card-elevated); border-radius:var(--radius-md);">
+        <h4 style="font-size:0.9rem; color:var(--success); margin-bottom:8px;">✓ Resume Strengths</h4>
+        <ul style="padding-left:18px; font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+          ${(res.strengths || []).map(s => `<li>${s}</li>`).join('')}
+        </ul>
+      </div>
+      <div style="padding:14px; background:var(--bg-card-elevated); border-radius:var(--radius-md);">
+        <h4 style="font-size:0.9rem; color:var(--warning); margin-bottom:8px;">💡 Actionable Improvements</h4>
+        <ul style="padding-left:18px; font-size:0.85rem; color:var(--text-muted); line-height:1.6;">
+          ${(res.improvement_tips || []).map(t => `<li>${t}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `;
+  box.append(card);
+  showToast("Resume analysis completed!", "📄");
+}
+
+function applyResumeSkillsToProfile(skillsList, degreeVal){
+  userProfile.skills = [...new Set([...(userProfile.skills || []), ...skillsList])];
+  if(degreeVal) userProfile.degree = degreeVal;
+  LSX.set("oh:profile", userProfile);
+  showToast("Skills synchronized to student profile!", "✓");
+  recalculateAllScores();
+  refreshAll();
+}
+
+/* CAREER ASSISTANT ENGINE */
+function renderAssistant(){
+  const box = $("#chat-messages-box");
+  if(!box.children.length){
+    appendAssistantMessage("bot", `Hello ${userProfile.name || "Student"}! I am your Opportunity Hunter Career Companion. I have analyzed your profile (${userProfile.degree || 'Engineering'}, ${userProfile.year || '2nd year'}). How can I help you today?`);
+  }
+}
+
+function sendPrompt(text){
+  $("#assistant-input-text").value = text;
+  handleAssistantSend();
+}
+
+async function handleAssistantSend(){
+  const inp = $("#assistant-input-text");
+  const query = inp.value.trim();
+  if(!query) return;
+  inp.value = "";
+
+  appendAssistantMessage("user", query);
+
+  // Try backend assistant endpoint
+  try {
+    const res = await fetch(`${BACKEND_BASE}/api/assistant`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query,
+        profile: userProfile,
+        opportunities: all,
+        applications
+      })
+    });
+    if(res.ok){
+      const data = await res.json();
+      appendAssistantMessage("bot", data.reply);
+      return;
+    }
+  } catch(e){}
+
+  // Client-side fallback response
+  const qLow = query.toLowerCase();
+  if(qLow.includes("microsoft") || qLow.includes("explore")){
+    appendAssistantMessage("bot", `Explore Microsoft is specifically designed for 1st and 2nd year undergraduate students. Since you are in your ${userProfile.year}, you meet the primary academic level prerequisite!`);
+  } else if(qLow.includes("match")){
+    const top = all.slice(0, 2);
+    appendAssistantMessage("bot", `Based on your profile, your top matching opportunities are: ${top.map(o => o.title).join(", ")}.`);
+  } else {
+    appendAssistantMessage("bot", `Great question! To maximize your opportunities in ${userProfile.degree}, ensure your GitHub repositories have clean READMEs and test coverage, and practice problem solving in ${userProfile.skills.slice(0, 2).join(' and ')}.`);
+  }
+}
+
+function appendAssistantMessage(sender, text){
+  const box = $("#chat-messages-box");
+  const bubble = el("div", `chat-bubble ${sender}`, text);
+  box.append(bubble);
+  box.scrollTop = box.scrollHeight;
+}
+
+/* SEARCH & FIXTURE LOADING */
 async function loadFixtureMode(p, statusNotice){
   let fixtures = EMBEDDED_FIXTURES;
   try {
@@ -2515,888 +2775,142 @@ async function loadFixtureMode(p, statusNotice){
         fixtures = data.pages;
       }
     }
-  } catch(e) {
-    // Backend offline, fallback to embedded fixtures
-  }
+  } catch(e){}
+  
   const fetchedAt = new Date().toISOString();
   all = processRawPages(fixtures, p, fetchedAt, "fixture");
-  setStatus("", null);
+  
   const isGHPages = window.location.hostname.includes("github.io");
   if(!isGHPages && statusNotice){
-    setStatus("info", statusNotice, "Run Live Search", () => run(false));
+    const s = $("#status");
+    s.innerHTML = `<div class="bento-card" style="padding:12px 18px; margin-bottom:16px; background:var(--warning-bg); border-color:var(--warning); display:flex; justify-content:space-between; align-items:center;"><span>${statusNotice}</span><button class="btn btn-subtle btn-sm" onclick="this.parentElement.remove()">✕</button></div>`;
   }
-  render();
+  refreshAll();
 }
 
-/* SHOW SKELETON LOADERS */
-function showSkeletons(){
-  const box = $("#cards");
-  box.textContent = "";
-  $("#toolbar").hidden = false;
-  for(let i=0; i<3; i++){
-    const sk = el("div", "skeleton-card");
-    sk.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center;">
-        <div class="skeleton-shimmer" style="width:140px; height:20px;"></div>
-        <div class="skeleton-shimmer" style="width:60px; height:45px; border-radius:8px;"></div>
-      </div>
-      <div class="skeleton-shimmer" style="width:85%; height:28px;"></div>
-      <div style="display:flex; gap:8px;">
-        <div class="skeleton-shimmer" style="width:80px; height:24px; border-radius:12px;"></div>
-        <div class="skeleton-shimmer" style="width:110px; height:24px; border-radius:12px;"></div>
-        <div class="skeleton-shimmer" style="width:70px; height:24px; border-radius:12px;"></div>
-      </div>
-      <div class="skeleton-shimmer" style="width:60%; height:18px;"></div>
-      <div class="skeleton-shimmer" style="width:100%; height:40px; margin-top:10px; border-radius:8px;"></div>
-    `;
-    box.append(sk);
-  }
-}
-
-function getProfileData(){
-  return {
-    interest: $("#q").value.trim(),
-    degree: $("#degree").value.trim(),
-    year: $("#year").value,
-    skills: $("#skills").value.split(",").map(s => s.trim().toLowerCase()).filter(Boolean),
-    loc: $("#loc").value.trim(),
-    type: $("#type").value,
-    mode: $("#mode").value
-  };
-}
-
-function recalculateScores(){
-  const p = getProfileData();
-  P = p;
-  if(all && all.length){
-    all.forEach(o => {
-      o.elig = o.read ? levelCheck(o.text, p.year) : "unclear";
-      o.sg = skillGap(o, p);
-      o.as = assess(o, p);
-      const sc = score(o, p);
-      o.pct = sc.pct;
-      o.why = sc.why;
-    });
-    render();
-  }
-}
-
-/* SEARCH & DATA FETCHING PIPELINE */
 async function run(forceDemo = false){
   if(busy) return;
-  const p = getProfileData();
-
-  if(!p.interest && !forceDemo){
-    setStatus("err", "Please enter an area of interest first (e.g. Data Science, AI/ML, Software Engineering).");
-    $("#q").focus();
-    return;
-  }
-  if(!p.interest && forceDemo){
-    p.interest = "Software Engineering";
-    $("#q").value = "Software Engineering";
-  }
-
-  P = p;
-  persistProf();
   busy = true;
-  $("#go").disabled = true;
-  showSkeletons();
+  const btn = $("#btn-discover-go");
+  if(btn) btn.disabled = true;
 
   try {
-    if(forceDemo){
-      const isGHPages = window.location.hostname.includes("github.io");
-      await loadFixtureMode(p, isGHPages ? "" : "Displaying verified student program fixtures (Demo Mode).");
-      return;
-    }
-
+    const kw = $("#q").value.trim() || userProfile.interests || "Software Engineering";
+    userProfile.interests = kw;
+    
+    // Check backend status
     let backendStatus = null;
     try {
-      const statusRes = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(3000) });
-      if(statusRes.ok){
-        backendStatus = await statusRes.json();
-      }
-    } catch(err) {
-      // Backend offline or unreachable
-    }
+      const statusRes = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(2500) });
+      if(statusRes.ok) backendStatus = await statusRes.json();
+    } catch(e){}
 
-    if(backendStatus && backendStatus.has_api_key){
-      setStatus("load", "Querying live web via TinyFish Search API...");
-      const tl = {
-        any: "internship OR scholarship OR fellowship",
-        internship: "internship",
-        scholarship: "scholarship",
-        fellowship: "fellowship",
-        program: "developer program OR hackathon"
-      }[p.type] || "internship";
-
-      const yr = new Date().getFullYear();
-      const where = p.mode === "remote" ? "remote" : p.loc;
-      const query = `${p.interest} ${tl} ${where} ${yr} applications open`.trim();
-
+    if(backendStatus && backendStatus.has_api_key && !forceDemo){
+      showToast("Searching live web via TinyFish API...", "🌐");
       const searchRes = await fetch(`${BACKEND_BASE}/api/search`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: query,
-          purpose: "Find official student opportunities for an opportunity-discovery website",
-          exclude_domains: BLOCK
-        }),
-        signal: AbortSignal.timeout(18000)
+        body: JSON.stringify({ query: `${kw} student internship applications open`, exclude_domains: BLOCK })
       });
-
-      if(!searchRes.ok){
-        const errData = await searchRes.json().catch(() => ({}));
-        throw new Error(errData.message || `TinyFish search returned HTTP ${searchRes.status}`);
+      if(searchRes.ok){
+        const searchJson = await searchRes.json();
+        const cand = (searchJson.results || searchJson.payload?.results || []).slice(0, 5);
+        if(cand.length){
+          const fetchRes = await fetch(`${BACKEND_BASE}/api/fetch`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ urls: cand.map(c => c.url).filter(Boolean) })
+          });
+          if(fetchRes.ok){
+            const fetchJson = await fetchRes.json();
+            const fetchedPages = (fetchJson.results || fetchJson.payload?.results || []);
+            all = processRawPages(fetchedPages, userProfile, new Date().toISOString(), "live");
+            showToast(`Retrieved ${all.length} live opportunities!`, "✓");
+            refreshAll();
+            return;
+          }
+        }
       }
-
-      const searchJson = await searchRes.json();
-      const candidates = (searchJson.results || searchJson.payload?.results || []);
-      if(!candidates.length){
-        setStatus("", null);
-        render("No live web results returned for this query. Try a broader search term.");
-        return;
-      }
-
-      const pick = candidates.slice(0, 6);
-      const pickUrls = pick.map(c => c.url).filter(Boolean);
-      setStatus("load", `Reading and extracting content from ${pickUrls.length} live pages via TinyFish Fetch API...`);
-
-      const fetchRes = await fetch(`${BACKEND_BASE}/api/fetch`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          urls: pickUrls,
-          format: "markdown",
-          links: true,
-          per_url_timeout_ms: 40000,
-          purpose: "Extract deadline, eligibility and location for student opportunities"
-        }),
-        signal: AbortSignal.timeout(52000)
-      });
-
-      if(!fetchRes.ok){
-        const errData = await fetchRes.json().catch(() => ({}));
-        throw new Error(errData.message || `TinyFish fetch returned HTTP ${fetchRes.status}`);
-      }
-
-      const fetchJson = await fetchRes.json();
-      const fetchedPages = (fetchJson.results || fetchJson.payload?.results || []);
-      const fetchedMap = {};
-      fetchedPages.forEach(pg => {
-        if(pg.url) fetchedMap[key(pg.url)] = pg;
-      });
-
-      const pagesList = pick.map(c => {
-        const pg = fetchedMap[key(c.url)];
-        return {
-          url: c.url,
-          title: (pg && pg.title) || c.title,
-          text: (pg && pg.text) || c.snippet,
-          links: (pg && pg.links) || []
-        };
-      });
-
-      const fetchedAt = new Date().toISOString();
-      all = processRawPages(pagesList, p, fetchedAt, "live");
-      setStatus("", null);
-      setStatus("info", `Live search complete: Retrieved ${all.length} opportunities via TinyFish Web API.`, "Search Again", () => run(false));
-      render(all.length ? null : "No readable opportunities were found.");
-
-    } else if(backendStatus && !backendStatus.has_api_key){
-      await loadFixtureMode(p, "Backend active in Demo Mode (TINYFISH_API_KEY is not configured in .env). Displaying verified program fixtures. Add your key to .env for live searches.");
-    } else {
-      const isGHPages = window.location.hostname.includes("github.io");
-      await loadFixtureMode(p, isGHPages 
-        ? "" 
-        : "Backend server (server.py) is offline. Displaying verified program fixtures (Demo Mode). Start server.py to enable live TinyFish searches.");
     }
-
+    
+    // Default verified fixtures
+    await loadFixtureMode(userProfile, "");
   } catch(e) {
-    setStatus("err", `Search notice: ${e.message}`, "Load Offline Fixtures", () => run(true));
-    render();
+    await loadFixtureMode(userProfile, "");
   } finally {
     busy = false;
-    $("#go").disabled = false;
+    if(btn) btn.disabled = false;
   }
 }
 
-/* FILTERING & SORTING */
-function applyFilters(){
-  const f = {
-    t: $("#fType").value,
-    m: $("#fMode").value,
-    l: $("#fLoc").value.trim().toLowerCase(),
-    e: $("#fElig").value,
-    d: $("#fDl").value,
-    qLive: $("#live-search").value.trim().toLowerCase()
-  };
+async function probeBackendStatus(){
+  const dot = $("#srv-dot");
+  const txt = $("#srv-text");
+  const isGHPages = window.location.hostname.includes("github.io");
 
-  let r = all.filter(o => {
-    // Quick pills filter
-    if(currentQuickFilter === "likely" && o.as.key !== "likely") return false;
-    if(currentQuickFilter === "internship" && o.type !== "internship") return false;
-    if(currentQuickFilter === "scholarship" && o.type !== "scholarship") return false;
-    if(currentQuickFilter === "remote" && !o.remote) return false;
-    if(currentQuickFilter === "closing"){
-      if(!o.deadline || o.expired) return false;
-      if(daysTo(o.deadline) > 7) return false;
+  try {
+    const res = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(2500) });
+    if(res.ok){
+      const data = await res.json();
+      if(data.has_api_key){
+        dot.className = "status-dot live";
+        txt.textContent = "Live TinyFish Proxy";
+      } else {
+        dot.className = "status-dot";
+        txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Mode (SQLite DB)";
+      }
+    } else {
+      dot.className = "status-dot";
+      txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Fixture Mode";
     }
-    if(currentQuickFilter === "official" && o.kind !== "official") return false;
-
-    // Advanced filters
-    if(f.t !== "all" && o.type !== f.t) return false;
-    if(f.m === "remote" && !o.remote) return false;
-    if(f.m === "onsite" && (!o.locText || o.remote)) return false;
-    if(f.l && !((o.locText || "") + " " + o.text.slice(0, 4000)).toLowerCase().includes(f.l)) return false;
-    if(f.e !== "all" && o.as.key !== f.e) return false;
-    if(f.d === "live" && (o.expired || o.closed)) return false;
-    if(f.d === "found" && !o.deadline) return false;
-    if(f.d === "7" || f.d === "30" || f.d === "90"){
-      if(!o.deadline || o.expired) return false;
-      if(daysTo(o.deadline) > +f.d) return false;
-    }
-
-    // Live search text
-    if(f.qLive){
-      const haystack = (o.title + " " + o.org + " " + (o.locText||"") + " " + o.text.slice(0, 3000)).toLowerCase();
-      if(!haystack.includes(f.qLive)) return false;
-    }
-
-    return true;
-  });
-
-  const sortVal = $("#sort").value;
-  if(sortVal === "deadline"){
-    r.sort((a,b) => {
-      const x = a.deadline && !a.expired ? +a.deadline : 8.64e15;
-      const y = b.deadline && !b.expired ? +b.deadline : 8.64e15;
-      return x - y || b.pct - a.pct;
-    });
-  } else if(sortVal === "title"){
-    r.sort((a,b) => a.title.localeCompare(b.title));
-  } else {
-    r.sort((a,b) => b.pct - a.pct);
+  } catch(e){
+    dot.className = "status-dot";
+    txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Fixture Mode";
   }
-
-  const hasActiveFilters = currentQuickFilter !== "all" || f.t !== "all" || f.m !== "all" || f.l !== "" || f.e !== "all" || f.d !== "all" || f.qLive !== "";
-  $("#reset-filters-btn").style.display = hasActiveFilters ? "inline-flex" : "none";
-
-  return r;
-}
-
-const TN = { internship: "Internship", scholarship: "Scholarship", fellowship: "Fellowship", program: "Developer Program", unknown: "Opportunity" };
-const AC = { likely: "ok", possible: "warn", insufficient: "", not: "bad" };
-
-function snap(o){
-  return {
-    id: o.id,
-    title: o.title,
-    url: o.url,
-    org: o.org,
-    type: o.type,
-    deadlineISO: o.deadline ? o.deadline.toISOString() : null,
-    retrieved: o.retrieved,
-    apply: o.apply,
-    elig: o.as.label,
-    pct: o.pct,
-    status: "Interested",
-    notes: "",
-    savedAt: new Date().toISOString()
-  };
 }
 
 function refreshAll(){
-  persist();
-  updateWelcome();
-  updateProfileSummaryBar();
+  recalculateAllScores();
+  renderDashboard();
   render();
-  if(!$("#v-radar").hidden) renderRadar();
-  if(!$("#v-tracker").hidden) renderTracker();
-  const count = Object.keys(saved).length;
-  $("#nsave").textContent = count;
-  $("#m-nsave").textContent = count;
+  renderTracker();
+  renderRadar();
 }
 
-function ul(title, items, c){
-  const d = el("div", "audit-section");
-  d.append(el("h4", null, title));
-  if(!items.length){
-    d.append(el("div", "info-row", "None detected"));
-    return d;
-  }
-  const u = el("ul");
-  items.forEach(x => u.append(el("li", c, x)));
-  d.append(u);
-  return d;
-}
-function link(u, t){
-  const a = el("a", null, t || u);
-  a.href = u;
-  a.target = "_blank";
-  a.rel = "noopener noreferrer";
-  return a;
-}
-function fmtT(i){
-  try{ return new Date(i).toLocaleString("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }); }
-  catch(e){ return "unknown"; }
-}
-
-function saveCtl(o, wrap){
-  wrap.textContent = "";
-  if(!saved[o.id]){
-    const b = el("button", "btn btn-subtle btn-sm", "☆ Track");
-    b.onclick = () => { 
-      saved[o.id] = snap(o); 
-      refreshAll(); 
-      showToast("Saved to Application Tracker!", "★");
-    };
-    wrap.append(b);
-    return;
-  }
-  const s = el("select");
-  s.setAttribute("aria-label", "Application status");
-  ST.forEach(x => {
-    const op = el("option", null, x);
-    op.value = x;
-    s.append(op);
-  });
-  s.value = saved[o.id].status;
-  s.onchange = () => { 
-    saved[o.id].status = s.value; 
-    refreshAll(); 
-    showToast(`Updated status: ${s.value}`, "ℹ");
-  };
-
-  const r = el("button", "btn btn-subtle btn-sm", "Remove");
-  r.onclick = () => { 
-    delete saved[o.id]; 
-    refreshAll(); 
-    showToast("Removed from tracker", "✕");
-  };
-  wrap.append(s, r);
-}
-
-/* RENDER RESULTS CARDS */
-function render(emptyMsg){
-  const box = $("#cards");
-  box.textContent = "";
-  $("#toolbar").hidden = !all.length;
-
-  if(!all.length){
-    if(emptyMsg){
-      const emp = el("div", "empty");
-      emp.innerHTML = `
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
-        <div style="font-family:var(--font-display); font-weight:800; font-size:1.25rem; margin-bottom:8px; color:var(--ink);">Ready to Hunt Opportunities</div>
-        <div style="max-width:540px; margin:0 auto 20px; font-size:0.95rem; line-height:1.6; color:var(--mute);">${emptyMsg}</div>
-      `;
-      const btn = el("button", "btn btn-primary", "Load Verified Demo Opportunities");
-      btn.onclick = () => run(true);
-      emp.append(btn);
-      box.append(emp);
-    }
-    return;
-  }
-
-  const r = applyFilters();
-  $("#count").textContent = "Showing " + r.length + " of " + all.length + " opportunities";
+/* INITIALIZATION ON PAGE LOAD */
+window.addEventListener("DOMContentLoaded", async () => {
+  initTheme();
   
-  // Render KPIS
-  const kp = $("#kpis");
-  kp.textContent = "";
-  [
-    ["Total Found", all.length],
-    ["Likely Eligible", all.filter(o => o.as.key === "likely").length],
-    ["Active Deadlines", all.filter(o => o.deadline && !o.expired).length],
-    ["Official Sources", all.filter(o => o.kind === "official").length]
-  ].forEach(([k, v]) => {
-    const d = el("div", "kpi");
-    d.append(el("b", null, String(v)), el("span", null, k));
-    kp.append(d);
-  });
+  // Load saved profile & apps from localStorage
+  const sp = LSX.get("oh:profile", null);
+  if(sp && typeof sp === "object") userProfile = { ...userProfile, ...sp };
+  
+  const sa = LSX.get("oh:applications", null);
+  if(Array.isArray(sa)) applications = sa;
 
-  if(!r.length){
-    const emp = el("div", "empty");
-    emp.innerHTML = `
-      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-      <div style="font-family:var(--font-display); font-weight:800; font-size:1.15rem; margin-bottom:6px; color:var(--ink);">No opportunities match your filter criteria</div>
-      <div style="font-size:0.92rem; color:var(--mute);">Try adjusting your search keywords, clearing quick filters, or broadening your parameters.</div>
-    `;
-    const clr = el("button", "btn btn-subtle btn-sm", "Clear All Filters");
-    clr.style.marginTop = "16px";
-    clr.onclick = resetAllFilters;
-    emp.append(clr);
-    box.append(emp);
-    return;
-  }
-
-  r.forEach(o => {
-    const c = el("div", "card");
-    const top = el("div", "card-header");
-    const l = el("div");
-    
-    const orgRow = el("div", "card-org-line");
-    const avatar = el("div", "org-avatar", o.org.charAt(0).toUpperCase());
-    const orgName = el("span", null, o.org + " • " + (o.kind === "official" ? "Official Verified Portal" : "Curated Platform"));
-    orgRow.append(avatar, orgName);
-    
-    const titleH3 = el("h3", null, o.title);
-    l.append(orgRow, titleH3);
-
-    const scoreClass = o.pct >= 85 ? "high" : (o.pct >= 65 ? "med" : "");
-    const sc = el("div", "match-score " + scoreClass);
-    sc.append(el("b", null, o.pct + "%"), el("small", null, "Match"));
-    top.append(l, sc);
-    c.append(top);
-
-    // Badges Row
-    const ch = el("div", "chips");
-    ch.append(el("span", "chip brand", TN[o.type] || "Opportunity"));
-    ch.append(el("span", "chip " + AC[o.as.key], o.as.label));
-    
-    // Explicit source mode badge
-    if(o.sourceMode === "live"){
-      ch.append(el("span", "chip ok", "🌐 Live TinyFish Result"));
-    } else {
-      ch.append(el("span", "chip", "📁 Verified Fixture"));
+  // Sync with backend if available
+  try {
+    const pRes = await fetch(`${BACKEND_BASE}/api/profile`);
+    if(pRes.ok){
+      const pData = await pRes.json();
+      if(pData.profile) userProfile = { ...userProfile, ...pData.profile };
     }
-
-    // Bug 2 badge: campus placement cell notice
-    if(o.ai && o.ai.campusRecruitment){
-      ch.append(el("span", "chip warn", "🏫 Placement Cell Notice"));
-    }
-
-    if(o.deadline){
-      if(o.expired){
-        ch.append(el("span", "chip bad", "Expired"));
-      } else {
-        const dt = daysTo(o.deadline);
-        ch.append(el("span", "chip " + (dt <= 3 ? "bad" : dt <= 7 ? "warn" : "ok"), dt === 0 ? "🔥 Closes Today" : `⏳ ${dt}d left`));
+    const aRes = await fetch(`${BACKEND_BASE}/api/applications`);
+    if(aRes.ok){
+      const aData = await aRes.json();
+      if(Array.isArray(aData.applications) && aData.applications.length){
+        applications = aData.applications;
       }
     }
-    if(o.remote) ch.append(el("span", "chip", "🌐 Remote Friendly"));
-    if(o.locText && !o.remote) ch.append(el("span", "chip", "📍 " + o.locText.slice(0, 26)));
-    c.append(ch);
+  } catch(e){}
 
-    // Deadline info row
-    const rDl = el("div", "info-row");
-    rDl.style.fontSize = "0.9rem";
-    rDl.style.color = "var(--mute)";
-    rDl.innerHTML = `<b style="color:var(--ink);">Application Deadline:</b> ${o.deadline ? fmt(o.deadline) + (o.expired ? " (Passed)" : ` (${daysTo(o.deadline)} days left)`) : "Not explicitly specified on page"}`;
-    c.append(rDl);
-
-    // Collapsible details
-    const dt = el("details");
-    const sm = el("summary", null, "View Eligibility Audit & Skill Gap Analysis");
-    dt.append(sm);
-
-    dt.append(ul("Requirements You Satisfy", o.as.met, "y"));
-    dt.append(ul("Requirements Not Satisfied", o.as.unmet, "n"));
-    dt.append(ul("Missing Information to Confirm", o.as.miss, "m"));
-
-    const sgSec = el("div", "audit-section");
-    sgSec.append(el("h4", null, "Skill Analysis & Roadmap"));
-    if(!o.sg.req.length){
-      sgSec.append(el("div", "info-row", "No specific programming skills detected on page."));
-    } else {
-      const u = el("ul");
-      u.append(el("li", "y", "Matching: " + (o.sg.match.join(", ") || "None yet")));
-      u.append(el("li", "m", "Skills mentioned on page: " + (o.sg.missing.join(", ") || "None")));
-      o.sg.learn.forEach(x => u.append(el("li", null, "Suggested Preparation: " + x)));
-      sgSec.append(u);
-    }
-    dt.append(sgSec);
-
-    const tr = el("div", "audit-section");
-    tr.append(el("h4", null, "Verification & Source Transparency"));
-    const tu = el("ul");
-    const li = (k, n) => {
-      const x = el("li");
-      x.append(document.createTextNode(k + ": "));
-      x.append(n);
-      tu.append(x);
-    };
-    li("Source Page", link(o.url));
-    if(o.ai && o.ai.url) li("Application Link", link(o.ai.url, o.ai.kind || "Direct Form"));
-    if(o.ai && o.ai.campusRecruitment) li("Campus Placement Policy", document.createTextNode(o.ai.placementNote || "Recruits via college placement cell."));
-    li("Data Origin", document.createTextNode(o.sourceMode === "live" ? "Live TinyFish Web Crawl" : "Verified Snapshot Fixture (Demo Mode)"));
-    if(o.retrieved) li("Fetched Timestamp", document.createTextNode(fmtT(o.retrieved)));
-    tr.append(tu);
-    dt.append(tr);
-
-    const w = el("div", "audit-section");
-    w.append(el("h4", null, "Score Breakdown"), el("div", "info-row", o.pct + "%: " + o.why));
-    dt.append(w);
-
-    c.append(dt);
-
-    // Card Actions
-    const act = el("div", "card-actions");
-    const okA = o.ai && o.ai.state === "confirmed";
-    let btnText = okA ? (o.ai.kind ? `Apply: ${o.ai.kind} ↗` : "Apply Officially ↗") : (o.ai && o.ai.campusRecruitment ? "Placement Cell Notice ↗" : "Open Source Page ↗");
-    const applyBtn = el("a", "btn btn-primary", btnText);
-    applyBtn.href = okA ? o.ai.url : o.url;
-    applyBtn.target = "_blank";
-    applyBtn.rel = "noopener noreferrer";
-    act.append(applyBtn);
-
-    const saveWrap = el("div", "card-actions");
-    saveCtl(o, saveWrap);
-
-    // Share / Copy Link Button
-    const shareBtn = el("button", "btn btn-subtle btn-icon", "");
-    shareBtn.setAttribute("title", "Copy link to clipboard");
-    shareBtn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
-    shareBtn.onclick = () => {
-      const copyUrl = okA ? o.ai.url : o.url;
-      navigator.clipboard.writeText(copyUrl).then(() => {
-        showToast("Link copied to clipboard!", "📋");
-      }).catch(() => {
-        showToast("Could not copy link", "✕");
-      });
-    };
-    saveWrap.append(shareBtn);
-
-    act.append(saveWrap);
-    c.append(act);
-    box.append(c);
-  });
-}
-
-function resetAllFilters(){
-  currentQuickFilter = "all";
-  $$(".pill-filter").forEach(b => b.classList.toggle("on", b.dataset.quick === "all"));
-  $("#fType").value = "all";
-  $("#fMode").value = "all";
-  $("#fLoc").value = "";
-  $("#fElig").value = "all";
-  $("#fDl").value = "all";
-  $("#sort").value = "score";
-  $("#live-search").value = "";
-  render();
-  showToast("All filters reset", "↺");
-}
-
-/* DEADLINE RADAR */
-function radarItems(){
-  const m = {};
-  Object.values(saved).forEach(x => m[x.id] = { id: x.id, title: x.title, url: x.url, org: x.org, d: x.deadlineISO ? new Date(x.deadlineISO) : null, conf: false, ret: x.retrieved, o: null });
-  all.forEach(o => m[o.id] = { id: o.id, title: o.title, url: o.url, org: o.org, d: o.deadline, conf: (o.dls||[]).length > 1, ret: o.retrieved, o });
-  return Object.values(m);
-}
-
-function exportDeadlinesICS(){
-  const items = radarItems().filter(x => x.d && daysTo(x.d) >= 0);
-  if(!items.length){
-    showToast("No active deadlines to export", "ℹ");
-    return;
-  }
-  let ics = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//Opportunity Hunter//EN\n";
-  items.forEach(x => {
-    const dt = x.d.toISOString().replace(/[-:]/g,"").split(".")[0] + "Z";
-    ics += `BEGIN:VEVENT\nSUMMARY:Deadline: ${x.title}\nDESCRIPTION:Opportunity application deadline for ${x.org} (${x.url})\nDTSTART:${dt}\nDTEND:${dt}\nURL:${x.url}\nEND:VEVENT\n`;
-  });
-  ics += "END:VCALENDAR";
-  const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "opportunity-deadlines.ics";
-  a.click();
-  showToast("Exported deadlines to calendar (.ics)", "📅");
-}
-
-function renderRadar(){
-  const b = $("#v-radar");
-  b.textContent = "";
-  const p = el("div", "bento-card");
-
-  const pHeader = el("div", "card-title-bar");
-  pHeader.append(el("h2", "card-title", "Deadline Urgency Radar"));
-  const exportBtn = el("button", "btn btn-subtle btn-sm", "📅 Export to Calendar (.ics)");
-  exportBtn.onclick = exportDeadlinesICS;
-  pHeader.append(exportBtn);
-  p.append(pHeader);
-
-  const it = radarItems();
-  if(!it.length){
-    p.append(el("div", "empty", "No opportunities tracked yet. Run a search or save opportunities from Discover."));
-    b.append(p);
-    return;
-  }
-  const G = [
-    ["Closing Soon (0–3 Days)", x => x.d && daysTo(x.d) >= 0 && daysTo(x.d) <= 3, "bad"],
-    ["Closing This Week (4–7 Days)", x => x.d && daysTo(x.d) > 3 && daysTo(x.d) <= 7, "warn"],
-    ["Upcoming (8+ Days)", x => x.d && daysTo(x.d) > 7, "ok"],
-    ["Expired", x => x.d && daysTo(x.d) < 0, "mute"],
-    ["No Specified Deadline", x => !x.d, "mute"]
-  ];
-  const g = el("div", "radar");
-  G.forEach(([t, f, c]) => {
-    const col = el("div", "rcol " + c);
-    const l = it.filter(f).sort((a,b) => (a.d || 0) - (b.d || 0));
-    const head = el("div", "rcol-head");
-    head.append(el("span", null, t), el("span", "rcol-badge", String(l.length)));
-    col.append(head);
-    if(!l.length) col.append(el("div", "info-row", "None in this category"));
-    l.forEach(x => {
-      const r = el("div", "ritem");
-      r.append(link(x.url, x.title));
-      const sub = el("div", "info-row", (x.d ? fmt(x.d) + (daysTo(x.d) >= 0 ? ` • ${daysTo(x.d)} days left` : " • Passed") : "No deadline found") + (x.o ? "" : " • Saved snapshot"));
-      r.append(sub);
-      const b2 = el("button", "btn btn-subtle btn-sm", saved[x.id] ? "Tracked ✓" : "☆ Track");
-      if(x.o && !saved[x.id]) b2.onclick = () => { saved[x.id] = snap(x.o); refreshAll(); showToast("Saved to tracker", "★"); };
-      else b2.disabled = true;
-      r.append(b2);
-      col.append(r);
-    });
-    g.append(col);
-  });
-  p.append(g);
-  b.append(p);
-}
-
-/* APPLICATION TRACKER */
-function exportTrackerCSV(){
-  const L = Object.values(saved);
-  if(!L.length){
-    showToast("No tracker items to export", "ℹ");
-    return;
-  }
-  let csv = "ID,Title,Organization,Type,Status,Deadline,URL\n";
-  L.forEach(x => {
-    const line = [
-      `"${x.id.replace(/"/g,'""')}"`,
-      `"${x.title.replace(/"/g,'""')}"`,
-      `"${x.org.replace(/"/g,'""')}"`,
-      `"${x.type || ""}"`,
-      `"${x.status || ""}"`,
-      `"${x.deadlineISO || ""}"`,
-      `"${x.url || ""}"`
-    ].join(",");
-    csv += line + "\n";
-  });
-  const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = "my-application-tracker.csv";
-  a.click();
-  showToast("Exported tracker to CSV", "📊");
-}
-
-function renderTracker(){
-  const b = $("#v-tracker");
-  b.textContent = "";
-  const p = el("div", "bento-card");
-
-  const pHeader = el("div", "card-title-bar");
-  pHeader.append(el("h2", "card-title", "Application Kanban Pipeline"));
-  const exportBtn = el("button", "btn btn-subtle btn-sm", "📊 Export Tracker (.csv)");
-  exportBtn.onclick = exportTrackerCSV;
-  pHeader.append(exportBtn);
-  p.append(pHeader);
-
-  const L = Object.values(saved);
-  if(!L.length){
-    p.append(el("div", "empty", "No saved applications yet. Click '☆ Track' on any opportunity card in Discover to monitor your applications here."));
-    b.append(p);
-    return;
-  }
-  const g = el("div", "board");
-  ST.forEach(st => {
-    const col = el("div", "rcol " + (st === "Closed/Archived" ? "mute" : (st === "Applied" || st === "Interviewing" ? "ok" : "")));
-    const l = L.filter(x => x.status === st);
-    const head = el("div", "rcol-head");
-    head.append(el("span", null, st), el("span", "rcol-badge", String(l.length)));
-    col.append(head);
-    if(!l.length) col.append(el("div", "info-row", "No items"));
-    l.forEach(x => {
-      const r = el("div", "ritem");
-      r.append(link(x.url, x.title));
-      r.append(el("div", "info-row", x.org + " • " + (x.deadlineISO ? "Due " + fmt(new Date(x.deadlineISO)) : "No date")));
-      
-      const s = el("select");
-      s.setAttribute("aria-label", "Update status");
-      ST.forEach(y => {
-        const op = el("option", null, y);
-        op.value = y;
-        s.append(op);
-      });
-      s.value = x.status;
-      s.onchange = () => { saved[x.id].status = s.value; refreshAll(); showToast(`Status moved to ${s.value}`, "ℹ"); };
-
-      const d = el("button", "btn btn-subtle btn-sm", "Remove");
-      d.onclick = () => { delete saved[x.id]; refreshAll(); showToast("Item removed", "✕"); };
-      
-      const rowAct = el("div", "card-actions");
-      rowAct.append(s, d);
-      r.append(rowAct);
-      col.append(r);
-    });
-    g.append(col);
-  });
-  p.append(g);
-  b.append(p);
-}
-
-/* WELCOME DASHBOARD WIDGET */
-function updateWelcome(){
-  const n = ($("#name").value || "").trim();
-  $("#hello").innerHTML = n ? `Welcome back, <span class="gradient-text">${n}</span>. Let’s find your next big opportunity` : `Unlock student opportunities <span class="gradient-text">tailored to your potential</span>`;
-  const w = $("#welcome");
-  w.textContent = "";
-  const it = radarItems();
-  const soon = it.filter(x => x.d && daysTo(x.d) >= 0 && daysTo(x.d) <= 7).length;
-  const L = Object.values(saved);
-  w.append(el("h2", "card-title", n ? n + "’s Opportunity Radar" : "Opportunity Radar Pulse"));
-  const k = el("div", "kpis");
-  [
-    ["Tracked Applications", L.length],
-    ["Applied", L.filter(x => x.status === "Applied").length],
-    ["Closing This Week", soon],
-    ["Active Results", all.length]
-  ].forEach(([a, v]) => {
-    const d = el("div", "kpi");
-    d.append(el("b", null, String(v)), el("span", null, a));
-    k.append(d);
-  });
-  w.append(k);
-}
-
-function updateProfileSummaryBar(){
-  const name = ($("#name").value || "").trim() || "Student";
-  const degree = ($("#degree").value || "").trim() || "Degree Unspecified";
-  const year = $("#year").value || "Year Unspecified";
-  const loc = ($("#loc").value || "").trim() || "Location Unspecified";
+  probeBackendStatus();
   
-  $("#prof-prev-name").textContent = name;
-  $("#prof-prev-degree").textContent = degree;
-  $("#prof-prev-year").textContent = year;
-  $("#prof-prev-loc").textContent = loc;
-  $("#prof-avatar").textContent = name.charAt(0).toUpperCase();
-
-  // Calculate completion percentage
-  let filled = 0;
-  if($("#name").value.trim()) filled += 20;
-  if($("#degree").value.trim()) filled += 20;
-  if($("#year").value) filled += 20;
-  if($("#skills").value.trim()) filled += 20;
-  if($("#loc").value.trim()) filled += 10;
-  if($("#type").value !== "any") filled += 10;
-  filled = Math.min(100, Math.max(25, filled));
-
-  $("#prof-meter-text").textContent = filled + "% Strength";
-  $("#prof-meter-bar").style.width = filled + "%";
-}
-
-/* TABS NAVIGATION */
-function show(v){
-  ["discover","radar","tracker"].forEach(x => $("#v-"+x).hidden = (x !== v));
-  $$(".nav-btn").forEach(b => b.classList.toggle("on", b.dataset.v === v));
-  $$(".m-nav-btn").forEach(b => b.classList.toggle("on", b.dataset.v === v));
-  if(v === "radar") renderRadar();
-  if(v === "tracker") renderTracker();
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-/* EVENT LISTENERS */
-$("#go").addEventListener("click", () => run(false));
-$("#btn-quick-demo")?.addEventListener("click", () => run(true));
-$("#q").addEventListener("keydown", e => { if(e.key === "Enter") run(false); });
-
-$$(".hero-tag-btn").forEach(btn => {
-  btn.addEventListener("click", () => {
-    $("#q").value = btn.dataset.kw;
-    run(false);
-  });
+  // Load initial verified opportunities
+  await loadFixtureMode(userProfile, "");
+  showTab("dashboard");
 });
 
-$$(".pill-filter").forEach(btn => {
-  btn.addEventListener("click", () => {
-    $$(".pill-filter").forEach(b => b.classList.remove("on"));
-    btn.classList.add("on");
-    currentQuickFilter = btn.dataset.quick;
-    render();
-  });
-});
-
-$("#live-search").addEventListener("input", () => render());
-$("#reset-filters-btn").addEventListener("click", resetAllFilters);
-
-$("#toggle-advanced-filters").addEventListener("click", () => {
-  const p = $("#advanced-filters-panel");
-  p.hidden = !p.hidden;
-  $("#toggle-advanced-filters").classList.toggle("btn-gold", !p.hidden);
-});
-
-$("#toggle-prof-btn").addEventListener("click", () => {
-  const f = $("#profile-form-body");
-  const isHidden = f.style.display === "none";
-  f.style.display = isHidden ? "block" : "none";
-  $("#toggle-prof-btn").textContent = isHidden ? "Collapse Form" : "Expand Form";
-  $("#profile-summary-bar").style.display = isHidden ? "none" : "flex";
-});
-
-$("#btn-edit-prof").addEventListener("click", () => {
-  $("#profile-form-body").style.display = "block";
-  $("#profile-summary-bar").style.display = "none";
-  $("#toggle-prof-btn").textContent = "Collapse Form";
-});
-
-// Quick Skill Chips Click Handler
-$$(".skill-tag-btn").forEach(chip => {
-  chip.addEventListener("click", () => {
-    const skill = chip.dataset.skill;
-    const skillsInput = $("#skills");
-    const current = skillsInput.value.split(",").map(s => s.trim()).filter(Boolean);
-    const idx = current.findIndex(s => s.toLowerCase() === skill.toLowerCase());
-    if(idx > -1){
-      current.splice(idx, 1);
-      chip.classList.remove("active");
-    } else {
-      current.push(skill);
-      chip.classList.add("active");
-    }
-    skillsInput.value = current.join(", ");
-    persistProf();
-    recalculateScores();
-  });
-});
-
-["fType","fMode","fLoc","fElig","fDl","sort"].forEach(i => {
-  $("#"+i).addEventListener("input", () => render());
-});
-
-const sp = LSX.get("oh:profile", {});
-if(sp && typeof sp === "object"){
-  PF.forEach(i => { if(typeof sp[i] === "string") $("#"+i).value = sp[i]; });
-}
-
-$$(".nav-btn").forEach(b => b.addEventListener("click", () => show(b.dataset.v)));
-$$(".m-nav-btn").forEach(b => b.addEventListener("click", () => show(b.dataset.v)));
-
-$("#name").addEventListener("input", () => { persistProf(); updateWelcome(); });
-["degree","year","skills","loc","type","mode"].forEach(id => {
-  $("#"+id).addEventListener("input", () => {
-    persistProf();
-    recalculateScores();
-  });
-});
-
-/* INIT */
-initTheme();
-probeBackendStatus();
-refreshAll();
-updateProfileSummaryBar();
-
-// Auto-collapse profile form if already filled
-if($("#name").value || $("#degree").value){
-  $("#profile-form-body").style.display = "none";
-  $("#profile-summary-bar").style.display = "flex";
-  $("#toggle-prof-btn").textContent = "Expand Form";
-}
-
-// Auto-load verified program fixtures on start so the application is immediately populated
-run(true);
-</script>
+  </script>
 </body>
 </html>
