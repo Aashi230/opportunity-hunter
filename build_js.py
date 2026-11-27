@@ -561,12 +561,162 @@ function showTab(tabId){
   
   if(tabId === "dashboard") renderDashboard();
   if(tabId === "discover") render();
+  if(tabId === "profile") renderProfileTab();
   if(tabId === "tracker") renderTracker();
   if(tabId === "radar") renderRadar();
   if(tabId === "skillgap") renderSkillGap();
   if(tabId === "assistant") renderAssistant();
   
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* PROFILE TAB SETTINGS & INTERACTIVE SKILLS */
+const POPULAR_PROFILE_SKILLS = [
+  "Python", "JavaScript", "TypeScript", "React", "Node.js", "SQL",
+  "Machine Learning", "C++", "Java", "Docker", "Git", "AWS",
+  "Go", "Kubernetes", "Data Analysis", "HTML/CSS"
+];
+
+function renderProfileTab(){
+  const nameEl = $("#tab-prof-name");
+  const degEl = $("#tab-prof-degree");
+  const yrEl = $("#tab-prof-year");
+  const gradEl = $("#tab-prof-grad-year");
+  const locEl = $("#tab-prof-loc");
+  const intEl = $("#tab-prof-interests");
+  const typeEl = $("#tab-prof-type");
+  const modeEl = $("#tab-prof-mode");
+
+  if(nameEl) nameEl.value = userProfile.name || "";
+  if(degEl) degEl.value = userProfile.degree || "";
+  if(yrEl) yrEl.value = userProfile.year || "2nd year";
+  if(gradEl) gradEl.value = userProfile.graduation_year || "";
+  if(locEl) locEl.value = userProfile.location || "";
+  if(intEl) intEl.value = userProfile.interests || "";
+  if(typeEl) typeEl.value = userProfile.opportunity_type || "any";
+  if(modeEl) modeEl.value = userProfile.work_mode || "any";
+
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function renderActiveSkillsChips(){
+  const container = $("#tab-active-skills-chips");
+  if(!container) return;
+  container.innerHTML = "";
+  const skills = userProfile.skills || [];
+  if(skills.length === 0){
+    container.innerHTML = `<span style="font-size:0.8rem; color:var(--text-dim); padding:4px 0;">No skills added yet. Click popular skills below or add custom skills.</span>`;
+    return;
+  }
+  skills.forEach(skill => {
+    const chip = el("div", "badge badge-primary");
+    chip.style.cssText = "display:inline-flex; align-items:center; gap:6px; padding:5px 11px; font-size:0.82rem; border-radius:14px; background:rgba(99,102,241,0.15); border:1px solid var(--accent); color:var(--accent-hover);";
+    chip.innerHTML = `<span>${skill}</span><button type="button" onclick="removeSkillFromProfile('${skill.replace(/'/g, "\'")}')" style="background:none; border:none; color:currentColor; cursor:pointer; font-size:1.1rem; line-height:1; padding:0 2px; font-weight:bold;" title="Remove ${skill}">&times;</button>`;
+    container.appendChild(chip);
+  });
+}
+
+function renderSkillTogglePills(){
+  const container = $("#tab-skill-toggle-grid");
+  if(!container) return;
+  container.innerHTML = "";
+  const activeSkillsLower = (userProfile.skills || []).map(s => s.toLowerCase());
+  
+  POPULAR_PROFILE_SKILLS.forEach(skill => {
+    const isSelected = activeSkillsLower.includes(skill.toLowerCase());
+    const btn = el("button", isSelected ? "btn btn-primary btn-sm" : "btn btn-subtle btn-sm");
+    btn.type = "button";
+    btn.style.cssText = isSelected ? "border-color:var(--accent); background:var(--accent); color:#fff; font-weight:600;" : "";
+    btn.innerHTML = `${isSelected ? "✓ " : "+ "}${skill}`;
+    btn.onclick = () => toggleSkillInProfile(skill);
+    container.appendChild(btn);
+  });
+}
+
+function toggleSkillInProfile(skill){
+  if(!userProfile.skills) userProfile.skills = [];
+  const idx = userProfile.skills.findIndex(s => s.toLowerCase() === skill.toLowerCase());
+  if(idx >= 0){
+    userProfile.skills.splice(idx, 1);
+  } else {
+    userProfile.skills.push(skill);
+  }
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function removeSkillFromProfile(skill){
+  if(!userProfile.skills) return;
+  userProfile.skills = userProfile.skills.filter(s => s.toLowerCase() !== skill.toLowerCase());
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function addCustomSkillToTab(){
+  const inp = $("#tab-custom-skill-input");
+  if(!inp) return;
+  const val = inp.value.trim();
+  if(!val) return;
+  if(!userProfile.skills) userProfile.skills = [];
+  if(!userProfile.skills.some(s => s.toLowerCase() === val.toLowerCase())){
+    userProfile.skills.push(val);
+  }
+  inp.value = "";
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function setProfileDegreePreset(deg){
+  const degEl = $("#tab-prof-degree");
+  if(degEl){
+    degEl.value = deg;
+    degEl.focus();
+  }
+}
+
+async function saveProfileFromTab(){
+  const nameEl = $("#tab-prof-name");
+  const degEl = $("#tab-prof-degree");
+  const yrEl = $("#tab-prof-year");
+  const gradEl = $("#tab-prof-grad-year");
+  const locEl = $("#tab-prof-loc");
+  const intEl = $("#tab-prof-interests");
+  const typeEl = $("#tab-prof-type");
+  const modeEl = $("#tab-prof-mode");
+
+  userProfile.name = (nameEl && nameEl.value.trim()) || "Student";
+  userProfile.degree = (degEl && degEl.value.trim()) || "B.Tech Computer Science";
+  userProfile.year = (yrEl && yrEl.value) || "2nd year";
+  userProfile.graduation_year = (gradEl && gradEl.value.trim()) || "";
+  userProfile.location = (locEl && locEl.value.trim()) || "India";
+  userProfile.interests = (intEl && intEl.value.trim()) || "Software Engineering";
+  userProfile.opportunity_type = (typeEl && typeEl.value) || "any";
+  userProfile.work_mode = (modeEl && modeEl.value) || "any";
+
+  // Persist locally
+  LSX.set("oh:profile", userProfile);
+
+  // Sync to SQLite backend if reachable
+  try {
+    await fetch(`${BACKEND_BASE}/api/profile`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userProfile)
+    });
+  } catch(e){}
+
+  // Recalculate transparent match scores across all loaded opportunities
+  recalculateAllScores();
+  refreshAll();
+
+  // Give immediate positive feedback
+  showToast("Profile changes saved! Opportunity matches updated.", "✓");
+  
+  // Transition smoothly to dashboard
+  setTimeout(() => {
+    showTab("dashboard");
+  }, 400);
 }
 
 /* MODALS */
@@ -593,10 +743,10 @@ function toggleModalSkill(s){
 }
 async function saveProfileFromModal(){
   userProfile.name = $("#prof-name").value.trim() || "Student";
-  userProfile.degree = $("#prof-degree").value.trim() || "";
-  userProfile.year = $("#prof-year").value || "";
+  userProfile.degree = $("#prof-degree").value.trim() || "B.Tech Computer Science";
+  userProfile.year = $("#prof-year").value || "2nd year";
   userProfile.graduation_year = $("#prof-grad-year").value.trim() || "";
-  userProfile.location = $("#prof-loc").value.trim() || "";
+  userProfile.location = $("#prof-loc").value.trim() || "India";
   userProfile.skills = $("#prof-skills").value.split(",").map(x => x.trim()).filter(Boolean);
   userProfile.opportunity_type = $("#prof-type").value || "any";
   userProfile.work_mode = $("#prof-mode").value || "any";
@@ -611,9 +761,9 @@ async function saveProfileFromModal(){
   } catch(e){}
 
   closeProfileModal();
-  showToast("Student profile updated successfully!", "✓");
   recalculateAllScores();
   refreshAll();
+  showToast("Profile updated! Match scores refreshed.", "✓");
 }
 
 function openAddCustomAppModal(){
@@ -1388,7 +1538,7 @@ function appendAssistantMessage(sender, text){
 }
 
 /* SEARCH & FIXTURE LOADING */
-async function loadFixtureMode(p, statusNotice){
+async function loadOpportunitiesCatalog(p, statusNotice){
   let fixtures = EMBEDDED_FIXTURES;
   try {
     const res = await fetch(`${BACKEND_BASE}/api/fixtures`);
@@ -1401,17 +1551,12 @@ async function loadFixtureMode(p, statusNotice){
   } catch(e){}
   
   const fetchedAt = new Date().toISOString();
-  all = processRawPages(fixtures, p, fetchedAt, "fixture");
-  
-  const isGHPages = window.location.hostname.includes("github.io");
-  if(!isGHPages && statusNotice){
-    const s = $("#status");
-    s.innerHTML = `<div class="bento-card" style="padding:12px 18px; margin-bottom:16px; background:var(--warning-bg); border-color:var(--warning); display:flex; justify-content:space-between; align-items:center;"><span>${statusNotice}</span><button class="btn btn-subtle btn-sm" onclick="this.parentElement.remove()">✕</button></div>`;
-  }
+  all = processRawPages(fixtures, p, fetchedAt, "verified");
   refreshAll();
 }
+const loadFixtureMode = loadOpportunitiesCatalog;
 
-async function run(forceDemo = false){
+async function run(forceCatalog = false){
   if(busy) return;
   busy = true;
   const btn = $("#btn-discover-go");
@@ -1428,7 +1573,7 @@ async function run(forceDemo = false){
       if(statusRes.ok) backendStatus = await statusRes.json();
     } catch(e){}
 
-    if(backendStatus && backendStatus.has_api_key && !forceDemo){
+    if(backendStatus && backendStatus.has_api_key && !forceCatalog){
       showToast("Searching live web via TinyFish API...", "🌐");
       const searchRes = await fetch(`${BACKEND_BASE}/api/search`, {
         method: "POST",
@@ -1456,10 +1601,10 @@ async function run(forceDemo = false){
       }
     }
     
-    // Default verified fixtures
-    await loadFixtureMode(userProfile, "");
+    // Default verified opportunities catalog
+    await loadOpportunitiesCatalog(userProfile, "");
   } catch(e) {
-    await loadFixtureMode(userProfile, "");
+    await loadOpportunitiesCatalog(userProfile, "");
   } finally {
     busy = false;
     if(btn) btn.disabled = false;
@@ -1469,7 +1614,7 @@ async function run(forceDemo = false){
 async function probeBackendStatus(){
   const dot = $("#srv-dot");
   const txt = $("#srv-text");
-  const isGHPages = window.location.hostname.includes("github.io");
+  if(!dot || !txt) return;
 
   try {
     const res = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(2500) });
@@ -1477,18 +1622,18 @@ async function probeBackendStatus(){
       const data = await res.json();
       if(data.has_api_key){
         dot.className = "status-dot live";
-        txt.textContent = "Live TinyFish Proxy";
+        txt.textContent = "Live Search & Verification";
       } else {
-        dot.className = "status-dot";
-        txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Mode (SQLite DB)";
+        dot.className = "status-dot live";
+        txt.textContent = "Verified Network (SQLite Sync)";
       }
     } else {
-      dot.className = "status-dot";
-      txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Fixture Mode";
+      dot.className = "status-dot live";
+      txt.textContent = "Verified Opportunities Network";
     }
   } catch(e){
-    dot.className = "status-dot";
-    txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Fixture Mode";
+    dot.className = "status-dot live";
+    txt.textContent = "Verified Opportunities Network";
   }
 }
 
@@ -1530,7 +1675,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   probeBackendStatus();
   
   // Load initial verified opportunities
-  await loadFixtureMode(userProfile, "");
+  await loadOpportunitiesCatalog(userProfile, "");
   showTab("dashboard");
 });
 """

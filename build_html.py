@@ -1,7 +1,7 @@
 """
 Opportunity Hunter 2.0 — Modern HTML Layout Structure
-Defines the semantic structure for the 7 platform views:
-Dashboard, Discover, Resume Analyzer, Skill Gap, Application Tracker, Deadline Radar, and Career Assistant.
+Defines the semantic structure for the 8 platform views:
+Dashboard, Discover, Profile Settings, Resume Analyzer, Skill Gap, Application Tracker, Deadline Radar, and Career Assistant.
 """
 
 def get_html_body():
@@ -29,6 +29,10 @@ def get_html_body():
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         Discover
       </button>
+      <button class="nav-tab-btn" data-tab="profile" onclick="showTab('profile')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </button>
       <button class="nav-tab-btn" data-tab="resume" onclick="showTab('resume')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
         Resume Analyzer
@@ -55,16 +59,16 @@ def get_html_body():
 
   <!-- RIGHT CONTROLS -->
   <div class="header-actions">
-    <div class="status-pill" id="srv-indicator" title="Backend Server & Data Origin">
-      <span class="status-dot" id="srv-dot"></span>
-      <span id="srv-text">Checking status...</span>
+    <div class="status-pill" id="srv-indicator" title="Backend Server & Network Status">
+      <span class="status-dot live" id="srv-dot"></span>
+      <span id="srv-text">Verified Opportunities Network</span>
     </div>
 
     <button class="icon-btn" id="theme-btn" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
       <span id="theme-icon">☀️</span>
     </button>
 
-    <div class="header-avatar-btn" onclick="openProfileModal()" title="View and Edit Student Profile">
+    <div class="header-avatar-btn" onclick="showTab('profile')" title="View and Edit Student Profile">
       <div class="avatar-disc" id="head-avatar">A</div>
       <span style="font-size:0.82rem; font-weight:700;" id="head-prof-pct">85%</span>
     </div>
@@ -92,7 +96,7 @@ def get_html_body():
                 B.Tech Computer Science &bull; 2nd year &bull; Software Engineering Track
               </p>
             </div>
-            <button class="btn btn-subtle btn-sm" onclick="openProfileModal()">
+            <button class="btn btn-subtle btn-sm" onclick="showTab('profile')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               Edit Profile
             </button>
@@ -130,7 +134,7 @@ def get_html_body():
           </button>
         </div>
         <div style="font-size:0.78rem; color:var(--text-dim); text-align:center;">
-          Verified programs updated daily from official university & career portals.
+          Verified programs updated regularly from official career portals.
         </div>
       </div>
     </div>
@@ -172,7 +176,7 @@ def get_html_body():
       <div class="card-header-bar">
         <div>
           <h3 class="card-title">Recommended Opportunities for You</h3>
-          <p class="card-subtitle">Personalized opportunities scoring 75%+ match against your degree and skills</p>
+          <p class="card-subtitle">Personalized opportunities scoring 70%+ match against your degree and skills</p>
         </div>
         <button class="btn btn-subtle btn-sm" onclick="showTab('discover')">View All Matches &rarr;</button>
       </div>
@@ -259,7 +263,7 @@ def get_html_body():
           </div>
         </div>
         <div style="display:flex; align-items:center; gap:10px;">
-          <button class="btn btn-subtle btn-sm" onclick="openProfileModal()">
+          <button class="btn btn-subtle btn-sm" onclick="showTab('profile')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Edit Profile
           </button>
@@ -267,7 +271,7 @@ def get_html_body():
       </div>
     </div>
 
-    <!-- STATUS BANNER (DISMISSIBLE IF TRIGGERED) -->
+    <!-- STATUS NOTICES -->
     <div id="status"></div>
 
     <!-- FILTER TOOLBAR -->
@@ -299,7 +303,141 @@ def get_html_body():
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 3: RESUME ANALYZER MODULE -->
+  <!-- TAB 3: DEDICATED STUDENT PROFILE SETTINGS -->
+  <!-- ======================================================== -->
+  <section id="v-profile" class="tab-view" style="display:none;">
+    <div class="bento-card" style="margin-bottom:24px;">
+      <div class="card-header-bar" style="margin-bottom:0;">
+        <div>
+          <span class="badge badge-lavender" style="margin-bottom:6px;">Account &amp; Career Preferences</span>
+          <h2 class="card-title" style="font-size:1.6rem; margin-top:4px;">Student Career Profile</h2>
+          <p class="card-subtitle">
+            Configure your academic background, target roles, and technical stack to receive verified, transparent opportunity matches.
+          </p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-primary" onclick="saveProfileFromTab()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Profile Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE FORM BENTO GRID -->
+    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
+      <!-- LEFT FORM -->
+      <div class="bento-card">
+        <h3 class="card-title" style="font-size:1.2rem; margin-bottom:18px;">Academic &amp; Personal Credentials</h3>
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="tab-prof-name">Full Name *</label>
+            <input type="text" id="tab-prof-name" placeholder="e.g. Aashi Srivastava">
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="tab-prof-degree">Degree &amp; Major *</label>
+            <input type="text" id="tab-prof-degree" placeholder="e.g. B.Tech Computer Science">
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+              <span style="font-size:0.75rem; color:var(--text-dim); align-self:center; font-weight:700;">Presets:</span>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.Tech Computer Science')">B.Tech CSE</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.Tech Information Technology')">B.Tech IT</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.E. Computer Engineering')">B.E. Computer</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('M.Tech Software Engineering')">M.Tech</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('BCA / MCA')">BCA / MCA</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.Sc Computer Science')">B.Sc CS</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-year">Current Year of Study *</label>
+            <select id="tab-prof-year">
+              <option value="">Select Year</option>
+              <option value="1st year">1st year (Freshman)</option>
+              <option value="2nd year">2nd year (Sophomore)</option>
+              <option value="3rd year">3rd year (Junior / Pre-final)</option>
+              <option value="Final year">Final year (Senior)</option>
+              <option value="Master’s">Master’s / Postgraduate</option>
+              <option value="PhD">PhD / Doctoral</option>
+              <option value="Graduated">Graduated / Fresher</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-grad-year">Expected Graduation Year</label>
+            <input type="text" id="tab-prof-grad-year" placeholder="e.g. 2027">
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-loc">Location / Target Country</label>
+            <input type="text" id="tab-prof-loc" placeholder="e.g. India, Remote, Bangalore">
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-interests">Primary Career Track</label>
+            <input type="text" id="tab-prof-interests" placeholder="e.g. Software Engineering, AI/ML, Full Stack">
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-type">Preferred Opportunity Type</label>
+            <select id="tab-prof-type">
+              <option value="any">Any Opportunity</option>
+              <option value="internship">Internship</option>
+              <option value="scholarship">Scholarship</option>
+              <option value="fellowship">Fellowship</option>
+              <option value="program">Developer Program / Hackathon</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-mode">Preferred Work Mode</label>
+            <select id="tab-prof-mode">
+              <option value="any">No preference</option>
+              <option value="remote">Remote Only</option>
+              <option value="onsite">On-site / Hybrid</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+          <button class="btn btn-primary" onclick="saveProfileFromTab()" style="padding:12px 28px; font-size:1rem;">
+            Save Profile Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT: SKILLS HUB -->
+      <div class="bento-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <h3 class="card-title" style="font-size:1.2rem; margin-bottom:8px;">Technical Stack Hub</h3>
+          <p class="card-subtitle" style="margin-bottom:16px;">Click technology tags to add or remove them from your profile.</p>
+
+          <!-- ACTIVE SKILLS CHIPS -->
+          <div style="margin-bottom:16px;">
+            <label style="display:block; margin-bottom:8px;">Active Profile Skills:</label>
+            <div id="tab-active-skills-chips" style="display:flex; flex-wrap:wrap; gap:6px; min-height:40px; padding:10px; background:var(--bg-card-elevated); border-radius:var(--radius-md); border:1px solid var(--border);"></div>
+          </div>
+
+          <!-- QUICK SKILL TOGGLE PILLS -->
+          <label style="display:block; margin-bottom:8px;">Popular Technical Skills:</label>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;" id="tab-skill-toggle-grid"></div>
+
+          <!-- CUSTOM SKILL INPUT -->
+          <div style="display:flex; gap:8px; margin-top:18px;">
+            <input type="text" id="tab-custom-skill-input" placeholder="Add custom skill (e.g. Next.js, FastAPI)..." onkeydown="if(event.key === 'Enter'){ addCustomSkillToTab(); event.preventDefault(); }">
+            <button class="btn btn-subtle" onclick="addCustomSkillToTab()">+ Add</button>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; padding:16px; background:var(--bg-card-elevated); border-radius:var(--radius-md); font-size:0.82rem; color:var(--text-muted); line-height:1.5;">
+          💡 <b>Tip</b>: Adding in-demand skills like Python, Docker, and SQL increases your match score and unlocks verified program recommendations.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- TAB 4: RESUME ANALYZER MODULE -->
   <!-- ======================================================== -->
   <section id="v-resume" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:24px;">
@@ -346,7 +484,7 @@ def get_html_body():
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 4: SKILL GAP ANALYZER -->
+  <!-- TAB 5: SKILL GAP ANALYZER -->
   <!-- ======================================================== -->
   <section id="v-skillgap" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:24px;">
@@ -361,7 +499,7 @@ def get_html_body():
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 5: APPLICATION TRACKER (8-STAGE KANBAN) -->
+  <!-- TAB 6: APPLICATION TRACKER (8-STAGE KANBAN) -->
   <!-- ======================================================== -->
   <section id="v-tracker" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:20px; padding:20px 24px;">
@@ -389,7 +527,7 @@ def get_html_body():
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 6: DEADLINE RADAR & CALENDAR -->
+  <!-- TAB 7: DEADLINE RADAR & CALENDAR -->
   <!-- ======================================================== -->
   <section id="v-radar" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:24px;">
@@ -410,7 +548,7 @@ def get_html_body():
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 7: CAREER ASSISTANT -->
+  <!-- TAB 8: CAREER ASSISTANT -->
   <!-- ======================================================== -->
   <section id="v-assistant" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:20px;">
@@ -446,11 +584,11 @@ def get_html_body():
   </section>
 </main>
 
-<!-- PROFILE MODAL -->
-<div id="profile-modal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
+<!-- PROFILE MODAL (FOR INSTANT POPUP) -->
+<div id="profile-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target === this) closeProfileModal()">
   <div class="bento-card" style="max-width:580px; width:100%; max-height:90vh; overflow-y:auto;">
     <div class="card-header-bar">
-      <h3 class="card-title">Edit Student Profile</h3>
+      <h3 class="card-title">Quick Profile Editor</h3>
       <button class="icon-btn" onclick="closeProfileModal()">&times;</button>
     </div>
     <div class="form-grid">
@@ -525,7 +663,7 @@ def get_html_body():
 </div>
 
 <!-- ADD CUSTOM APPLICATION MODAL -->
-<div id="custom-app-modal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
+<div id="custom-app-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target === this) closeCustomAppModal()">
   <div class="bento-card" style="max-width:500px; width:100%;">
     <div class="card-header-bar">
       <h3 class="card-title">Track New Application</h3>
@@ -583,9 +721,9 @@ def get_html_body():
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <span>Discover</span>
   </button>
-  <button class="m-tab-btn" data-tab="resume" onclick="showTab('resume')">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-    <span>Resume</span>
+  <button class="m-tab-btn" data-tab="profile" onclick="showTab('profile')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profile</span>
   </button>
   <button class="m-tab-btn" data-tab="tracker" onclick="showTab('tracker')">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>

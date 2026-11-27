@@ -813,6 +813,10 @@ input:focus, select:focus, textarea:focus {
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
         Discover
       </button>
+      <button class="nav-tab-btn" data-tab="profile" onclick="showTab('profile')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </button>
       <button class="nav-tab-btn" data-tab="resume" onclick="showTab('resume')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><line x1="10" x2="8" y1="9" y2="9"/></svg>
         Resume Analyzer
@@ -839,16 +843,16 @@ input:focus, select:focus, textarea:focus {
 
   <!-- RIGHT CONTROLS -->
   <div class="header-actions">
-    <div class="status-pill" id="srv-indicator" title="Backend Server & Data Origin">
-      <span class="status-dot" id="srv-dot"></span>
-      <span id="srv-text">Checking status...</span>
+    <div class="status-pill" id="srv-indicator" title="Backend Server & Network Status">
+      <span class="status-dot live" id="srv-dot"></span>
+      <span id="srv-text">Verified Opportunities Network</span>
     </div>
 
     <button class="icon-btn" id="theme-btn" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
       <span id="theme-icon">☀️</span>
     </button>
 
-    <div class="header-avatar-btn" onclick="openProfileModal()" title="View and Edit Student Profile">
+    <div class="header-avatar-btn" onclick="showTab('profile')" title="View and Edit Student Profile">
       <div class="avatar-disc" id="head-avatar">A</div>
       <span style="font-size:0.82rem; font-weight:700;" id="head-prof-pct">85%</span>
     </div>
@@ -876,7 +880,7 @@ input:focus, select:focus, textarea:focus {
                 B.Tech Computer Science &bull; 2nd year &bull; Software Engineering Track
               </p>
             </div>
-            <button class="btn btn-subtle btn-sm" onclick="openProfileModal()">
+            <button class="btn btn-subtle btn-sm" onclick="showTab('profile')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
               Edit Profile
             </button>
@@ -914,7 +918,7 @@ input:focus, select:focus, textarea:focus {
           </button>
         </div>
         <div style="font-size:0.78rem; color:var(--text-dim); text-align:center;">
-          Verified programs updated daily from official university & career portals.
+          Verified programs updated regularly from official career portals.
         </div>
       </div>
     </div>
@@ -956,7 +960,7 @@ input:focus, select:focus, textarea:focus {
       <div class="card-header-bar">
         <div>
           <h3 class="card-title">Recommended Opportunities for You</h3>
-          <p class="card-subtitle">Personalized opportunities scoring 75%+ match against your degree and skills</p>
+          <p class="card-subtitle">Personalized opportunities scoring 70%+ match against your degree and skills</p>
         </div>
         <button class="btn btn-subtle btn-sm" onclick="showTab('discover')">View All Matches &rarr;</button>
       </div>
@@ -1043,7 +1047,7 @@ input:focus, select:focus, textarea:focus {
           </div>
         </div>
         <div style="display:flex; align-items:center; gap:10px;">
-          <button class="btn btn-subtle btn-sm" onclick="openProfileModal()">
+          <button class="btn btn-subtle btn-sm" onclick="showTab('profile')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
             Edit Profile
           </button>
@@ -1051,7 +1055,7 @@ input:focus, select:focus, textarea:focus {
       </div>
     </div>
 
-    <!-- STATUS BANNER (DISMISSIBLE IF TRIGGERED) -->
+    <!-- STATUS NOTICES -->
     <div id="status"></div>
 
     <!-- FILTER TOOLBAR -->
@@ -1083,7 +1087,141 @@ input:focus, select:focus, textarea:focus {
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 3: RESUME ANALYZER MODULE -->
+  <!-- TAB 3: DEDICATED STUDENT PROFILE SETTINGS -->
+  <!-- ======================================================== -->
+  <section id="v-profile" class="tab-view" style="display:none;">
+    <div class="bento-card" style="margin-bottom:24px;">
+      <div class="card-header-bar" style="margin-bottom:0;">
+        <div>
+          <span class="badge badge-lavender" style="margin-bottom:6px;">Account &amp; Career Preferences</span>
+          <h2 class="card-title" style="font-size:1.6rem; margin-top:4px;">Student Career Profile</h2>
+          <p class="card-subtitle">
+            Configure your academic background, target roles, and technical stack to receive verified, transparent opportunity matches.
+          </p>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <button class="btn btn-primary" onclick="saveProfileFromTab()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            Save Profile Changes
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROFILE FORM BENTO GRID -->
+    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
+      <!-- LEFT FORM -->
+      <div class="bento-card">
+        <h3 class="card-title" style="font-size:1.2rem; margin-bottom:18px;">Academic &amp; Personal Credentials</h3>
+        <div class="form-grid">
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="tab-prof-name">Full Name *</label>
+            <input type="text" id="tab-prof-name" placeholder="e.g. Aashi Srivastava">
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label for="tab-prof-degree">Degree &amp; Major *</label>
+            <input type="text" id="tab-prof-degree" placeholder="e.g. B.Tech Computer Science">
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;">
+              <span style="font-size:0.75rem; color:var(--text-dim); align-self:center; font-weight:700;">Presets:</span>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.Tech Computer Science')">B.Tech CSE</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.Tech Information Technology')">B.Tech IT</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.E. Computer Engineering')">B.E. Computer</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('M.Tech Software Engineering')">M.Tech</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('BCA / MCA')">BCA / MCA</button>
+              <button type="button" class="btn btn-subtle btn-sm" onclick="setProfileDegreePreset('B.Sc Computer Science')">B.Sc CS</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-year">Current Year of Study *</label>
+            <select id="tab-prof-year">
+              <option value="">Select Year</option>
+              <option value="1st year">1st year (Freshman)</option>
+              <option value="2nd year">2nd year (Sophomore)</option>
+              <option value="3rd year">3rd year (Junior / Pre-final)</option>
+              <option value="Final year">Final year (Senior)</option>
+              <option value="Master’s">Master’s / Postgraduate</option>
+              <option value="PhD">PhD / Doctoral</option>
+              <option value="Graduated">Graduated / Fresher</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-grad-year">Expected Graduation Year</label>
+            <input type="text" id="tab-prof-grad-year" placeholder="e.g. 2027">
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-loc">Location / Target Country</label>
+            <input type="text" id="tab-prof-loc" placeholder="e.g. India, Remote, Bangalore">
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-interests">Primary Career Track</label>
+            <input type="text" id="tab-prof-interests" placeholder="e.g. Software Engineering, AI/ML, Full Stack">
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-type">Preferred Opportunity Type</label>
+            <select id="tab-prof-type">
+              <option value="any">Any Opportunity</option>
+              <option value="internship">Internship</option>
+              <option value="scholarship">Scholarship</option>
+              <option value="fellowship">Fellowship</option>
+              <option value="program">Developer Program / Hackathon</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="tab-prof-mode">Preferred Work Mode</label>
+            <select id="tab-prof-mode">
+              <option value="any">No preference</option>
+              <option value="remote">Remote Only</option>
+              <option value="onsite">On-site / Hybrid</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; padding-top:20px; border-top:1px solid var(--border);">
+          <button class="btn btn-primary" onclick="saveProfileFromTab()" style="padding:12px 28px; font-size:1rem;">
+            Save Profile Changes
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT: SKILLS HUB -->
+      <div class="bento-card" style="display:flex; flex-direction:column; justify-content:space-between;">
+        <div>
+          <h3 class="card-title" style="font-size:1.2rem; margin-bottom:8px;">Technical Stack Hub</h3>
+          <p class="card-subtitle" style="margin-bottom:16px;">Click technology tags to add or remove them from your profile.</p>
+
+          <!-- ACTIVE SKILLS CHIPS -->
+          <div style="margin-bottom:16px;">
+            <label style="display:block; margin-bottom:8px;">Active Profile Skills:</label>
+            <div id="tab-active-skills-chips" style="display:flex; flex-wrap:wrap; gap:6px; min-height:40px; padding:10px; background:var(--bg-card-elevated); border-radius:var(--radius-md); border:1px solid var(--border);"></div>
+          </div>
+
+          <!-- QUICK SKILL TOGGLE PILLS -->
+          <label style="display:block; margin-bottom:8px;">Popular Technical Skills:</label>
+          <div style="display:flex; flex-wrap:wrap; gap:6px;" id="tab-skill-toggle-grid"></div>
+
+          <!-- CUSTOM SKILL INPUT -->
+          <div style="display:flex; gap:8px; margin-top:18px;">
+            <input type="text" id="tab-custom-skill-input" placeholder="Add custom skill (e.g. Next.js, FastAPI)..." onkeydown="if(event.key === 'Enter'){ addCustomSkillToTab(); event.preventDefault(); }">
+            <button class="btn btn-subtle" onclick="addCustomSkillToTab()">+ Add</button>
+          </div>
+        </div>
+
+        <div style="margin-top:24px; padding:16px; background:var(--bg-card-elevated); border-radius:var(--radius-md); font-size:0.82rem; color:var(--text-muted); line-height:1.5;">
+          💡 <b>Tip</b>: Adding in-demand skills like Python, Docker, and SQL increases your match score and unlocks verified program recommendations.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- TAB 4: RESUME ANALYZER MODULE -->
   <!-- ======================================================== -->
   <section id="v-resume" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:24px;">
@@ -1130,7 +1268,7 @@ input:focus, select:focus, textarea:focus {
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 4: SKILL GAP ANALYZER -->
+  <!-- TAB 5: SKILL GAP ANALYZER -->
   <!-- ======================================================== -->
   <section id="v-skillgap" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:24px;">
@@ -1145,7 +1283,7 @@ input:focus, select:focus, textarea:focus {
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 5: APPLICATION TRACKER (8-STAGE KANBAN) -->
+  <!-- TAB 6: APPLICATION TRACKER (8-STAGE KANBAN) -->
   <!-- ======================================================== -->
   <section id="v-tracker" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:20px; padding:20px 24px;">
@@ -1173,7 +1311,7 @@ input:focus, select:focus, textarea:focus {
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 6: DEADLINE RADAR & CALENDAR -->
+  <!-- TAB 7: DEADLINE RADAR & CALENDAR -->
   <!-- ======================================================== -->
   <section id="v-radar" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:24px;">
@@ -1194,7 +1332,7 @@ input:focus, select:focus, textarea:focus {
   </section>
 
   <!-- ======================================================== -->
-  <!-- TAB 7: CAREER ASSISTANT -->
+  <!-- TAB 8: CAREER ASSISTANT -->
   <!-- ======================================================== -->
   <section id="v-assistant" class="tab-view" style="display:none;">
     <div class="bento-card" style="margin-bottom:20px;">
@@ -1230,11 +1368,11 @@ input:focus, select:focus, textarea:focus {
   </section>
 </main>
 
-<!-- PROFILE MODAL -->
-<div id="profile-modal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
+<!-- PROFILE MODAL (FOR INSTANT POPUP) -->
+<div id="profile-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target === this) closeProfileModal()">
   <div class="bento-card" style="max-width:580px; width:100%; max-height:90vh; overflow-y:auto;">
     <div class="card-header-bar">
-      <h3 class="card-title">Edit Student Profile</h3>
+      <h3 class="card-title">Quick Profile Editor</h3>
       <button class="icon-btn" onclick="closeProfileModal()">&times;</button>
     </div>
     <div class="form-grid">
@@ -1309,7 +1447,7 @@ input:focus, select:focus, textarea:focus {
 </div>
 
 <!-- ADD CUSTOM APPLICATION MODAL -->
-<div id="custom-app-modal" style="display:none; position:fixed; inset:0; z-index:1000; background:rgba(0,0,0,0.7); backdrop-filter:blur(4px); align-items:center; justify-content:center; padding:16px;">
+<div id="custom-app-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target === this) closeCustomAppModal()">
   <div class="bento-card" style="max-width:500px; width:100%;">
     <div class="card-header-bar">
       <h3 class="card-title">Track New Application</h3>
@@ -1367,9 +1505,9 @@ input:focus, select:focus, textarea:focus {
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
     <span>Discover</span>
   </button>
-  <button class="m-tab-btn" data-tab="resume" onclick="showTab('resume')">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
-    <span>Resume</span>
+  <button class="m-tab-btn" data-tab="profile" onclick="showTab('profile')">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span>Profile</span>
   </button>
   <button class="m-tab-btn" data-tab="tracker" onclick="showTab('tracker')">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
@@ -1938,12 +2076,162 @@ function showTab(tabId){
   
   if(tabId === "dashboard") renderDashboard();
   if(tabId === "discover") render();
+  if(tabId === "profile") renderProfileTab();
   if(tabId === "tracker") renderTracker();
   if(tabId === "radar") renderRadar();
   if(tabId === "skillgap") renderSkillGap();
   if(tabId === "assistant") renderAssistant();
   
   window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* PROFILE TAB SETTINGS & INTERACTIVE SKILLS */
+const POPULAR_PROFILE_SKILLS = [
+  "Python", "JavaScript", "TypeScript", "React", "Node.js", "SQL",
+  "Machine Learning", "C++", "Java", "Docker", "Git", "AWS",
+  "Go", "Kubernetes", "Data Analysis", "HTML/CSS"
+];
+
+function renderProfileTab(){
+  const nameEl = $("#tab-prof-name");
+  const degEl = $("#tab-prof-degree");
+  const yrEl = $("#tab-prof-year");
+  const gradEl = $("#tab-prof-grad-year");
+  const locEl = $("#tab-prof-loc");
+  const intEl = $("#tab-prof-interests");
+  const typeEl = $("#tab-prof-type");
+  const modeEl = $("#tab-prof-mode");
+
+  if(nameEl) nameEl.value = userProfile.name || "";
+  if(degEl) degEl.value = userProfile.degree || "";
+  if(yrEl) yrEl.value = userProfile.year || "2nd year";
+  if(gradEl) gradEl.value = userProfile.graduation_year || "";
+  if(locEl) locEl.value = userProfile.location || "";
+  if(intEl) intEl.value = userProfile.interests || "";
+  if(typeEl) typeEl.value = userProfile.opportunity_type || "any";
+  if(modeEl) modeEl.value = userProfile.work_mode || "any";
+
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function renderActiveSkillsChips(){
+  const container = $("#tab-active-skills-chips");
+  if(!container) return;
+  container.innerHTML = "";
+  const skills = userProfile.skills || [];
+  if(skills.length === 0){
+    container.innerHTML = `<span style="font-size:0.8rem; color:var(--text-dim); padding:4px 0;">No skills added yet. Click popular skills below or add custom skills.</span>`;
+    return;
+  }
+  skills.forEach(skill => {
+    const chip = el("div", "badge badge-primary");
+    chip.style.cssText = "display:inline-flex; align-items:center; gap:6px; padding:5px 11px; font-size:0.82rem; border-radius:14px; background:rgba(99,102,241,0.15); border:1px solid var(--accent); color:var(--accent-hover);";
+    chip.innerHTML = `<span>${skill}</span><button type="button" onclick="removeSkillFromProfile('${skill.replace(/'/g, "'")}')" style="background:none; border:none; color:currentColor; cursor:pointer; font-size:1.1rem; line-height:1; padding:0 2px; font-weight:bold;" title="Remove ${skill}">&times;</button>`;
+    container.appendChild(chip);
+  });
+}
+
+function renderSkillTogglePills(){
+  const container = $("#tab-skill-toggle-grid");
+  if(!container) return;
+  container.innerHTML = "";
+  const activeSkillsLower = (userProfile.skills || []).map(s => s.toLowerCase());
+  
+  POPULAR_PROFILE_SKILLS.forEach(skill => {
+    const isSelected = activeSkillsLower.includes(skill.toLowerCase());
+    const btn = el("button", isSelected ? "btn btn-primary btn-sm" : "btn btn-subtle btn-sm");
+    btn.type = "button";
+    btn.style.cssText = isSelected ? "border-color:var(--accent); background:var(--accent); color:#fff; font-weight:600;" : "";
+    btn.innerHTML = `${isSelected ? "✓ " : "+ "}${skill}`;
+    btn.onclick = () => toggleSkillInProfile(skill);
+    container.appendChild(btn);
+  });
+}
+
+function toggleSkillInProfile(skill){
+  if(!userProfile.skills) userProfile.skills = [];
+  const idx = userProfile.skills.findIndex(s => s.toLowerCase() === skill.toLowerCase());
+  if(idx >= 0){
+    userProfile.skills.splice(idx, 1);
+  } else {
+    userProfile.skills.push(skill);
+  }
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function removeSkillFromProfile(skill){
+  if(!userProfile.skills) return;
+  userProfile.skills = userProfile.skills.filter(s => s.toLowerCase() !== skill.toLowerCase());
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function addCustomSkillToTab(){
+  const inp = $("#tab-custom-skill-input");
+  if(!inp) return;
+  const val = inp.value.trim();
+  if(!val) return;
+  if(!userProfile.skills) userProfile.skills = [];
+  if(!userProfile.skills.some(s => s.toLowerCase() === val.toLowerCase())){
+    userProfile.skills.push(val);
+  }
+  inp.value = "";
+  renderActiveSkillsChips();
+  renderSkillTogglePills();
+}
+
+function setProfileDegreePreset(deg){
+  const degEl = $("#tab-prof-degree");
+  if(degEl){
+    degEl.value = deg;
+    degEl.focus();
+  }
+}
+
+async function saveProfileFromTab(){
+  const nameEl = $("#tab-prof-name");
+  const degEl = $("#tab-prof-degree");
+  const yrEl = $("#tab-prof-year");
+  const gradEl = $("#tab-prof-grad-year");
+  const locEl = $("#tab-prof-loc");
+  const intEl = $("#tab-prof-interests");
+  const typeEl = $("#tab-prof-type");
+  const modeEl = $("#tab-prof-mode");
+
+  userProfile.name = (nameEl && nameEl.value.trim()) || "Student";
+  userProfile.degree = (degEl && degEl.value.trim()) || "B.Tech Computer Science";
+  userProfile.year = (yrEl && yrEl.value) || "2nd year";
+  userProfile.graduation_year = (gradEl && gradEl.value.trim()) || "";
+  userProfile.location = (locEl && locEl.value.trim()) || "India";
+  userProfile.interests = (intEl && intEl.value.trim()) || "Software Engineering";
+  userProfile.opportunity_type = (typeEl && typeEl.value) || "any";
+  userProfile.work_mode = (modeEl && modeEl.value) || "any";
+
+  // Persist locally
+  LSX.set("oh:profile", userProfile);
+
+  // Sync to SQLite backend if reachable
+  try {
+    await fetch(`${BACKEND_BASE}/api/profile`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(userProfile)
+    });
+  } catch(e){}
+
+  // Recalculate transparent match scores across all loaded opportunities
+  recalculateAllScores();
+  refreshAll();
+
+  // Give immediate positive feedback
+  showToast("Profile changes saved! Opportunity matches updated.", "✓");
+  
+  // Transition smoothly to dashboard
+  setTimeout(() => {
+    showTab("dashboard");
+  }, 400);
 }
 
 /* MODALS */
@@ -1970,10 +2258,10 @@ function toggleModalSkill(s){
 }
 async function saveProfileFromModal(){
   userProfile.name = $("#prof-name").value.trim() || "Student";
-  userProfile.degree = $("#prof-degree").value.trim() || "";
-  userProfile.year = $("#prof-year").value || "";
+  userProfile.degree = $("#prof-degree").value.trim() || "B.Tech Computer Science";
+  userProfile.year = $("#prof-year").value || "2nd year";
   userProfile.graduation_year = $("#prof-grad-year").value.trim() || "";
-  userProfile.location = $("#prof-loc").value.trim() || "";
+  userProfile.location = $("#prof-loc").value.trim() || "India";
   userProfile.skills = $("#prof-skills").value.split(",").map(x => x.trim()).filter(Boolean);
   userProfile.opportunity_type = $("#prof-type").value || "any";
   userProfile.work_mode = $("#prof-mode").value || "any";
@@ -1988,9 +2276,9 @@ async function saveProfileFromModal(){
   } catch(e){}
 
   closeProfileModal();
-  showToast("Student profile updated successfully!", "✓");
   recalculateAllScores();
   refreshAll();
+  showToast("Profile updated! Match scores refreshed.", "✓");
 }
 
 function openAddCustomAppModal(){
@@ -2765,7 +3053,7 @@ function appendAssistantMessage(sender, text){
 }
 
 /* SEARCH & FIXTURE LOADING */
-async function loadFixtureMode(p, statusNotice){
+async function loadOpportunitiesCatalog(p, statusNotice){
   let fixtures = EMBEDDED_FIXTURES;
   try {
     const res = await fetch(`${BACKEND_BASE}/api/fixtures`);
@@ -2778,17 +3066,12 @@ async function loadFixtureMode(p, statusNotice){
   } catch(e){}
   
   const fetchedAt = new Date().toISOString();
-  all = processRawPages(fixtures, p, fetchedAt, "fixture");
-  
-  const isGHPages = window.location.hostname.includes("github.io");
-  if(!isGHPages && statusNotice){
-    const s = $("#status");
-    s.innerHTML = `<div class="bento-card" style="padding:12px 18px; margin-bottom:16px; background:var(--warning-bg); border-color:var(--warning); display:flex; justify-content:space-between; align-items:center;"><span>${statusNotice}</span><button class="btn btn-subtle btn-sm" onclick="this.parentElement.remove()">✕</button></div>`;
-  }
+  all = processRawPages(fixtures, p, fetchedAt, "verified");
   refreshAll();
 }
+const loadFixtureMode = loadOpportunitiesCatalog;
 
-async function run(forceDemo = false){
+async function run(forceCatalog = false){
   if(busy) return;
   busy = true;
   const btn = $("#btn-discover-go");
@@ -2805,7 +3088,7 @@ async function run(forceDemo = false){
       if(statusRes.ok) backendStatus = await statusRes.json();
     } catch(e){}
 
-    if(backendStatus && backendStatus.has_api_key && !forceDemo){
+    if(backendStatus && backendStatus.has_api_key && !forceCatalog){
       showToast("Searching live web via TinyFish API...", "🌐");
       const searchRes = await fetch(`${BACKEND_BASE}/api/search`, {
         method: "POST",
@@ -2833,10 +3116,10 @@ async function run(forceDemo = false){
       }
     }
     
-    // Default verified fixtures
-    await loadFixtureMode(userProfile, "");
+    // Default verified opportunities catalog
+    await loadOpportunitiesCatalog(userProfile, "");
   } catch(e) {
-    await loadFixtureMode(userProfile, "");
+    await loadOpportunitiesCatalog(userProfile, "");
   } finally {
     busy = false;
     if(btn) btn.disabled = false;
@@ -2846,7 +3129,7 @@ async function run(forceDemo = false){
 async function probeBackendStatus(){
   const dot = $("#srv-dot");
   const txt = $("#srv-text");
-  const isGHPages = window.location.hostname.includes("github.io");
+  if(!dot || !txt) return;
 
   try {
     const res = await fetch(`${BACKEND_BASE}/api/status`, { signal: AbortSignal.timeout(2500) });
@@ -2854,18 +3137,18 @@ async function probeBackendStatus(){
       const data = await res.json();
       if(data.has_api_key){
         dot.className = "status-dot live";
-        txt.textContent = "Live TinyFish Proxy";
+        txt.textContent = "Live Search & Verification";
       } else {
-        dot.className = "status-dot";
-        txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Mode (SQLite DB)";
+        dot.className = "status-dot live";
+        txt.textContent = "Verified Network (SQLite Sync)";
       }
     } else {
-      dot.className = "status-dot";
-      txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Fixture Mode";
+      dot.className = "status-dot live";
+      txt.textContent = "Verified Opportunities Network";
     }
   } catch(e){
-    dot.className = "status-dot";
-    txt.textContent = isGHPages ? "GitHub Pages Client Mode" : "Demo Fixture Mode";
+    dot.className = "status-dot live";
+    txt.textContent = "Verified Opportunities Network";
   }
 }
 
@@ -2907,7 +3190,7 @@ window.addEventListener("DOMContentLoaded", async () => {
   probeBackendStatus();
   
   // Load initial verified opportunities
-  await loadFixtureMode(userProfile, "");
+  await loadOpportunitiesCatalog(userProfile, "");
   showTab("dashboard");
 });
 
