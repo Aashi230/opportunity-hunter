@@ -30,3 +30,7 @@ Thumbs.db
 image-equilibrium.jpg
 style.css
 
+# Presentations & local slides
+*.pptx
+create_presentation.py
+

@@ -75,6 +75,18 @@ def get_html_body():
   </div>
 </header>
 
+<!-- MOBILE HORIZONTAL SCROLLABLE TAB BAR (ALL 8 VIEWS) -->
+<nav class="mobile-tab-scroll" aria-label="Mobile View Switcher">
+  <button class="m-scroll-btn active" data-tab="dashboard" onclick="showTab('dashboard')">Home</button>
+  <button class="m-scroll-btn" data-tab="discover" onclick="showTab('discover')">Discover</button>
+  <button class="m-scroll-btn" data-tab="profile" onclick="showTab('profile')">Profile</button>
+  <button class="m-scroll-btn" data-tab="resume" onclick="showTab('resume')">Resume</button>
+  <button class="m-scroll-btn" data-tab="skillgap" onclick="showTab('skillgap')">Skill Gap</button>
+  <button class="m-scroll-btn" data-tab="tracker" onclick="showTab('tracker')">Tracker</button>
+  <button class="m-scroll-btn" data-tab="radar" onclick="showTab('radar')">Radar</button>
+  <button class="m-scroll-btn" data-tab="assistant" onclick="showTab('assistant')">Career AI</button>
+</nav>
+
 <!-- MAIN CONTAINER -->
 <main class="app-main">
 
@@ -184,7 +196,7 @@ def get_html_body():
     </div>
 
     <!-- SPLIT DECK: UPCOMING DEADLINES & RECENT ACTIVITY -->
-    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+    <div class="dash-grid-2col">
       <!-- UPCOMING DEADLINES WIDGET -->
       <div class="bento-card">
         <div class="card-header-bar">
@@ -225,7 +237,7 @@ def get_html_body():
       </p>
 
       <!-- INPUT GROUP -->
-      <div style="display:flex; gap:12px; margin-bottom:16px;">
+      <div class="search-input-group">
         <div style="position:relative; flex:1;">
           <input type="text" id="q" placeholder="Search by role or domain (e.g. Software Engineering, AI/ML, Data Science, Web Development)..." style="padding-left:42px; font-size:1rem; height:48px;">
           <svg style="position:absolute; left:14px; top:15px; color:var(--text-dim);" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -325,7 +337,7 @@ def get_html_body():
     </div>
 
     <!-- PROFILE FORM BENTO GRID -->
-    <div style="display:grid; grid-template-columns: 2fr 1fr; gap:24px;">
+    <div class="profile-layout-grid">
       <!-- LEFT FORM -->
       <div class="bento-card">
         <h3 class="card-title" style="font-size:1.2rem; margin-bottom:18px;">Academic &amp; Personal Credentials</h3>
@@ -585,8 +597,8 @@ def get_html_body():
 </main>
 
 <!-- PROFILE MODAL (FOR INSTANT POPUP) -->
-<div id="profile-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target === this) closeProfileModal()">
-  <div class="bento-card" style="max-width:580px; width:100%; max-height:90vh; overflow-y:auto;">
+<div id="profile-modal" class="modal-backdrop" onclick="if(event.target === this) closeProfileModal()">
+  <div class="bento-card modal-card">
     <div class="card-header-bar">
       <h3 class="card-title">Quick Profile Editor</h3>
       <button class="icon-btn" onclick="closeProfileModal()">&times;</button>
@@ -663,8 +675,8 @@ def get_html_body():
 </div>
 
 <!-- ADD CUSTOM APPLICATION MODAL -->
-<div id="custom-app-modal" style="display:none; position:fixed; inset:0; z-index:99999; background:rgba(0,0,0,0.75); backdrop-filter:blur(6px); align-items:center; justify-content:center; padding:16px;" onclick="if(event.target === this) closeCustomAppModal()">
-  <div class="bento-card" style="max-width:500px; width:100%;">
+<div id="custom-app-modal" class="modal-backdrop" onclick="if(event.target === this) closeCustomAppModal()">
+  <div class="bento-card modal-card" style="max-width:500px;">
     <div class="card-header-bar">
       <h3 class="card-title">Track New Application</h3>
       <button class="icon-btn" onclick="closeCustomAppModal()">&times;</button>

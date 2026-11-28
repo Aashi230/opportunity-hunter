@@ -558,6 +558,15 @@ function showTab(tabId){
   
   $$(".nav-tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabId));
   $$(".m-tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabId));
+  $$(".m-scroll-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === tabId));
+
+  const activeScrollBtn = document.querySelector(`.m-scroll-btn[data-tab="${tabId}"]`);
+  if(activeScrollBtn && activeScrollBtn.parentElement) {
+    activeScrollBtn.parentElement.scrollTo({
+      left: Math.max(0, activeScrollBtn.offsetLeft - 24),
+      behavior: "smooth"
+    });
+  }
   
   if(tabId === "dashboard") renderDashboard();
   if(tabId === "discover") render();
@@ -982,10 +991,12 @@ function createOpportunityCard(o){
   card.append(audit);
 
   // Action Buttons Bottom Bar
-  const actions = el("div", null);
+  const actions = el("div", "opp-card-actions");
   actions.style.display = "flex";
   actions.style.justifyContent = "space-between";
   actions.style.alignItems = "center";
+  actions.style.flexWrap = "wrap";
+  actions.style.gap = "8px";
   actions.style.marginTop = "auto";
   actions.style.paddingTop = "12px";
   actions.style.borderTop = "1px solid var(--border)";
